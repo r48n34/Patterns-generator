@@ -2,9 +2,16 @@ import React from 'react';
 
 import { NumberInput, Button, Text, Container, Grid, Select, Group, Card, Accordion } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import toast from 'react-hot-toast';
 
-// import toast from 'react-hot-toast';
-import { IconArrowAutofitWidth, IconArrowAutofitHeight, IconArrowAutofitContent, IconZoomPan } from '@tabler/icons-react';
+import { 
+    IconArrowAutofitWidth,
+    IconArrowAutofitRight,
+    IconArrowAutofitUp,
+    IconArrowAutofitHeight,
+    IconArrowAutofitContent,
+    IconZoomPan
+} from '@tabler/icons-react';
 
 export interface ShapesGenData {
     rows: number,
@@ -13,7 +20,7 @@ export interface ShapesGenData {
     paddingCols: number,
     density: number,
     shapeSize: number,
-    shapes: "Ellipse" | "Rectangle" | "Polygon" ,
+    shapes: "Ellipse" | "Rectangle" | "Polygon" | "Star" ,
 }
 
 function MainParts() {
@@ -22,10 +29,10 @@ function MainParts() {
         initialValues: {
           rows: 5,
           cols: 5,
-          paddingRows: 110,
-          paddingCols: 110,
-          density: 110,
-          shapeSize: 30,
+          paddingRows: 80,
+          paddingCols: 80,
+          density: 80,
+          shapeSize: 25,
           shapes: "Ellipse",
         },
 
@@ -51,6 +58,7 @@ function MainParts() {
 
             if (type === 'create-rectangles') {
                 console.log(`Figma Says: ${message}`);
+                toast.success("Created shapes");
             }
         };
     }, []);
@@ -82,9 +90,10 @@ function MainParts() {
                     label="Shapes"
                     placeholder="Pick one"
                     data={[
-                        { value: 'Ellipse', label: 'Ellipse' },
-                        { value: 'Rectangle', label: 'Rectangle' },
-                        { value: 'Polygon', label: 'Polygon' },
+                        { value: 'Ellipse', label: '🔴 Ellipse' },
+                        { value: 'Rectangle', label: '🟥 Rectangle' },
+                        { value: 'Polygon', label: '🔻 Polygon' },
+                        { value: 'Star', label: '⭐ Star' },
                     ]}
                     {...form.getInputProps('shapes')}
                 />
@@ -151,6 +160,7 @@ function MainParts() {
                     <Grid>
                         <Grid.Col span={6}>
                             <NumberInput
+                                icon={<IconArrowAutofitRight size="1rem" />}
                                 placeholder="110"
                                 label="Rows Padding"
                                 withAsterisk
@@ -161,6 +171,7 @@ function MainParts() {
 
                         <Grid.Col span={6}>
                             <NumberInput
+                                icon={<IconArrowAutofitUp size="1rem" />}
                                 placeholder="110"
                                 label="Cols Padding"
                                 withAsterisk

@@ -7,9 +7,12 @@ figma.showUI(__html__, {
 
 figma.ui.onmessage = async (msg) => {
     if (msg.type === "create-rectangles") {
-        const nodes = [];
 
+        const nodes = [];
         const config: ShapesGenData = msg.data
+
+        const currentX = figma.viewport.center.x
+        const currentY = figma.viewport.center.y
 
 
         for (let i = 0; i < config.rows; i++) {
@@ -17,16 +20,20 @@ figma.ui.onmessage = async (msg) => {
                 // const rect = figma.createRectangle();
                 // const rect = figma.createEllipse();
 
+                // console.log(figma.viewport.center);
+
                 const shapes = 
                     config.shapes === "Ellipse" 
                     ? figma.createEllipse() 
                     : config.shapes === "Polygon" 
                     ? figma.createPolygon()
+                    : config.shapes === "Star" 
+                    ? figma.createStar()
                     : figma.createRectangle();
 
                 // rect.x = i * 110;
-                shapes.x = i * config.paddingRows;
-                shapes.y = k * config.paddingCols;
+                shapes.x = currentX + (i * config.paddingRows);
+                shapes.y = currentY + (k * config.paddingCols);
 
                 // 40
                 shapes.resize(config.shapeSize, config.shapeSize);
