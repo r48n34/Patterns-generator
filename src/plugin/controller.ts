@@ -17,18 +17,23 @@ figma.ui.onmessage = async (msg) => {
                 // const rect = figma.createRectangle();
                 // const rect = figma.createEllipse();
 
-                const rect = config.shapes === "Ellipse" ? figma.createEllipse() : figma.createRectangle();
+                const shapes = 
+                    config.shapes === "Ellipse" 
+                    ? figma.createEllipse() 
+                    : config.shapes === "Polygon" 
+                    ? figma.createPolygon()
+                    : figma.createRectangle();
 
                 // rect.x = i * 110;
-                rect.x = i * config.density;
-                rect.y = k * config.density;
+                shapes.x = i * config.density;
+                shapes.y = k * config.density;
 
                 // 40
-                rect.resize(config.shapeSize, config.shapeSize);
-                rect.fills = [{ type: "SOLID", color: { r: 1, g: 0.5, b: 0 } }];
+                shapes.resize(config.shapeSize, config.shapeSize);
+                shapes.fills = [{ type: "SOLID", color: { r: 1, g: 0.5, b: 0 } }];
 
-                figma.currentPage.appendChild(rect);
-                nodes.push(rect);
+                figma.currentPage.appendChild(shapes);
+                nodes.push(shapes);
 
             }
         }
@@ -36,10 +41,6 @@ figma.ui.onmessage = async (msg) => {
         // figma.currentPage.selection = nodes;
         figma.viewport.scrollAndZoomIntoView(nodes);
         figma.group(nodes, figma.currentPage)
-
-        
-
-
 
         // This is how figma responds back to the ui
         figma.ui.postMessage({

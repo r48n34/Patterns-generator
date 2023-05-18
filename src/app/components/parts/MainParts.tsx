@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { NumberInput, Button, Text, Container, Grid, Select, Group } from '@mantine/core';
+import { NumberInput, Button, Text, Container, Grid, Select, Group, Card } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
 // import toast from 'react-hot-toast';
@@ -10,7 +10,7 @@ export interface ShapesGenData {
     cols: number,
     density: number,
     shapeSize: number,
-    shapes: "Ellipse" | "Rectangle" ,
+    shapes: "Ellipse" | "Rectangle" | "Polygon" ,
 }
 
 function MainParts() {
@@ -54,12 +54,19 @@ function MainParts() {
         <form onSubmit={form.onSubmit((values) => createShapes(values))}>
             <Text>Rectangle Creator</Text>
 
+            <Card shadow="sm" padding="lg" radius="md" withBorder>
+                
+            </Card>
+
+
+
             <Select
                 label="Shapes"
                 placeholder="Pick one"
                 data={[
                     { value: 'Ellipse', label: 'Ellipse' },
                     { value: 'Rectangle', label: 'Rectangle' },
+                    { value: 'Polygon', label: 'Polygon' },
                 ]}
                 {...form.getInputProps('shapes')}
             />
@@ -108,9 +115,9 @@ function MainParts() {
                 </Grid.Col>
             </Grid>
 
-            <Group position='right'>
+            <Group position='right' mt={6}>
                 <Button type="submit">
-                    Create shapes lines
+                    Create
                 </Button>
             </Group>
 
