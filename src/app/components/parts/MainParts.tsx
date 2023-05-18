@@ -1,22 +1,40 @@
-import { NumberInput, Button, Text, Container } from '@mantine/core';
 import React from 'react';
-import toast from 'react-hot-toast';
+
+import { NumberInput, Button, Text, Container, Grid, Select, Group } from '@mantine/core';
+import { useForm } from '@mantine/form';
+
+// import toast from 'react-hot-toast';
+
+export interface ShapesGenData {
+    rows: number,
+    cols: number,
+    density: number,
+    shapeSize: number,
+    shapes: "Ellipse" | "Rectangle" ,
+}
 
 function MainParts() {
 
-    const [ addCount, setAddCount ] = React.useState<number>(4);
+    const form = useForm<ShapesGenData>({
+        initialValues: {
+          rows: 5,
+          cols: 5,
+          density: 110,
+          shapeSize: 30,
+          shapes: "Ellipse",
+        },
+    });
 
-    const onCreate = () => {
-        parent.postMessage({ pluginMessage: { type: 'create-rectangles', count: addCount } }, '*');
+    function createShapes(values: ShapesGenData){
+        console.log(values);
+        
+        parent.postMessage({ pluginMessage: { type: 'create-rectangles', data: values } }, '*');
     };
 
-    const createImg = () => {
-        parent.postMessage({ pluginMessage: { type: 'create-img' } }, '*');
-    };
-
-    // const onCancel = () => {
-    //     parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*');
+    // const createImg = () => {
+    //     parent.postMessage({ pluginMessage: { type: 'create-img' } }, '*');
     // };
+
 
     React.useEffect(() => {
         // This is how we read messages sent from the plugin controller
@@ -33,31 +51,75 @@ function MainParts() {
 
     return (
         <Container>
+        <form onSubmit={form.onSubmit((values) => createShapes(values))}>
             <Text>Rectangle Creator</Text>
 
-            <NumberInput
-                value={addCount}
-                onChange={(v) => setAddCount(+v)}
-                placeholder="Your age"
-                label="Your age"
-                withAsterisk
+            <Select
+                label="Shapes"
+                placeholder="Pick one"
+                data={[
+                    { value: 'Ellipse', label: 'Ellipse' },
+                    { value: 'Rectangle', label: 'Rectangle' },
+                ]}
+                {...form.getInputProps('shapes')}
             />
 
-            <Button id="create" onClick={() => toast("Hello World")}>
-                Hello
-            </Button>
+            <Grid>
+                <Grid.Col span={6}>
+                    <NumberInput
+                        placeholder="5"
+                        label="Rows"
+                        withAsterisk
+                        min={1}
+                        {...form.getInputProps('rows')}
+                    />
+                </Grid.Col>
 
+                <Grid.Col span={6}>
+                    <NumberInput
+                        placeholder="5"
+                        label="Cols"
+                        withAsterisk
+                        min={1}
+                        {...form.getInputProps('cols')}
+                    />
+                </Grid.Col>
+            </Grid>
 
+            <Grid>
+                <Grid.Col span={6}>
+                    <NumberInput
+                        placeholder="100"
+                        label="Density"
+                        withAsterisk
+                        min={1}
+                        {...form.getInputProps('density')}
+                    />
+                </Grid.Col>
 
-            <Button id="create" onClick={() => onCreate()}>
-                Create shapes lines
-            </Button>
+                <Grid.Col span={6}>
+                    <NumberInput
+                        placeholder="40"
+                        label="Shape Size"
+                        withAsterisk
+                        min={1}
+                        {...form.getInputProps('shapeSize')}
+                    />
+                </Grid.Col>
+            </Grid>
 
-            <Button id="createImg" onClick={() => createImg()}>
+            <Group position='right'>
+                <Button type="submit">
+                    Create shapes lines
+                </Button>
+            </Group>
+
+            {/* <Button id="createImg" onClick={() => createImg()}>
                 Create img
-            </Button>
+            </Button> */}
 
             {/* <Button onClick={onCancel}>Cancel</Button> */}
+        </form>
         </Container>
     )
 }

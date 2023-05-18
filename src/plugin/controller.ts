@@ -1,3 +1,5 @@
+import { ShapesGenData } from "../app/components/parts/MainParts";
+
 figma.showUI(__html__, {
     width: 400,
     height: 600
@@ -7,15 +9,22 @@ figma.ui.onmessage = async (msg) => {
     if (msg.type === "create-rectangles") {
         const nodes = [];
 
+        const config: ShapesGenData = msg.data
 
-        for (let i = 0; i < msg.count; i++) {
-            for (let k = 0; k < msg.count; k++) {
+
+        for (let i = 0; i < config.rows; i++) {
+            for (let k = 0; k < config.cols; k++) {
                 // const rect = figma.createRectangle();
-                const rect = figma.createEllipse();
-                rect.x = i * 110;
-                rect.y = k * 110;
+                // const rect = figma.createEllipse();
 
-                rect.resize(40, 40);
+                const rect = config.shapes === "Ellipse" ? figma.createEllipse() : figma.createRectangle();
+
+                // rect.x = i * 110;
+                rect.x = i * config.density;
+                rect.y = k * config.density;
+
+                // 40
+                rect.resize(config.shapeSize, config.shapeSize);
                 rect.fills = [{ type: "SOLID", color: { r: 1, g: 0.5, b: 0 } }];
 
                 figma.currentPage.appendChild(rect);
