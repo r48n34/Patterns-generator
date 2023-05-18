@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 
 function MainParts() {
 
-    const [ addCount, setAddCount ] = React.useState<number>(0);
+    const [ addCount, setAddCount ] = React.useState<number>(4);
 
     const onCreate = () => {
         parent.postMessage({ pluginMessage: { type: 'create-rectangles', count: addCount } }, '*');
@@ -47,8 +47,8 @@ function MainParts() {
                 Hello
             </Button>
 
-            <Button id="create" onClick={onCreate}>
-                Create shapes
+            <Button id="create" onClick={() => onCreate()}>
+                Create shapes lines
             </Button>
 
             <Button id="createImg" onClick={() => createImg()}>
