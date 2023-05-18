@@ -1,5 +1,6 @@
-import { NumberInput, Button, Text } from '@mantine/core';
+import { NumberInput, Button, Text, Container } from '@mantine/core';
 import React from 'react';
+import toast from 'react-hot-toast';
 
 function MainParts() {
 
@@ -13,9 +14,9 @@ function MainParts() {
         parent.postMessage({ pluginMessage: { type: 'create-img' } }, '*');
     };
 
-    const onCancel = () => {
-        parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*');
-    };
+    // const onCancel = () => {
+    //     parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*');
+    // };
 
     React.useEffect(() => {
         // This is how we read messages sent from the plugin controller
@@ -31,7 +32,7 @@ function MainParts() {
     }, []);
 
     return (
-        <>
+        <Container>
             <Text>Rectangle Creator</Text>
 
             <NumberInput
@@ -42,6 +43,10 @@ function MainParts() {
                 withAsterisk
             />
 
+            <Button id="create" onClick={() => toast("Hello World")}>
+                Hello
+            </Button>
+
             <Button id="create" onClick={onCreate}>
                 Create shapes
             </Button>
@@ -50,8 +55,8 @@ function MainParts() {
                 Create img
             </Button>
 
-            <Button onClick={onCancel}>Cancel</Button>
-        </>
+            {/* <Button onClick={onCancel}>Cancel</Button> */}
+        </Container>
     )
 }
 

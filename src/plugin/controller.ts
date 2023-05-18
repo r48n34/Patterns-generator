@@ -39,6 +39,13 @@ figma.ui.onmessage = async (msg) => {
             }
         ]
 
+        const text = figma.createText()
+        await figma.loadFontAsync({ family: "Inter", style: "Regular" });
+        text.characters = 'Hello world!'
+
+        text.fontSize = 90
+        text.fills = [{ type: 'SOLID', color: { r: 1, g: 0, b: 0 } }]
+
         // This is how figma responds back to the ui
         figma.ui.postMessage({
             type: "create-img",
@@ -46,5 +53,5 @@ figma.ui.onmessage = async (msg) => {
         });
     }
 
-    figma.closePlugin();
+    // figma.closePlugin();
 };
