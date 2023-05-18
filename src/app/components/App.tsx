@@ -8,17 +8,17 @@ function App() {
   return (
     <>
     <Toaster/>
-    <MantineProvider withGlobalStyles withNormalizeCSS>
+    <MantineProvider withGlobalStyles withNormalizeCSS theme={{ colorScheme: 'dark' }}>
         {/* <MainParts/> */}
 
-        <Tabs defaultValue="gallery">
+        <Tabs defaultValue="pattens">
             <Tabs.List>
-                <Tabs.Tab value="gallery" >Gallery</Tabs.Tab>
+                <Tabs.Tab value="pattens" >Pattens</Tabs.Tab>
                 <Tabs.Tab value="messages">Messages</Tabs.Tab>
                 <Tabs.Tab value="settings">Settings</Tabs.Tab>
             </Tabs.List>
 
-            <Tabs.Panel value="gallery" pt="xs">
+            <Tabs.Panel value="pattens" pt="xs">
                 <MainParts/>
             </Tabs.Panel>
 

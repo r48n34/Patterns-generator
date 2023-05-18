@@ -25,8 +25,8 @@ figma.ui.onmessage = async (msg) => {
                     : figma.createRectangle();
 
                 // rect.x = i * 110;
-                shapes.x = i * config.density;
-                shapes.y = k * config.density;
+                shapes.x = i * config.paddingRows;
+                shapes.y = k * config.paddingCols;
 
                 // 40
                 shapes.resize(config.shapeSize, config.shapeSize);
