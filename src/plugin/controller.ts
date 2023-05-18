@@ -14,13 +14,10 @@ figma.ui.onmessage = async (msg) => {
         const currentX = figma.viewport.center.x
         const currentY = figma.viewport.center.y
 
-
         for (let i = 0; i < config.rows; i++) {
             for (let k = 0; k < config.cols; k++) {
                 // const rect = figma.createRectangle();
                 // const rect = figma.createEllipse();
-
-                // console.log(figma.viewport.center);
 
                 const shapes = 
                     config.shapes === "Ellipse" 
@@ -46,7 +43,7 @@ figma.ui.onmessage = async (msg) => {
         }
         
         // figma.currentPage.selection = nodes;
-        figma.viewport.scrollAndZoomIntoView(nodes);
+        // figma.viewport.scrollAndZoomIntoView(nodes);
         figma.group(nodes, figma.currentPage)
 
         // This is how figma responds back to the ui

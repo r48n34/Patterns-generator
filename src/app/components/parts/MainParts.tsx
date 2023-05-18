@@ -98,6 +98,7 @@ function MainParts() {
                     {...form.getInputProps('shapes')}
                 />
 
+
                 <Grid mt={4}>
                     <Grid.Col span={6}>
                         <NumberInput
