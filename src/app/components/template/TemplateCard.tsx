@@ -1,8 +1,10 @@
 import React from 'react';
 
 import { TemplateListData } from "../../data/templateConfig";
-import { Card, Text, Badge, Button, Group } from '@mantine/core';
+import { Card, Text, Button, Group } from '@mantine/core';
 import { generateTemplate } from '../../utils/callFigma';
+
+import TemplateDateModal from './TemplateDateModal';
 
 type TemplateCardProps = {
     data: TemplateListData;
@@ -10,13 +12,12 @@ type TemplateCardProps = {
 
 function TemplateCard({ data }: TemplateCardProps) {
     return (
+        <>
         <Card shadow="sm" padding="lg" radius="md" withBorder>
 
             <Group position="apart" mt="md" mb="xs">
                 <Text weight={500}>{ data.title }</Text>
-                <Badge color="pink" variant="light">
-                    {data.config.shapes}
-                </Badge>
+                <TemplateDateModal data={data}/>
             </Group>
 
             <Text size="sm" color="dimmed">
@@ -27,6 +28,7 @@ function TemplateCard({ data }: TemplateCardProps) {
                 Generate this
             </Button>
         </Card>
+        </>
     )
 }
 

@@ -7,7 +7,6 @@ function TemplatePage(){
 
     return (
         <>
-            {/* <LoadingOverlay visible={isLoading} overlayBlur={2} /> */}
             <ScrollArea h={"90vh"}>
             <Container>
             <Grid>

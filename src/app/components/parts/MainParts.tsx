@@ -2,7 +2,6 @@ import React from 'react';
 import { NumberInput, Button, Container, Grid, Select, Group, Accordion } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
-
 import { 
     IconArrowAutofitWidth,
     IconArrowAutofitRight,
@@ -13,6 +12,7 @@ import {
     IconBook2, 
     IconPencilPlus
 } from '@tabler/icons-react';
+
 import { ShapesGenData } from '../../interface/shapesConfig';
 import { generateTemplate } from '../../utils/callFigma';
 
@@ -49,9 +49,6 @@ function MainParts() {
     return (
         <Container>
         <form onSubmit={form.onSubmit((values) => createShapes(values))}>
-            {/* <Text>Rectangle Creator</Text> */}
-            {/* <LoadingOverlay visible={isLoading} overlayBlur={2} /> */}
-           
             <Accordion multiple={true} defaultValue={["basic"]} mt={6} >
 
             <Accordion.Item value="basic">

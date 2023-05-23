@@ -27,7 +27,7 @@ figma.ui.onmessage = async (msg) => {
 };
 
 async function createRectangles(msg){
-    await timer(250);
+    await timer(120);
 
     const nodes = [];
     const config: ShapesGenData = msg.data

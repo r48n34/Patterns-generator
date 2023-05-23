@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { LoadingOverlay, MantineProvider, Tabs } from '@mantine/core';
-// import Hello from './parts/Hello';
+
 import MainParts from './parts/MainParts';
 import TemplatePage from './parts/TemplatePage';
 
@@ -34,11 +34,11 @@ function App() {
         <Toaster/>
         <MantineProvider withGlobalStyles withNormalizeCSS theme={{ colorScheme: 'dark' }}>
             <LoadingOverlay visible={isLoading} overlayBlur={2} />
+
             <Tabs defaultValue="pattens">
                 <Tabs.List>
                     <Tabs.Tab value="pattens" >Pattens</Tabs.Tab>
                     <Tabs.Tab value="template">Template</Tabs.Tab>
-                    {/* <Tabs.Tab value="settings">Settings</Tabs.Tab> */}
                 </Tabs.List>
 
                 <Tabs.Panel value="pattens" pt="xs">
@@ -48,10 +48,6 @@ function App() {
                 <Tabs.Panel value="template" pt="xs">
                     <TemplatePage />
                 </Tabs.Panel>
-
-                {/* <Tabs.Panel value="settings" pt="xs">
-                    <Hello/>
-                </Tabs.Panel> */}
             </Tabs>
 
         </MantineProvider>
