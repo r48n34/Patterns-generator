@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-
+import React from 'react';
 import { NumberInput, Button, Container, Grid, Select, Group, Accordion } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import toast from 'react-hot-toast';
+
 
 import { 
     IconArrowAutofitWidth,
@@ -15,10 +14,9 @@ import {
     IconPencilPlus
 } from '@tabler/icons-react';
 import { ShapesGenData } from '../../interface/shapesConfig';
+import { generateTemplate } from '../../utils/callFigma';
 
 function MainParts() {
-
-    const [ isLoading, setIsLoading ] = useState<boolean>(false);
 
     const form = useForm<ShapesGenData>({
         initialValues: {
@@ -39,26 +37,8 @@ function MainParts() {
     });
 
     function createShapes(values: ShapesGenData){
-        setIsLoading(true)
-        console.log(values);
-        parent.postMessage({ pluginMessage: { type: 'create-rectangles', data: values } }, '*');
+        generateTemplate(values);
     };
-
-    React.useEffect(() => {
-        // This is how we read messages sent from the plugin controller
-        window.onmessage = (event) => {
-            const { type, message } = event.data.pluginMessage;
-
-            console.log(message);
-
-            if (type === 'create-rectangles') {
-                console.log(`Figma Says: ${message}`);
-                setIsLoading(false)
-                toast.success("Created shapes");
-            }
-
-        };
-    }, []);
 
     React.useEffect(() => {
         form.setFieldValue('paddingCols', form.values.density);
@@ -70,9 +50,8 @@ function MainParts() {
         <Container>
         <form onSubmit={form.onSubmit((values) => createShapes(values))}>
             {/* <Text>Rectangle Creator</Text> */}
-
+            {/* <LoadingOverlay visible={isLoading} overlayBlur={2} /> */}
            
-
             <Accordion multiple={true} defaultValue={["basic"]} mt={6} >
 
             <Accordion.Item value="basic">
@@ -182,7 +161,7 @@ function MainParts() {
             </Accordion>
 
             <Group position='right' mt={6}>
-                <Button type="submit" loading={isLoading}>
+                <Button type="submit">
                     Create
                 </Button>
             </Group>

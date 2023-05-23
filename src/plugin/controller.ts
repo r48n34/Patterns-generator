@@ -1,4 +1,5 @@
 import { ShapesGenData } from "../app/interface/shapesConfig";
+import { timer } from "../app/utils/callFigma";
 
 figma.showUI(__html__, {
     width: 400,
@@ -7,17 +8,27 @@ figma.showUI(__html__, {
 
 figma.ui.onmessage = async (msg) => {
 
+    figma.ui.postMessage({
+        type: "processing"
+    });
+
     if (msg.type === "create-rectangles") {
-        createRectangles(msg);
+        await createRectangles(msg);
     }
     else if (msg.type === "create-img") {
-        await createImg(msg)
+        await createImg()
     }
+
+    figma.ui.postMessage({
+        type: "done"
+    });
 
     // figma.closePlugin();
 };
 
-function createRectangles(msg){
+async function createRectangles(msg){
+    await timer(250);
+
     const nodes = [];
     const config: ShapesGenData = msg.data
 
@@ -52,13 +63,13 @@ function createRectangles(msg){
     figma.group(nodes, figma.currentPage)
 
     // This is how figma responds back to the ui
-    figma.ui.postMessage({
-        type: "create-rectangles",
-        message: `Created ${msg.count} Rectangles`,
-    });
+    // figma.ui.postMessage({
+    //     type: "create-rectangles-done",
+    //     message: `Created ${msg.count} Rectangles`,
+    // });
 }
 
-async function createImg(msg){
+async function createImg(){
     // @ts-expect-error
     let image = await figma.createImageAsync('https://picsum.photos/200')
     const node = figma.createRectangle();
@@ -82,8 +93,8 @@ async function createImg(msg){
     text.fills = [{ type: 'SOLID', color: { r: 1, g: 0, b: 0 } }]
 
     // This is how figma responds back to the ui
-    figma.ui.postMessage({
-        type: "create-img",
-        message: `Created ${msg.count} create-img`,
-    });
+    // figma.ui.postMessage({
+    //     type: "create-img",
+    //     message: `Created ${msg.count} create-img`,
+    // });
 }

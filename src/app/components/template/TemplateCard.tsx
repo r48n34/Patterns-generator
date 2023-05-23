@@ -2,17 +2,13 @@ import React from 'react';
 
 import { TemplateListData } from "../../data/templateConfig";
 import { Card, Text, Badge, Button, Group } from '@mantine/core';
+import { generateTemplate } from '../../utils/callFigma';
 
 type TemplateCardProps = {
     data: TemplateListData;
 }
 
 function TemplateCard({ data }: TemplateCardProps) {
-
-    function generateTemplate(){
-        parent.postMessage({ pluginMessage: { type: 'create-rectangles', data: data.config } }, '*');
-    }
-
     return (
         <Card shadow="sm" padding="lg" radius="md" withBorder>
 
@@ -27,7 +23,7 @@ function TemplateCard({ data }: TemplateCardProps) {
                 { data.description }
             </Text>
 
-            <Button variant="light" color="blue" fullWidth mt="md" radius="md" onClick={ () => generateTemplate()}>
+            <Button variant="light" color="blue" fullWidth mt="md" radius="md" onClick={ () => generateTemplate(data.config) }>
                 Generate this
             </Button>
         </Card>

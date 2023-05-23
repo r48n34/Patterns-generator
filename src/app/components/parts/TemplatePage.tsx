@@ -4,8 +4,10 @@ import { templateList } from '../../data/templateConfig';
 import TemplateCard from '../template/TemplateCard';
 
 function TemplatePage(){
+
     return (
         <>
+            {/* <LoadingOverlay visible={isLoading} overlayBlur={2} /> */}
             <ScrollArea h={"90vh"}>
             <Container>
             <Grid>

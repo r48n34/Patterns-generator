@@ -1,40 +1,62 @@
-import React from 'react';
-import { Toaster } from 'react-hot-toast';
-import { MantineProvider, Tabs } from '@mantine/core';
+import React, { useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
+import { LoadingOverlay, MantineProvider, Tabs } from '@mantine/core';
 // import Hello from './parts/Hello';
 import MainParts from './parts/MainParts';
 import TemplatePage from './parts/TemplatePage';
 
 function App() {
-  return (
-    <>
-    <Toaster/>
-    <MantineProvider withGlobalStyles withNormalizeCSS theme={{ colorScheme: 'dark' }}>
-        {/* <MainParts/> */}
 
-        <Tabs defaultValue="pattens">
-            <Tabs.List>
-                <Tabs.Tab value="pattens" >Pattens</Tabs.Tab>
-                <Tabs.Tab value="template">Template</Tabs.Tab>
-                {/* <Tabs.Tab value="settings">Settings</Tabs.Tab> */}
-            </Tabs.List>
+    const [ isLoading, setIsLoading ] = useState<boolean>(false);
+    
+    React.useEffect(() => {
+        // This is how we read messages sent from the plugin controller
+        window.onmessage = (event) => {
+            const { type, message } = event.data.pluginMessage;
 
-            <Tabs.Panel value="pattens" pt="xs">
-                <MainParts/>
-            </Tabs.Panel>
+            if (type === 'processing') {
+                console.log("Processing");
+                setIsLoading(true);
+            }
 
-            <Tabs.Panel value="template" pt="xs">
-                <TemplatePage/>
-            </Tabs.Panel>
+            if (type === 'done') {
+                console.log(`Figma Says: ${message}`);
+                setIsLoading(false);
+                toast.success("Created shapes");
+            }
 
-            {/* <Tabs.Panel value="settings" pt="xs">
-                <Hello/>
-            </Tabs.Panel> */}
-        </Tabs>
+        };
+    }, []);
 
-    </MantineProvider>
-    </>
-  );
+    
+    return (
+        <>
+        <Toaster/>
+        <MantineProvider withGlobalStyles withNormalizeCSS theme={{ colorScheme: 'dark' }}>
+            <LoadingOverlay visible={isLoading} overlayBlur={2} />
+            <Tabs defaultValue="pattens">
+                <Tabs.List>
+                    <Tabs.Tab value="pattens" >Pattens</Tabs.Tab>
+                    <Tabs.Tab value="template">Template</Tabs.Tab>
+                    {/* <Tabs.Tab value="settings">Settings</Tabs.Tab> */}
+                </Tabs.List>
+
+                <Tabs.Panel value="pattens" pt="xs">
+                    <MainParts />
+                </Tabs.Panel>
+
+                <Tabs.Panel value="template" pt="xs">
+                    <TemplatePage />
+                </Tabs.Panel>
+
+                {/* <Tabs.Panel value="settings" pt="xs">
+                    <Hello/>
+                </Tabs.Panel> */}
+            </Tabs>
+
+        </MantineProvider>
+        </>
+    );
 }
 
 export default App;
