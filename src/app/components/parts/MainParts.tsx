@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { NumberInput, Button, Text, Container, Grid, Select, Group, Card, Accordion } from '@mantine/core';
 import { useForm } from '@mantine/form';
@@ -25,6 +25,8 @@ export interface ShapesGenData {
 
 function MainParts() {
 
+    const [ isLoading, setIsLoading ] = useState<boolean>(false);
+
     const form = useForm<ShapesGenData>({
         initialValues: {
           rows: 5,
@@ -44,8 +46,8 @@ function MainParts() {
     });
 
     function createShapes(values: ShapesGenData){
+        setIsLoading(true)
         console.log(values);
-        
         parent.postMessage({ pluginMessage: { type: 'create-rectangles', data: values } }, '*');
     };
 
@@ -58,8 +60,10 @@ function MainParts() {
 
             if (type === 'create-rectangles') {
                 console.log(`Figma Says: ${message}`);
+                setIsLoading(false)
                 toast.success("Created shapes");
             }
+
         };
     }, []);
 
@@ -90,8 +94,8 @@ function MainParts() {
                     label="Shapes"
                     placeholder="Pick one"
                     data={[
-                        { value: 'Ellipse', label: '🔴 Ellipse' },
                         { value: 'Rectangle', label: '🟥 Rectangle' },
+                        { value: 'Ellipse', label: '🔴 Ellipse' },
                         { value: 'Polygon', label: '🔻 Polygon' },
                         { value: 'Star', label: '⭐ Star' },
                     ]}
@@ -188,7 +192,7 @@ function MainParts() {
             </Accordion>
 
             <Group position='right' mt={6}>
-                <Button type="submit">
+                <Button type="submit" loading={isLoading}>
                     Create
                 </Button>
             </Group>
