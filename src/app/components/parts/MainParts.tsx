@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { NumberInput, Button, Text, Container, Grid, Select, Group, Card, Accordion } from '@mantine/core';
+import { NumberInput, Button, Container, Grid, Select, Group, Accordion } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import toast from 'react-hot-toast';
 
@@ -10,18 +10,11 @@ import {
     IconArrowAutofitUp,
     IconArrowAutofitHeight,
     IconArrowAutofitContent,
-    IconZoomPan
+    IconZoomPan,
+    IconBook2, 
+    IconPencilPlus
 } from '@tabler/icons-react';
-
-export interface ShapesGenData {
-    rows: number,
-    cols: number,
-    paddingRows: number,
-    paddingCols: number,
-    density: number,
-    shapeSize: number,
-    shapes: "Ellipse" | "Rectangle" | "Polygon" | "Star" ,
-}
+import { ShapesGenData } from '../../interface/shapesConfig';
 
 function MainParts() {
 
@@ -76,16 +69,14 @@ function MainParts() {
     return (
         <Container>
         <form onSubmit={form.onSubmit((values) => createShapes(values))}>
-            <Text>Rectangle Creator</Text>
+            {/* <Text>Rectangle Creator</Text> */}
 
-            <Card shadow="sm" padding="lg" radius="md" withBorder>
-                
-            </Card>
+           
 
             <Accordion multiple={true} defaultValue={["basic"]} mt={6} >
 
             <Accordion.Item value="basic">
-                <Accordion.Control>
+                <Accordion.Control icon={ <IconBook2 size={25}/> }>
                     Basic
                 </Accordion.Control>
 
@@ -101,7 +92,6 @@ function MainParts() {
                     ]}
                     {...form.getInputProps('shapes')}
                 />
-
 
                 <Grid mt={4}>
                     <Grid.Col span={6}>
@@ -157,7 +147,7 @@ function MainParts() {
                 </Accordion.Item>
 
                 <Accordion.Item value="advanceSetting">
-                    <Accordion.Control>
+                    <Accordion.Control icon={<IconPencilPlus size={25}/>}>
                         Advance
                     </Accordion.Control>
 

@@ -1,4 +1,4 @@
-import { ShapesGenData } from "../app/components/parts/MainParts";
+import { ShapesGenData } from "../app/interface/shapesConfig";
 
 figma.showUI(__html__, {
     width: 400,
