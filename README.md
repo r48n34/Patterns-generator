@@ -1,23 +1,12 @@
-# Figma Plugin React Template
+# Pattens generator
 
-![62862431-71537f00-bd0e-11e9-85db-d97c0fb729a4](https://user-images.githubusercontent.com/16322616/62862692-46b5f600-bd0f-11e9-93b0-75955d1de8f3.png)
+https://www.figma.com/community/plugin/1242738296070075685/Pattens-generator
 
-This template contains the react example as shown on [Figma Docs](https://www.figma.com/plugin-docs/intro/), with some structural changes and extra tooling.
+![https://www.figma.com/community/plugin/1242738296070075685/Pattens-generator](https://s3-alpha-sig.figma.com/plugins/1242738296070075685/55586/abc175fc-57cb-4097-a8cc-7f51b4b79bf9-cover?Expires=1685923200&Signature=ZkVKdnvesqvBz0fw947yXyA-jegVBNNCG1i~ANxXTyScBjEPxlf0UiCS1hdXeQ1xR3bkbYojaWdItp34Paggvryzc3~Ujm6jxTBgvTmc1bMkFils4qX5SnHgcXLRoPUXvMML9ny8b8RhRhY3lWutHzpZTAGd-T5m1-1M-odYwXLkJU0Kt4AJ7zUpEgjoUrMgwFoMx4OmevVdLujP-5r3HXMahVehQNjN0tTkkD7ziV5WSit9luaZ4~rBJ~VFl~9kAPh2bX8aZOG8gqkoYeiGAH7zVXGwBebsRVFrrrMQyzS~RFWBa6D7URrBe5MJD5YOT~3ZdMi9kT2v~X39VpFOSw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4)
 
-## Quickstart
+Wanna make shapes with patten in figma? The plugin help you to create patten by a single clicks.
 
-- Run `yarn` to install dependencies.
-- Run `yarn build:watch` to start webpack in watch mode.
-- Open `Figma` -> `Plugins` -> `Development` -> `Import plugin from manifest...` and choose `manifest.json` file from this repo.
+## References
 
-⭐ To change the UI of your plugin (the react code), start editing [App.tsx](./src/app/components/App.tsx).  
-⭐ To interact with the Figma API edit [controller.ts](./src/plugin/controller.ts).  
-⭐ Read more on the [Figma API Overview](https://www.figma.com/plugin-docs/api/api-overview/).
-
-## Toolings
-
-This repo is using:
-
-- React + Webpack
-- TypeScript
-- Prettier precommit hook
+This plugins is start with `Figma Plugin React Template
+` from https://github.com/nirsky/figma-plugin-react-template
