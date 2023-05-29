@@ -1,5 +1,5 @@
 import React from 'react';
-import { NumberInput, Button, Container, Grid, Select, Group, Accordion } from '@mantine/core';
+import { NumberInput, Button, Container, Grid, Select, Group, Accordion, ActionIcon } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
 import { 
@@ -10,11 +10,12 @@ import {
     IconArrowAutofitContent,
     IconZoomPan,
     IconBook2, 
-    IconPencilPlus
+    IconPencilPlus,
+    IconAdjustments
 } from '@tabler/icons-react';
 
 import { ShapesGenData } from '../../interface/shapesConfig';
-import { generateTemplate } from '../../utils/callFigma';
+import { addFavList, generateTemplate } from '../../utils/callFigma';
 
 function MainParts() {
 
@@ -44,10 +45,27 @@ function MainParts() {
         form.setFieldValue('paddingCols', form.values.density);
         form.setFieldValue('paddingRows', form.values.density);
     }, [form.values.density]);
+
+    function addFav(){
+
+        addFavList({
+            title: "Hello" + Math.floor(Math.random() * 100000),
+            createDate: new Date(),
+            description: "Hello mate",
+            config: form.values
+        });
+    }
     
 
     return (
         <Container>
+            
+        <Group position="right">
+            <ActionIcon onClick={() => addFav()}>
+                <IconAdjustments size="1.125rem" />
+            </ActionIcon>
+        </Group>
+
         <form onSubmit={form.onSubmit((values) => createShapes(values))}>
             <Accordion multiple={true} defaultValue={["basic"]} mt={6} >
 

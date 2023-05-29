@@ -1,11 +1,5 @@
-import { ShapesGenData } from "../app/interface/shapesConfig";
+import { FavouritePattenConfig } from "../app/interface/shapesConfig";
 
-export interface FavouritePattenConfig {
-    title: string
-    createDate: Date
-    description: string
-    config: ShapesGenData
-}
 
 const config = {
     favouriteList: "favouriteList"
@@ -22,22 +16,17 @@ export async function setFavouriteList(list:FavouritePattenConfig[]){
     await figma.clientStorage.setAsync(config.favouriteList, JSON.stringify(list))
 }
 
-export async function addNewFavourite(title: string, data: ShapesGenData){
+export async function addNewFavourite(data: FavouritePattenConfig){
 
     let list = await getFavouriteList();
 
-    const isExist = list.findIndex( v => v.title === title ) >= 0
+    const isExist = list.findIndex( v => v.title === data.title ) >= 0
 
     if(isExist){
         return false
     }
     
-    list.push({
-        title,
-        createDate: new Date(),
-        description: "",
-        config: data
-    })
+    list.push(data);
 
     await setFavouriteList(list)
     return true

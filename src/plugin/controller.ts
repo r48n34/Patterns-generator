@@ -1,6 +1,6 @@
 import { ShapesGenData } from "../app/interface/shapesConfig";
 import { timer } from "../app/utils/callFigma";
-import { getFavouriteList } from "./settingUtils";
+import { addNewFavourite, getFavouriteList } from "./settingUtils";
 
 figma.showUI(__html__, {
     width: 400,
@@ -17,6 +17,11 @@ figma.ui.onmessage = async (msg) => {
             message: data
         });
         
+        return 
+    }
+
+    if (msg.type === "add-fav-list") {
+        await addNewFavourite(msg);
         return 
     }
 

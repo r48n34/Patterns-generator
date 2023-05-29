@@ -7,3 +7,10 @@ export interface ShapesGenData {
     shapeSize: number,
     shapes: "Ellipse" | "Rectangle" | "Polygon" | "Star",
 }
+
+export interface FavouritePattenConfig {
+    title: string
+    createDate: Date
+    description: string
+    config: ShapesGenData
+}

@@ -9,7 +9,7 @@ import { useFavStore } from '../store/favStore';
 
 function App() {
 
-    const setArrayFav = useFavStore((state) => state.setArray)
+    const setArrayFav = useFavStore((state) => state.setArray);
     const [ isLoading, setIsLoading ] = useState<boolean>(false);
     
     React.useEffect(() => {
