@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import { ModalsProvider } from '@mantine/modals';
 import { LoadingOverlay, MantineProvider, Tabs } from '@mantine/core';
 
 import MainParts from './parts/MainParts';
 import TemplatePage from './parts/TemplatePage';
 import FavouritePage from './parts/FavouritePage';
-import { useFavStore } from '../store/favStore';
+
 import { getFavList } from '../utils/callFigma';
+import { useFavStore } from '../store/favStore';
 
 function App() {
 
@@ -46,6 +48,9 @@ function App() {
         <>
         <Toaster/>
         <MantineProvider withGlobalStyles withNormalizeCSS theme={{ colorScheme: 'dark' }}>
+        <ModalsProvider>
+
+
             <LoadingOverlay visible={isLoading} overlayBlur={2} />
 
             <Tabs defaultValue="pattens">
@@ -67,7 +72,7 @@ function App() {
                     <FavouritePage />
                 </Tabs.Panel>
             </Tabs>
-
+        </ModalsProvider>
         </MantineProvider>
         </>
     );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { NumberInput, Button, Container, Grid, Select, Group, Accordion, ActionIcon } from '@mantine/core';
+import { NumberInput, Button, Container, Grid, Select, Group, Accordion } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
 import { 
@@ -11,16 +11,14 @@ import {
     IconZoomPan,
     IconBook2, 
     IconPencilPlus,
-    IconHeart
 } from '@tabler/icons-react';
 
 import { ShapesGenData } from '../../interface/shapesConfig';
 import { generateTemplate } from '../../utils/callFigma';
-import { useFavStore } from '../../store/favStore';
+import AddFavouriteModal from '../utilsComp/AddFavouriteModal';
 
 function MainParts() {
 
-    const addItemFav = useFavStore((state) => state.addItem);
 
     const form = useForm<ShapesGenData>({
         initialValues: {
@@ -48,23 +46,12 @@ function MainParts() {
         form.setFieldValue('paddingCols', form.values.density);
         form.setFieldValue('paddingRows', form.values.density);
     }, [form.values.density]);
-
-    function addFav(){
-        addItemFav({
-            title: "Hello" + Math.floor(Math.random() * 100000),
-            description: "Hello mate",
-            config: form.values
-        });
-    }
     
-
     return (
         <Container>
             
         <Group position="right">
-            <ActionIcon onClick={() => addFav()}>
-                <IconHeart size="1.125rem" />
-            </ActionIcon>
+            <AddFavouriteModal data={form.values}/>
         </Group>
 
         <form onSubmit={form.onSubmit((values) => createShapes(values))}>
@@ -177,7 +164,7 @@ function MainParts() {
             </Accordion>
 
             <Group position='right' mt={6}>
-                <Button type="submit">
+                <Button type="submit" variant="light" mt={6}>
                     Create
                 </Button>
             </Group>
