@@ -5,6 +5,7 @@ import { PattenConfig } from "../../interface/shapesConfig";
 import { useFavStore } from "../../store/favStore";
 
 import { useDisclosure } from '@mantine/hooks';
+import toast from "react-hot-toast";
 type TemplateMenuProps = {
     data: PattenConfig;
     showsDelete: boolean
@@ -14,6 +15,11 @@ function TemplateMenu({ data, showsDelete }: TemplateMenuProps) {
 
     const [opened, { open, close }] = useDisclosure(false);
     const deleteItemFav = useFavStore((state) => state.deleteItem);
+
+    function deleteOneItems(){
+        deleteItemFav(data.title)
+        toast.success("Deleted item");
+    }
 
     return (
         <>
@@ -37,7 +43,7 @@ function TemplateMenu({ data, showsDelete }: TemplateMenuProps) {
                 </Menu.Item>
 
                 {showsDelete && 
-                    <Menu.Item color="red" icon={<IconTrash size={14} />} onClick={ () => deleteItemFav(data.title)}>
+                    <Menu.Item color="red" icon={<IconTrash size={14} />} onClick={ () => deleteOneItems()}>
                         Delete
                     </Menu.Item>
                 }

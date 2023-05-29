@@ -24,7 +24,7 @@ function AddFavouriteModal({ data }: AddFavouriteModalProps){
     const form = useForm<formObject>({
         initialValues: {
           title: '',
-          description: "",
+          description: "Some nice description",
         },
     
         validate: {
@@ -46,7 +46,7 @@ function AddFavouriteModal({ data }: AddFavouriteModalProps){
             config: data
         });
 
-        toast.success("Added to favourite.");
+        toast.success("Added to favourite");
         close();
     }
 

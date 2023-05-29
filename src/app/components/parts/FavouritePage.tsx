@@ -3,6 +3,7 @@ import { Container, ScrollArea, Grid, Group } from '@mantine/core';
 import { useFavStore } from '../../store/favStore';
 import TemplateCard from '../template/TemplateCard';
 import DeleteAllFavBtn from '../utilsComp/DeleteAllFavBtn';
+import EmptyCard from '../template/EmptyCard';
 
 function FavouritePage(){
 
@@ -25,6 +26,12 @@ function FavouritePage(){
                     </Grid.Col>
                 )}
             </Grid>
+
+            { favList.length === 0 && 
+                <div style={{ height: "90vh", display: "flex", justifyContent: "center", alignItems:"center"}}>
+                    <EmptyCard/>
+                </div>
+            }
             </Container>
         </ScrollArea>
         </>

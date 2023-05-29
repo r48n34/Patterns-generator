@@ -19,7 +19,6 @@ function TemplateCard({ data, showsDelete = false }: TemplateCardProps) {
 
             <Group position="apart" mt="md" mb="xs">
                 <Text weight={500}>{ data.title }</Text>
-                {/* <TemplateDateModal data={data}/> */}
                 <TemplateMenu data={data} showsDelete={showsDelete}/>
             </Group>
 
