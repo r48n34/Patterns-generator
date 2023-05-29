@@ -24,11 +24,9 @@ export async function clearFavouriteList(){
 export async function addNewFavourite(inputData: any){
 
     let data = inputData.data as PattenConfig
-
     console.log("ADD DATA", data);
 
     let list = await getFavouriteList();
-
     const isExist = list.findIndex( v => v.title === data.title ) >= 0
 
     if(isExist){

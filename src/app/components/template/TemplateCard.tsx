@@ -3,21 +3,24 @@ import React from 'react';
 import { Card, Text, Button, Group } from '@mantine/core';
 import { generateTemplate } from '../../utils/callFigma';
 
-import TemplateDateModal from './TemplateDateModal';
+// import TemplateDateModal from './TemplateDateModal';
 import { PattenConfig } from '../../interface/shapesConfig';
+import TemplateMenu from './TemplateMenu';
 
 type TemplateCardProps = {
     data: PattenConfig;
+    showsDelete?: boolean
 }
 
-function TemplateCard({ data }: TemplateCardProps) {
+function TemplateCard({ data, showsDelete = false }: TemplateCardProps) {
     return (
         <>
         <Card shadow="sm" padding="lg" radius="md" withBorder>
 
             <Group position="apart" mt="md" mb="xs">
                 <Text weight={500}>{ data.title }</Text>
-                <TemplateDateModal data={data}/>
+                {/* <TemplateDateModal data={data}/> */}
+                <TemplateMenu data={data} showsDelete={showsDelete}/>
             </Group>
 
             <Text size="sm" color="dimmed">

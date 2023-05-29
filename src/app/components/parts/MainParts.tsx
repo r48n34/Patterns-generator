@@ -11,8 +11,7 @@ import {
     IconZoomPan,
     IconBook2, 
     IconPencilPlus,
-    IconAdjustments,
-    IconTrash
+    IconHeart
 } from '@tabler/icons-react';
 
 import { ShapesGenData } from '../../interface/shapesConfig';
@@ -22,7 +21,6 @@ import { useFavStore } from '../../store/favStore';
 function MainParts() {
 
     const addItemFav = useFavStore((state) => state.addItem);
-    const clearItemFav = useFavStore((state) => state.clearList);
 
     const form = useForm<ShapesGenData>({
         initialValues: {
@@ -65,11 +63,7 @@ function MainParts() {
             
         <Group position="right">
             <ActionIcon onClick={() => addFav()}>
-                <IconAdjustments size="1.125rem" />
-            </ActionIcon>
-
-            <ActionIcon onClick={() => clearItemFav()}>
-                <IconTrash size="1.125rem" />
+                <IconHeart size="1.125rem" />
             </ActionIcon>
         </Group>
 
