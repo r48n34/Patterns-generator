@@ -1,7 +1,7 @@
 {
   "name": "Pattens generator",
   "id": "1242738296070075685",
-  "api": "1.0.0",
+  "api": "1.1.0",
   "main": "dist/code.js",
   "ui": "dist/ui.html",
   "editorType": ["figma"]
