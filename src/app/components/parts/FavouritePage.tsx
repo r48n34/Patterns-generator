@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Container, ScrollArea, Grid, Group } from '@mantine/core';
 import { useFavStore } from '../../store/favStore';
 import TemplateCard from '../template/TemplateCard';
@@ -7,10 +7,6 @@ import DeleteAllFavBtn from '../utilsComp/DeleteAllFavBtn';
 function FavouritePage(){
 
     const favList = useFavStore((state) => state.favList);
-
-    useEffect( () => {
-        console.log(favList);
-    },[favList])
 
     return (
         <>

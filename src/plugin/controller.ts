@@ -12,8 +12,6 @@ figma.ui.onmessage = async (msg) => {
     if (msg.type === "get-fav-list") {
         const data = await getFavouriteList();
 
-        console.log("DATA", data);
-
         return figma.ui.postMessage({
             type: "get-fav-list-done",
             message: data

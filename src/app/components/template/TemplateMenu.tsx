@@ -1,5 +1,5 @@
 import React from "react";
-import { ActionIcon, Menu, Modal, JsonInput} from "@mantine/core";
+import { ActionIcon, Menu, Modal, JsonInput, Tooltip} from "@mantine/core";
 import { IconFileDots, IconTrash, IconDots } from "@tabler/icons-react";
 import { PattenConfig } from "../../interface/shapesConfig";
 import { useFavStore } from "../../store/favStore";
@@ -21,24 +21,26 @@ function TemplateMenu({ data, showsDelete }: TemplateMenuProps) {
             <JsonInput disabled value={JSON.stringify(data.config, null, " ")} minRows={12}/>
         </Modal>
 
-        <Menu shadow="md" width={200} zIndex={99999}>
+        <Menu shadow="md" width={200}>
             <Menu.Target>
+                <Tooltip label="More">
                 <ActionIcon>
                     <IconDots size="1.125rem" />
                 </ActionIcon>
+                </Tooltip>
             </Menu.Target>
 
             <Menu.Dropdown>
 
-                {showsDelete 
-                    && <Menu.Item icon={<IconTrash size={14} />} onClick={ () => deleteItemFav(data.title)}>
-                        Delete
-                    </Menu.Item>
-                }
-
                 <Menu.Item icon={<IconFileDots size={14} />} onClick={open}>
                     View Details
                 </Menu.Item>
+
+                {showsDelete && 
+                    <Menu.Item color="red" icon={<IconTrash size={14} />} onClick={ () => deleteItemFav(data.title)}>
+                        Delete
+                    </Menu.Item>
+                }
 
             </Menu.Dropdown>
 

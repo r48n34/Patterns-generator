@@ -21,13 +21,13 @@ function App() {
             const { type, message } = event.data.pluginMessage;
 
             if (type === 'processing') {
-                console.log("Processing");
+                // console.log("Processing");
                 setIsLoading(true);
             }
 
             if (type === 'get-fav-list-done') {
                 // console.log("Processing");
-                console.log("MES", message);
+                // console.log("MES", message);
                 setArrayFav(message);
             }
 
