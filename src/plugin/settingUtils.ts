@@ -3,21 +3,22 @@ import { ShapesGenData } from "../app/interface/shapesConfig";
 export interface FavouritePattenConfig {
     title: string
     createDate: Date
-    data: ShapesGenData
+    description: string
+    config: ShapesGenData
 }
 
 const config = {
     favouriteList: "favouriteList"
 }
 
-async function getFavouriteList(){
+export async function getFavouriteList(){
     const storeData: undefined | string = await figma.clientStorage.getAsync(config.favouriteList);
     let list:FavouritePattenConfig[] = !storeData ? [] : JSON.parse(storeData)
 
     return list
 }
 
-async function setFavouriteList(list:FavouritePattenConfig[]){
+export async function setFavouriteList(list:FavouritePattenConfig[]){
     await figma.clientStorage.setAsync(config.favouriteList, JSON.stringify(list))
 }
 
@@ -33,8 +34,9 @@ export async function addNewFavourite(title: string, data: ShapesGenData){
     
     list.push({
         title,
-        createDate: new Date,
-        data
+        createDate: new Date(),
+        description: "",
+        config: data
     })
 
     await setFavouriteList(list)

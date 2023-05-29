@@ -18,7 +18,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
-    "tabler-icons-react": "^1.56.0"
+    "tabler-icons-react": "^1.56.0",
+    "zustand": "^4.3.8"
   },
   "devDependencies": {
     "@figma/plugin-typings": "^1.50.0",

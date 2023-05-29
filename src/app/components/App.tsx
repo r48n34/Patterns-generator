@@ -4,9 +4,12 @@ import { LoadingOverlay, MantineProvider, Tabs } from '@mantine/core';
 
 import MainParts from './parts/MainParts';
 import TemplatePage from './parts/TemplatePage';
+import FavouritePage from './parts/FavouritePage';
+import { useFavStore } from '../store/favStore';
 
 function App() {
 
+    const setArrayFav = useFavStore((state) => state.setArray)
     const [ isLoading, setIsLoading ] = useState<boolean>(false);
     
     React.useEffect(() => {
@@ -17,6 +20,12 @@ function App() {
             if (type === 'processing') {
                 console.log("Processing");
                 setIsLoading(true);
+            }
+
+            if (type === 'get-fav-list-done') {
+                console.log("Processing");
+                console.log(message);
+                setArrayFav(message);
             }
 
             if (type === 'done') {
@@ -39,6 +48,7 @@ function App() {
                 <Tabs.List>
                     <Tabs.Tab value="pattens" >Pattens</Tabs.Tab>
                     <Tabs.Tab value="template">Template</Tabs.Tab>
+                    <Tabs.Tab value="favourite">Favourite</Tabs.Tab>
                 </Tabs.List>
 
                 <Tabs.Panel value="pattens" pt="xs">
@@ -47,6 +57,10 @@ function App() {
 
                 <Tabs.Panel value="template" pt="xs">
                     <TemplatePage />
+                </Tabs.Panel>
+
+                <Tabs.Panel value="favourite" pt="xs">
+                    <FavouritePage />
                 </Tabs.Panel>
             </Tabs>
 

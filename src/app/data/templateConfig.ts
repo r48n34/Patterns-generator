@@ -2,6 +2,7 @@ import { ShapesGenData } from "../interface/shapesConfig"
 
 export interface TemplateListData {
     title: string
+    createDate: Date
     description: string
     config: ShapesGenData
 }
@@ -10,6 +11,7 @@ export const templateList: TemplateListData[] = [
     {
         title: "5 x 5 Small Ellipse",
         description: "Small Ellipse pattens",
+        createDate: new Date(),
         config: {
             rows: 5,
             cols: 5,
@@ -23,6 +25,7 @@ export const templateList: TemplateListData[] = [
     {
         title: "15 x 15 Small Ellipse",
         description: "Small Ellipse pattens",
+        createDate: new Date(),
         config: {
             rows: 15,
             cols: 15,
@@ -36,6 +39,7 @@ export const templateList: TemplateListData[] = [
     {
         title: "60 x 30 Small Ellipse",
         description: "Bg Ellipse pattens",
+        createDate: new Date(),
         config: {
             rows: 60,
             cols: 30,
@@ -49,6 +53,7 @@ export const templateList: TemplateListData[] = [
     {
         title: "60 x 30 Small Ellipse v2",
         description: "Bg Ellipse pattens",
+        createDate: new Date(),
         config: {
             rows: 60,
             cols: 30,
@@ -62,6 +67,7 @@ export const templateList: TemplateListData[] = [
     {
         title: "60 x 30 Small Ellipse v3",
         description: "Bg Ellipse pattens",
+        createDate: new Date(),
         config: {
             rows: 60,
             cols: 30,
