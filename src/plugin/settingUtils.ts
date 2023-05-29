@@ -1,4 +1,4 @@
-import { FavouritePattenConfig } from "../app/interface/shapesConfig";
+import { PattenConfig } from "../app/interface/shapesConfig";
 
 
 const config = {
@@ -7,16 +7,25 @@ const config = {
 
 export async function getFavouriteList(){
     const storeData: undefined | string = await figma.clientStorage.getAsync(config.favouriteList);
-    let list:FavouritePattenConfig[] = !storeData ? [] : JSON.parse(storeData)
+    console.log("storeData", storeData);
+    let list:PattenConfig[] = !storeData ? [] : JSON.parse(storeData)
 
     return list
 }
 
-export async function setFavouriteList(list:FavouritePattenConfig[]){
+export async function setFavouriteList(list:PattenConfig[]){
     await figma.clientStorage.setAsync(config.favouriteList, JSON.stringify(list))
 }
 
-export async function addNewFavourite(data: FavouritePattenConfig){
+export async function clearFavouriteList(){
+    await figma.clientStorage.setAsync(config.favouriteList, JSON.stringify([]))
+}
+
+export async function addNewFavourite(inputData: any){
+
+    let data = inputData.data as PattenConfig
+
+    console.log("ADD DATA", data);
 
     let list = await getFavouriteList();
 
@@ -28,7 +37,9 @@ export async function addNewFavourite(data: FavouritePattenConfig){
     
     list.push(data);
 
-    await setFavouriteList(list)
+    await setFavouriteList(list);
+
+    console.log("list", list);
     return true
 }
 

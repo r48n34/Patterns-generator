@@ -1,11 +1,11 @@
 import React from 'react';
-import { TemplateListData } from '../../data/templateConfig';
 import { Modal, ActionIcon, JsonInput } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconFileDots } from '@tabler/icons-react';
+import { PattenConfig } from '../../interface/shapesConfig';
 
 type TemplateDateModalProps = {
-    data: TemplateListData;
+    data: PattenConfig;
 }
 
 function TemplateDateModal({ data }: TemplateDateModalProps){

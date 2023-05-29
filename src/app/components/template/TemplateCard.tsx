@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { TemplateListData } from "../../data/templateConfig";
 import { Card, Text, Button, Group } from '@mantine/core';
 import { generateTemplate } from '../../utils/callFigma';
 
 import TemplateDateModal from './TemplateDateModal';
+import { PattenConfig } from '../../interface/shapesConfig';
 
 type TemplateCardProps = {
-    data: TemplateListData;
+    data: PattenConfig;
 }
 
 function TemplateCard({ data }: TemplateCardProps) {

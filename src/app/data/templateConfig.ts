@@ -1,13 +1,6 @@
-import { ShapesGenData } from "../interface/shapesConfig"
+import { PattenConfig } from "../interface/shapesConfig";
 
-export interface TemplateListData {
-    title: string
-    createDate: Date
-    description: string
-    config: ShapesGenData
-}
-
-export const templateList: TemplateListData[] = [
+export const templateList: PattenConfig[] = [
     {
         title: "5 x 5 Small Ellipse",
         description: "Small Ellipse pattens",

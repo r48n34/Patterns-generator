@@ -6,6 +6,7 @@ import MainParts from './parts/MainParts';
 import TemplatePage from './parts/TemplatePage';
 import FavouritePage from './parts/FavouritePage';
 import { useFavStore } from '../store/favStore';
+import { getFavList } from '../utils/callFigma';
 
 function App() {
 
@@ -23,8 +24,8 @@ function App() {
             }
 
             if (type === 'get-fav-list-done') {
-                console.log("Processing");
-                console.log(message);
+                // console.log("Processing");
+                console.log("MES", message);
                 setArrayFav(message);
             }
 
@@ -35,6 +36,9 @@ function App() {
             }
 
         };
+
+        setTimeout( () => getFavList(), 200)
+        
     }, []);
 
     

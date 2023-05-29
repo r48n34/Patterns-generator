@@ -8,9 +8,10 @@ export interface ShapesGenData {
     shapes: "Ellipse" | "Rectangle" | "Polygon" | "Star",
 }
 
-export interface FavouritePattenConfig {
+export interface PattenConfig {
     title: string
     createDate: Date
     description: string
     config: ShapesGenData
 }
+

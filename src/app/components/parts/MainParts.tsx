@@ -11,13 +11,18 @@ import {
     IconZoomPan,
     IconBook2, 
     IconPencilPlus,
-    IconAdjustments
+    IconAdjustments,
+    IconTrash
 } from '@tabler/icons-react';
 
 import { ShapesGenData } from '../../interface/shapesConfig';
-import { addFavList, generateTemplate } from '../../utils/callFigma';
+import { generateTemplate } from '../../utils/callFigma';
+import { useFavStore } from '../../store/favStore';
 
 function MainParts() {
+
+    const addItemFav = useFavStore((state) => state.addItem);
+    const clearItemFav = useFavStore((state) => state.clearList);
 
     const form = useForm<ShapesGenData>({
         initialValues: {
@@ -47,10 +52,8 @@ function MainParts() {
     }, [form.values.density]);
 
     function addFav(){
-
-        addFavList({
+        addItemFav({
             title: "Hello" + Math.floor(Math.random() * 100000),
-            createDate: new Date(),
             description: "Hello mate",
             config: form.values
         });
@@ -63,6 +66,10 @@ function MainParts() {
         <Group position="right">
             <ActionIcon onClick={() => addFav()}>
                 <IconAdjustments size="1.125rem" />
+            </ActionIcon>
+
+            <ActionIcon onClick={() => clearItemFav()}>
+                <IconTrash size="1.125rem" />
             </ActionIcon>
         </Group>
 
