@@ -21,10 +21,7 @@ export async function clearFavouriteList(){
     await figma.clientStorage.setAsync(config.favouriteList, JSON.stringify([]))
 }
 
-export async function addNewFavourite(inputData: any){
-
-    let data = inputData.data as PattenConfig
-    console.log("ADD DATA", data);
+export async function addNewFavourite(data: PattenConfig){
 
     let list = await getFavouriteList();
     const isExist = list.findIndex( v => v.title === data.title ) >= 0
@@ -42,6 +39,7 @@ export async function addNewFavourite(inputData: any){
 }
 
 export async function removeFavourite(title: string){
+
     let list = await getFavouriteList();
     list = list.filter( v => v.title !== title );
 

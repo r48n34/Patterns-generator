@@ -19,3 +19,7 @@ export function addFavList(data: PattenConfig){
 export function clearFavList(){
     parent.postMessage({ pluginMessage: { type: 'clear-fav-list'  } }, '*');
 }
+
+export function removeFavListOneItem(title: string){
+    parent.postMessage({ pluginMessage: { type: 'remove-one-fav-list-item', data: title  } }, '*');
+}

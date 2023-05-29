@@ -1,6 +1,6 @@
 import { ShapesGenData } from "../app/interface/shapesConfig";
 import { timer } from "../app/utils/callFigma";
-import { addNewFavourite, clearFavouriteList, getFavouriteList } from "./settingUtils";
+import { addNewFavourite, clearFavouriteList, getFavouriteList, removeFavourite } from "./settingUtils";
 
 figma.showUI(__html__, {
     width: 400,
@@ -22,7 +22,12 @@ figma.ui.onmessage = async (msg) => {
     }
 
     if (msg.type === "add-fav-list") {
-        await addNewFavourite(msg);
+        await addNewFavourite(msg.data);
+        return 
+    }
+
+    if (msg.type === "remove-one-fav-list-item") {
+        await removeFavourite(msg.data);
         return 
     }
 
