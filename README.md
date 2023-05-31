@@ -15,3 +15,9 @@ Wanna make shapes with patterns in figma? The plugin help you to create pattern 
 ## References
 
 This plugins is start with `Figma Plugin React Template` from https://github.com/nirsky/figma-plugin-react-template
+
+## Todo
+
+- [x] Add favourite history
+- [ ] Edit favourite history
+- [ ] Generate images / Text patterns
