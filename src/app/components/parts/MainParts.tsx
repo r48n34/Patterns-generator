@@ -1,5 +1,5 @@
 import React from 'react';
-import { NumberInput, Button, Container, Grid, Select, Group, Accordion } from '@mantine/core';
+import { NumberInput, Button, Container, Grid, Select, Group, Accordion, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
 import { 
@@ -29,6 +29,7 @@ function MainParts() {
           density: 80,
           shapeSize: 25,
           shapes: "Ellipse",
+          textContent: "",
         },
 
         validate: {
@@ -71,9 +72,21 @@ function MainParts() {
                         { value: 'Ellipse', label: '🔴 Ellipse' },
                         { value: 'Polygon', label: '🔻 Polygon' },
                         { value: 'Star', label: '⭐ Star' },
+                        { value: 'Text', label: '🖊 Text' },
                     ]}
                     {...form.getInputProps('shapes')}
                 />
+
+                
+                { form.values.shapes === "Text" && (
+                    <TextInput
+                        mt={10}
+                        placeholder="K"
+                        label="Text content"
+                        withAsterisk
+                        {...form.getInputProps('textContent')}
+                    />
+                )}  
 
                 <Grid mt={4}>
                     <Grid.Col span={6}>

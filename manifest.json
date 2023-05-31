@@ -1,5 +1,5 @@
 {
-  "name": "Pattens generator",
+  "name": "Patterns generator",
   "id": "1242738296070075685",
   "api": "1.0.0",
   "main": "dist/code.js",

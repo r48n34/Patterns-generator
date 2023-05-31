@@ -35,7 +35,6 @@ figma.ui.onmessage = async (msg) => {
     }
 
 
-
     figma.ui.postMessage({
         type: "processing"
     });
@@ -43,9 +42,9 @@ figma.ui.onmessage = async (msg) => {
     if (msg.type === "create-rectangles") {
         await createRectangles(msg);
     }
-    else if (msg.type === "create-img") {
-        await createImg()
-    }
+    // else if (msg.type === "create-img") {
+    //     await createImg()
+    // }
 
     figma.ui.postMessage({
         type: "done"
@@ -68,19 +67,33 @@ async function createRectangles(msg){
         "Polygon": { ind: 1, function: figma.createPolygon },
         "Star": { ind: 2, function: figma.createStar },
         "Rectangle": { ind: 3, function: figma.createRectangle },
+        "Text": { ind: 4, function: figma.createText },
+    }
+
+    if(shapeIndArr[config.shapes].ind === 4){
+        await figma.loadFontAsync({ family: "Inter", style: "Regular" });
     }
 
     for (let i = 0; i < config.rows; i++) {
         for (let k = 0; k < config.cols; k++) {
-            const shapes = shapeIndArr[config.shapes].function()
+            const obj = shapeIndArr[config.shapes].function()
 
-            shapes.x = currentX + (i * config.paddingRows);
-            shapes.y = currentY + (k * config.paddingCols);
+            console.log("object", config.shapes);
 
-            shapes.resize(config.shapeSize, config.shapeSize);
-            shapes.fills = [{ type: "SOLID", color: { r: 1, g: 0.5, b: 0 } }];
+            obj.x = currentX + (i * config.paddingRows);
+            obj.y = currentY + (k * config.paddingCols);
 
-            nodes.push(shapes);
+            if(shapeIndArr[config.shapes].ind === 4){
+                (obj as TextNode).characters = config.textContent || "N/A";
+                (obj as TextNode).fontSize   = config.shapeSize;
+            }
+            else {
+                obj.resize(config.shapeSize, config.shapeSize);    
+            }
+
+            obj.fills = [{ type: "SOLID", color: { r: 1, g: 0.5, b: 0 } }];
+            nodes.push(obj);
+            
         }
     }
 
@@ -97,32 +110,32 @@ async function createRectangles(msg){
     // });
 }
 
-async function createImg(){
-    // @ts-expect-error
-    let image = await figma.createImageAsync('https://picsum.photos/200')
-    const node = figma.createRectangle();
+// async function createImg(){
+//     // @ts-expect-error
+//     let image = await figma.createImageAsync('https://picsum.photos/200')
+//     const node = figma.createRectangle();
 
-    const { width, height } = await image.getSizeAsync()
-    node.resize(width, height)
+//     const { width, height } = await image.getSizeAsync()
+//     node.resize(width, height)
 
-    node.fills = [
-        {
-        type: 'IMAGE',
-        imageHash: image.hash,
-        scaleMode: 'FILL'
-        }
-    ]
+//     node.fills = [
+//         {
+//         type: 'IMAGE',
+//         imageHash: image.hash,
+//         scaleMode: 'FILL'
+//         }
+//     ]
 
-    const text = figma.createText()
-    await figma.loadFontAsync({ family: "Inter", style: "Regular" });
-    text.characters = 'Hello world!'
+//     const text = figma.createText()
+//     await figma.loadFontAsync({ family: "Inter", style: "Regular" });
+//     text.characters = 'Hello world!'
 
-    text.fontSize = 90
-    text.fills = [{ type: 'SOLID', color: { r: 1, g: 0, b: 0 } }]
+//     text.fontSize = 90
+//     text.fills = [{ type: 'SOLID', color: { r: 1, g: 0, b: 0 } }]
 
-    // This is how figma responds back to the ui
-    // figma.ui.postMessage({
-    //     type: "create-img",
-    //     message: `Created ${msg.count} create-img`,
-    // });
-}
+//     // This is how figma responds back to the ui
+//     // figma.ui.postMessage({
+//     //     type: "create-img",
+//     //     message: `Created ${msg.count} create-img`,
+//     // });
+// }

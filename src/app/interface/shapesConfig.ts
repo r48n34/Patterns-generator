@@ -1,3 +1,5 @@
+
+
 export interface ShapesGenData {
     rows: number,
     cols: number,
@@ -5,7 +7,8 @@ export interface ShapesGenData {
     paddingCols: number,
     density: number,
     shapeSize: number,
-    shapes: "Ellipse" | "Rectangle" | "Polygon" | "Star",
+    shapes: "Ellipse" | "Rectangle" | "Polygon" | "Star" | "Text",
+    textContent?: string // If shapes === "Text", it shoule contains a textContent
 }
 
 export interface PattenConfig {
