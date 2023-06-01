@@ -57,6 +57,9 @@ function GenPatternsForm({
         initialValues: initData(mode, data),
         validate: {
             density:     (value) => (value && value >= 1 ? null : 'Invalid density'),
+            rows:        (value) => (value && value >= 1 ? null : 'Invalid rows'),
+            cols:        (value) => (value && value >= 1 ? null : 'Invalid cols'),
+            shapeSize:   (value) => (value && value >= 1 ? null : 'Invalid shapeSize'),
             paddingRows: (value) => (value && value >= 1 ? null : 'Invalid paddingRows'),
             paddingCols: (value) => (value && value >= 1 ? null : 'Invalid paddingCols'),
         },
