@@ -12,7 +12,7 @@ function TemplatePage(){
             <Grid>
                 {templateList.map( v =>
                     <Grid.Col span={12} key={v.title}>
-                        <TemplateCard data={v} showsDelete={false}/>
+                        <TemplateCard data={v} showsDelete={false} showsEdit={false}/>
                     </Grid.Col>
                 )}
             </Grid>
