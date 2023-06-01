@@ -19,6 +19,6 @@ This plugins is start with `Figma Plugin React Template` from https://github.com
 ## Todo
 
 - [x] Add favourite history
-- [ ] Edit favourite history
+- [x] Edit favourite history
 - [ ] Generate images patterns
 - [X] Generate text patterns
