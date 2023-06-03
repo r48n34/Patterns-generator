@@ -1,5 +1,5 @@
 import React from 'react';
-import { NumberInput, Button, Container, Grid, Select, Group, Accordion, TextInput, Switch } from '@mantine/core';
+import { NumberInput, Button, Container, Grid, Select, Group, Accordion, TextInput, Switch, Text } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
 import { 
@@ -11,6 +11,7 @@ import {
     IconZoomPan,
     IconBook2, 
     IconPencilPlus,
+    IconBrandDenodo
 } from '@tabler/icons-react';
 
 import { ShapesGenData } from '../../interface/shapesConfig';
@@ -58,14 +59,23 @@ function GenPatternsForm({
     const form = useForm<ShapesGenData>({
         initialValues: initData(mode, data),
         validate: {
-            density:     (value) => (value && value >= 1 ? null : 'Invalid density'),
-            rows:        (value) => (value && value >= 1 ? null : 'Invalid rows'),
-            cols:        (value) => (value && value >= 1 ? null : 'Invalid cols'),
-            shapeSize:   (value) => (value && value >= 1 ? null : 'Invalid shapeSize'),
-            paddingRows: (value) => (value && value >= 1 ? null : 'Invalid paddingRows'),
-            paddingCols: (value) => (value && value >= 1 ? null : 'Invalid paddingCols'),
+            density:       (value) => (value && value >= 1 ? null : 'Invalid density'),
+            rows:          (value) => (value && value >= 1 ? null : 'Invalid rows'),
+            cols:          (value) => (value && value >= 1 ? null : 'Invalid cols'),
+            shapeSize:     (value) => (value && value >= 1 ? null : 'Invalid shapeSize'),
+            paddingRows:   (value) => (value && value >= 1 ? null : 'Invalid paddingRows'),
+            paddingCols:   (value) => (value && value >= 1 ? null : 'Invalid paddingCols'),
+            randomDensity: (value) => checkRandomDensity(value),
         },
     });
+
+    function checkRandomDensity(value){
+        if(!form.values.randomMode){
+            return null
+        }
+
+        return value && (value >= 0.1 || value <= 0.9) ? null : 'Invalid randomDensity'
+    }
 
     function createShapes(values: ShapesGenData){
 
@@ -219,15 +229,16 @@ function GenPatternsForm({
                     <Grid mt={8}>
                         <Grid.Col span={6}>
                             <Switch
-                                label="Random mode"
+                                label="Random"
                                 {...form.getInputProps('randomMode', { type: 'checkbox' })}
                             />
 
                         </Grid.Col>
                         <Grid.Col span={6}>
                             { form.values.randomMode && (
+                                <>
                                 <NumberInput
-                                    icon={<IconArrowAutofitUp size="1rem" />}
+                                    icon={<IconBrandDenodo size="1rem" />}
                                     placeholder="0.5"
                                     label="Random Density"
                                     withAsterisk
@@ -237,6 +248,9 @@ function GenPatternsForm({
                                     max={1}
                                     {...form.getInputProps('randomDensity')}
                                 />
+                                <Text c="dimmed" fz={12} mt={1}> *Range: 0.1 - 1</Text>
+                                <Text c="dimmed" fz={12} mt={1}> Higher = more </Text>
+                                </>
                             )}
                         </Grid.Col>
                     </Grid>
@@ -249,7 +263,7 @@ function GenPatternsForm({
 
             <Group position='right' mt={6}>
                 <Button type="submit" variant="light" mt={6}>
-                    Create
+                    { mode === "create" ? "Create" : "Edit" }
                 </Button>
             </Group>
 
