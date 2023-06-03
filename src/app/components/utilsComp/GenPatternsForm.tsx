@@ -1,5 +1,5 @@
 import React from 'react';
-import { NumberInput, Button, Container, Grid, Select, Group, Accordion, TextInput } from '@mantine/core';
+import { NumberInput, Button, Container, Grid, Select, Group, Accordion, TextInput, Switch } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
 import { 
@@ -41,6 +41,8 @@ function initData(mode: Mode, data?: ShapesGenData){
         shapeSize: 25,
         shapes: "Ellipse",
         textContent: "",
+        randomMode: false,
+        randomDensity: 0.5
     } as ShapesGenData
 }
 
@@ -95,7 +97,8 @@ function GenPatternsForm({
             </Group>
         )}
 
-        <form onSubmit={form.onSubmit((values) => createShapes(values))}>
+        
+<form onSubmit={form.onSubmit((values) => createShapes(values))}>
             <Accordion multiple={true} defaultValue={["basic"]} mt={6} >
 
             <Accordion.Item value="basic">
@@ -112,6 +115,8 @@ function GenPatternsForm({
                         { value: 'Ellipse', label: '🔴 Ellipse' },
                         { value: 'Polygon', label: '🔻 Polygon' },
                         { value: 'Star', label: '⭐ Star' },
+                        { value: 'Star-4', label: '✨ Star 4' },
+                        { value: 'Line', label: '➖ Line' },
                         { value: 'Text', label: '🖊 Text' },
                     ]}
                     {...form.getInputProps('shapes')}
@@ -210,6 +215,32 @@ function GenPatternsForm({
                             />
                         </Grid.Col>
                     </Grid>
+
+                    <Grid mt={8}>
+                        <Grid.Col span={6}>
+                            <Switch
+                                label="Random mode"
+                                {...form.getInputProps('randomMode', { type: 'checkbox' })}
+                            />
+
+                        </Grid.Col>
+                        <Grid.Col span={6}>
+                            { form.values.randomMode && (
+                                <NumberInput
+                                    icon={<IconArrowAutofitUp size="1rem" />}
+                                    placeholder="0.5"
+                                    label="Random Density"
+                                    withAsterisk
+                                    precision={1}
+                                    step={0.1}
+                                    min={0.1}
+                                    max={1}
+                                    {...form.getInputProps('randomDensity')}
+                                />
+                            )}
+                        </Grid.Col>
+                    </Grid>
+
                     </Accordion.Panel>
 
                 </Accordion.Item>
@@ -218,7 +249,7 @@ function GenPatternsForm({
 
             <Group position='right' mt={6}>
                 <Button type="submit" variant="light" mt={6}>
-                    { mode === "create" ? "Create" : "Edit" }
+                    Create
                 </Button>
             </Group>
 
