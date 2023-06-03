@@ -68,14 +68,21 @@ async function createRectangles(msg){
         "Star": { ind: 2, function: figma.createStar },
         "Rectangle": { ind: 3, function: figma.createRectangle },
         "Text": { ind: 4, function: figma.createText },
+        "Star-4": { ind: 5, function: figma.createStar },
+        "Line": { ind: 6, function: figma.createLine },
     }
 
-    if(shapeIndArr[config.shapes].ind === 4){
+    if(config.shapes === "Text"){
         await figma.loadFontAsync({ family: "Inter", style: "Regular" });
     }
 
     for (let i = 0; i < config.rows; i++) {
         for (let k = 0; k < config.cols; k++) {
+
+            if(config.randomMode && Math.random() >= config.randomDensity){
+                continue;
+            }
+
             const obj = shapeIndArr[config.shapes].function()
 
             console.log("object", config.shapes);
@@ -83,15 +90,30 @@ async function createRectangles(msg){
             obj.x = currentX + (i * config.paddingRows);
             obj.y = currentY + (k * config.paddingCols);
 
-            if(shapeIndArr[config.shapes].ind === 4){
+            if(config.shapes === "Star-4"){
+                (obj as StarNode).pointCount = 4
+            }
+
+            if(config.shapes === "Text"){
                 (obj as TextNode).characters = config.textContent || "N/A";
                 (obj as TextNode).fontSize   = config.shapeSize;
             }
             else {
-                obj.resize(config.shapeSize, config.shapeSize);    
+                obj.resize(
+                    config.shapeSize,
+                    config.shapes === "Line" ? 0 : config.shapeSize
+                );    
             }
 
-            obj.fills = [{ type: "SOLID", color: { r: 1, g: 0.5, b: 0 } }];
+            if(config.shapes === "Line"){
+                obj.strokeWeight = 4
+                obj.strokes = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }]
+                // obj.strokeCap = 'ARROW_LINES'
+            }
+            else {
+                obj.fills = [{ type: "SOLID", color: { r: 1, g: 1, b: 1 } }];
+            }
+
             nodes.push(obj);
             
         }

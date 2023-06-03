@@ -1,5 +1,5 @@
 import React from 'react';
-import { NumberInput, Button, Container, Grid, Select, Group, Accordion, TextInput } from '@mantine/core';
+import { NumberInput, Button, Container, Grid, Select, Group, Accordion, TextInput, Switch } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
 import { 
@@ -30,6 +30,8 @@ function MainParts() {
           shapeSize: 25,
           shapes: "Ellipse",
           textContent: "",
+          randomMode: false,
+          randomDensity: 0.5
         },
 
         validate: {
@@ -72,6 +74,8 @@ function MainParts() {
                         { value: 'Ellipse', label: '🔴 Ellipse' },
                         { value: 'Polygon', label: '🔻 Polygon' },
                         { value: 'Star', label: '⭐ Star' },
+                        { value: 'Star-4', label: '✨ Star 4' },
+                        { value: 'Line', label: '➖ Line' },
                         { value: 'Text', label: '🖊 Text' },
                     ]}
                     {...form.getInputProps('shapes')}
@@ -170,6 +174,32 @@ function MainParts() {
                             />
                         </Grid.Col>
                     </Grid>
+
+                    <Grid mt={8}>
+                        <Grid.Col span={6}>
+                            <Switch
+                                label="Random mode"
+                                {...form.getInputProps('randomMode', { type: 'checkbox' })}
+                            />
+
+                        </Grid.Col>
+                        <Grid.Col span={6}>
+                            { form.values.randomMode && (
+                                <NumberInput
+                                    icon={<IconArrowAutofitUp size="1rem" />}
+                                    placeholder="0.5"
+                                    label="Random Density"
+                                    withAsterisk
+                                    precision={1}
+                                    step={0.1}
+                                    min={0.1}
+                                    max={1}
+                                    {...form.getInputProps('randomDensity')}
+                                />
+                            )}
+                        </Grid.Col>
+                    </Grid>
+
                     </Accordion.Panel>
 
                 </Accordion.Item>
