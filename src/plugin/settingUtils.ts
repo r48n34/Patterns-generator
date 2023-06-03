@@ -1,4 +1,4 @@
-import { PattenConfig } from "../app/interface/shapesConfig";
+import { PattenConfig, ShapesGenData } from "../app/interface/shapesConfig";
 
 const config = {
     favouriteList: "favouriteList"
@@ -40,4 +40,18 @@ export async function removeFavourite(title: string){
     list = list.filter( v => v.title !== title );
 
     await setFavouriteList(list)
+}
+
+export async function editFavouriteList(data: {title: string, newData: ShapesGenData}){
+
+    let newFavList = await getFavouriteList();
+    let targetDataInd = newFavList.findIndex( (v) => v.title === data.title);
+
+    if(targetDataInd <= -1){
+        return 
+    }
+
+    newFavList[targetDataInd].config = data.newData;
+
+    await setFavouriteList(newFavList)
 }

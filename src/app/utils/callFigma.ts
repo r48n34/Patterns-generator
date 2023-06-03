@@ -23,3 +23,7 @@ export function clearFavList(){
 export function removeFavListOneItem(title: string){
     parent.postMessage({ pluginMessage: { type: 'remove-one-fav-list-item', data: title  } }, '*');
 }
+
+export function editFavListOneItem(data: {title: string, newData: ShapesGenData}){
+    parent.postMessage({ pluginMessage: { type: 'edit-one-fav-list-item', data: data  } }, '*');
+}

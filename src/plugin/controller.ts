@@ -1,6 +1,6 @@
 import { ShapesGenData } from "../app/interface/shapesConfig";
 import { timer } from "../app/utils/callFigma";
-import { addNewFavourite, clearFavouriteList, getFavouriteList, removeFavourite } from "./settingUtils";
+import { addNewFavourite, clearFavouriteList, editFavouriteList, getFavouriteList, removeFavourite } from "./settingUtils";
 
 figma.showUI(__html__, {
     width: 400,
@@ -34,6 +34,11 @@ figma.ui.onmessage = async (msg) => {
         return 
     }
 
+    if (msg.type === "edit-one-fav-list-item") {
+        await editFavouriteList(msg.data);
+        return 
+    }
+
 
     figma.ui.postMessage({
         type: "processing"
@@ -42,9 +47,6 @@ figma.ui.onmessage = async (msg) => {
     if (msg.type === "create-rectangles") {
         await createRectangles(msg);
     }
-    // else if (msg.type === "create-img") {
-    //     await createImg()
-    // }
 
     figma.ui.postMessage({
         type: "done"

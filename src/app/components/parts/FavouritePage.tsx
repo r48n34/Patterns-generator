@@ -11,7 +11,6 @@ function FavouritePage(){
 
     return (
         <>
-
         <ScrollArea h={"90vh"}>
             <Container>
 
@@ -22,7 +21,7 @@ function FavouritePage(){
             <Grid>
                 {favList.map( v =>
                     <Grid.Col span={12} key={v.title}>
-                        <TemplateCard data={v} showsDelete={true}/>
+                        <TemplateCard data={v} showsDelete={true} showsEdit={true}/>
                     </Grid.Col>
                 )}
             </Grid>
