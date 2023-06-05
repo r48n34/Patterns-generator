@@ -128,14 +128,19 @@ function GenPatternsForm({
                 <Select
                     label="Shapes"
                     placeholder="Pick one"
+                    searchable
+                    nothingFound="No options"
+                    transitionProps={{ transition: 'slide-right', duration: 70, timingFunction: 'ease' }}
                     data={[
-                        { value: 'Rectangle', label: '🟥 Rectangle' },
-                        { value: 'Ellipse', label: '🔴 Ellipse' },
-                        { value: 'Polygon', label: '🔻 Polygon' },
-                        { value: 'Star', label: '⭐ Star' },
-                        { value: 'Star-4', label: '✨ Star 4' },
-                        { value: 'Line', label: '➖ Line' },
-                        { value: 'Text', label: '🖊 Text' },
+                        { value: 'Rectangle', label: '🟥 Rectangle', group: 'Rectangle' },
+                        { value: 'Ellipse', label: '🔴 Ellipse', group: 'Ellipse' },
+                        { value: 'Ellipse-half', label: '🌗 Half Ellipse', group: 'Ellipse' },
+                        { value: 'Ellipse-one-four', label: '🕘 1/4 Ellipse', group: 'Ellipse' },
+                        { value: 'Polygon', label: '🔻 Polygon', group: 'Polygon' },
+                        { value: 'Star', label: '⭐ Star', group: 'Star' },
+                        { value: 'Star-4', label: '✨ Star 4', group: 'Star' },
+                        { value: 'Line', label: '➖ Line', group: 'Polygon' },
+                        { value: 'Text', label: '🖊 Text', group: 'Text' },
                     ]}
                     {...form.getInputProps('shapes')}
                 />
@@ -245,6 +250,7 @@ function GenPatternsForm({
                                 max={180}
                                 {...form.getInputProps('rotation')}
                             />
+                            <Text c="dimmed" fz={12} mt={1}> (-180 to 180)</Text>
                         </Grid.Col>
 
                         <Grid.Col span={6}>

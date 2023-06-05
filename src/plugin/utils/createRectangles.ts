@@ -30,6 +30,8 @@ export async function createRectangles(msg){
         "Text": { ind: 4, function: () => {}, overallFunction: generateTextNode }, // Text
         "Star-4": { ind: 5, function: figma.createStar, overallFunction: generateShapeNode },
         "Line": { ind: 6, function: () => {}, overallFunction: generateLineNode }, // Line
+        "Ellipse-half": { ind: 7, function: figma.createEllipse, overallFunction: generateShapeNode },
+        "Ellipse-one-four": { ind: 8, function: figma.createEllipse, overallFunction: generateShapeNode },
     }
 
     if(config.shapes === "Text"){
@@ -118,6 +120,12 @@ function generateShapeNode(
 
     if(config.shapes === "Star-4"){
         (obj as StarNode).pointCount = 4;
+    }
+    else if(config.shapes === "Ellipse-half"){
+        (obj as EllipseNode).arcData = {startingAngle: 0, endingAngle: Math.PI, innerRadius: 0}
+    }
+    else if(config.shapes === "Ellipse-one-four"){
+        (obj as EllipseNode).arcData = {startingAngle: 0, endingAngle: Math.PI / 2, innerRadius: 0}
     }
 
     obj.rotation = config.rotation || 0;

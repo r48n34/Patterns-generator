@@ -7,7 +7,7 @@ export interface ShapesGenData {
     paddingCols: number,
     density: number,
     shapeSize: number,
-    shapes: "Ellipse" | "Rectangle" | "Polygon" | "Star" | "Text" | "Star-4" | "Line",
+    shapes: "Ellipse" | "Rectangle" | "Polygon" | "Star" | "Text" | "Star-4" | "Line" | "Ellipse-half" | "Ellipse-one-four",
     rotation?: number, // 180 to -180
     color?: string,
     textContent?: string // If shapes === "Text", it shoule contains a textContent
