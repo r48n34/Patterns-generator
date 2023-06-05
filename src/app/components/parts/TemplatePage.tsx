@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollArea, Container, Grid, TextInput, SegmentedControl, Group } from '@mantine/core';
+import { ScrollArea, Container, Grid, TextInput, SegmentedControl, Group, ActionIcon, Text } from '@mantine/core';
 import { templateList } from '../../data/templateConfig';
 import TemplateCard from '../template/TemplateCard';
 import { PattenConfig } from '../../interface/shapesConfig';
-import { IconLayoutGrid, IconLayoutRows, IconSearch } from '@tabler/icons-react';
+import { IconLayoutGrid, IconLayoutRows, IconSearch, IconClearFormatting } from '@tabler/icons-react';
 import TemplateCardSmall from '../template/TemplateCardSmall';
 
 function TemplatePage(){
@@ -40,7 +40,14 @@ function TemplatePage(){
                 onChange={(event) => setSearchStr(event.currentTarget.value)}
                 mt={8}
                 mb={16}
+                rightSection={
+                    <ActionIcon onClick={() => setSearchStr("")}>
+                        <IconClearFormatting size="1rem" />
+                    </ActionIcon>
+                }
             />
+
+            { displayList.length === 0 && <Text ta="center" c="dimmed" mt={4}> Not found :( </Text> }
 
             </Container>
             
@@ -60,6 +67,7 @@ function TemplatePage(){
                     )
                 )}
             </Grid>
+                
             </Container>
             </ScrollArea>
         </>
