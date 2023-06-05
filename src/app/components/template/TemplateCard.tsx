@@ -6,6 +6,8 @@ import { generateTemplate } from '../../utils/callFigma';
 // import TemplateDateModal from './TemplateDateModal';
 import { PattenConfig } from '../../interface/shapesConfig';
 import TemplateMenu from './TemplateMenu';
+import { IconHammer } from '@tabler/icons-react';
+import LabelsDisplayNav from './LabelsDisplayNav';
 
 type TemplateCardProps = {
     data: PattenConfig;
@@ -19,7 +21,9 @@ function TemplateCard({ data, showsDelete = false , showsEdit = false }: Templat
         <Card shadow="sm" padding="lg" radius="md" withBorder>
             <Space h="lg" />
 
-            <Group position="apart" mb="xs">
+            <LabelsDisplayNav data={data}/>
+
+            <Group position="apart" mb="xs" mt={6}>
                 <Text weight={500} fz={18}>{ data.title }</Text>
                 <TemplateMenu data={data} showsDelete={showsDelete} showsEdit={showsEdit}/>
             </Group>
@@ -28,7 +32,7 @@ function TemplateCard({ data, showsDelete = false , showsEdit = false }: Templat
                 { data.description }
             </Text>
 
-            <Button variant="light" color="blue" fullWidth mt="md" radius="md" onClick={ () => generateTemplate(data.config) }>
+            <Button leftIcon={<IconHammer size="1rem"/>} variant="light" color="blue" fullWidth mt="md" radius="md" onClick={ () => generateTemplate(data.config) }>
                 Generate this
             </Button>
 

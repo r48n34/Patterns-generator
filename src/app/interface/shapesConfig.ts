@@ -22,3 +22,14 @@ export interface PattenConfig {
     config: ShapesGenData
 }
 
+export const shapesIconMap = {
+    'Rectangle': '🟥 ',
+    'Ellipse': '🔴',
+    'Ellipse-half': '🌗',
+    'Ellipse-one-four': '🕘',
+    'Polygon': '🔻',
+    'Star': '⭐',
+    'Star-4': '✨',
+    'Line': '➖ ',
+    'Text': '🖊',
+}
