@@ -4,6 +4,7 @@ import { addFavList, clearFavList, editFavListOneItem, removeFavListOneItem } fr
 
 interface FavListState {
   favList: PattenConfig[];
+  globalToggle: boolean; // For force update, no meanings
   setArray: (data: PattenConfig[]) => void;
   deleteItem: (title: string) => void;
   editItem: (title: string, newData: ShapesGenData) => void;
@@ -16,10 +17,14 @@ interface FavListState {
 export const useFavStore = create<FavListState>()(
   (set) => ({
     favList: [],
+    globalToggle: false,
     setArray: (data) => set(() => ({ favList: data })),
     deleteItem: async (title) => {
         removeFavListOneItem(title);
-        set((status) => ({ favList: status.favList.filter(v => v.title !== title) }));
+        set((status) => ({ 
+          favList: status.favList.filter(v => v.title !== title),
+          globalToggle: !status.globalToggle
+        }));
     },
     editItem: async (title: string, newData: ShapesGenData) => {
         
@@ -34,17 +39,17 @@ export const useFavStore = create<FavListState>()(
             }
 
             oldFavList[targetDataInd].config = newData;
-            return { favList: oldFavList }
+            return { favList: oldFavList, globalToggle: !status.globalToggle }
         });
     },
     clearList: async () => {
         clearFavList();
-        set(() => ({ favList: [] }));
+        set((status) => ({ favList: [], globalToggle: !status.globalToggle }));
     },
     addItem: async (data) => {
       const finalData = { ...data, createDate: new Date() };
       addFavList(finalData);
-      set((status) => ({ favList: [...status.favList, finalData] }));
+      set((status) => ({ favList: [...status.favList, finalData], globalToggle: !status.globalToggle }));
     },
     // setArray: (data) => set((state) => ({ favList: data })),
   }),

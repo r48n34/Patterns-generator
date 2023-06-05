@@ -19,7 +19,7 @@ function TemplateCard({ data, showsDelete = false , showsEdit = false }: Templat
     return (
         <>
         <Card shadow="sm" padding="lg" radius="md" withBorder>
-            <Space h="lg" />
+            {/* <Space h="lg" /> */}
 
             <LabelsDisplayNav data={data}/>
 

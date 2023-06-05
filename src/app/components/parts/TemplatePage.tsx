@@ -55,7 +55,7 @@ function TemplatePage(){
                     )
                     :(
                         <Grid.Col span={6} key={v.title}>
-                            <TemplateCardSmall data={v} showsDelete={false} showsEdit={false}/>
+                            <TemplateCardSmall data={v} showsDelete={false} showsEdit={false} showsDetails={false}/>
                         </Grid.Col>
                     )
                 )}

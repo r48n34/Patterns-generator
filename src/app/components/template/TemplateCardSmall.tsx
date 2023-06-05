@@ -11,11 +11,12 @@ import LabelsDisplayNav from './LabelsDisplayNav';
 
 type TemplateCardProps = {
     data: PattenConfig;
+    showsDetails?: boolean
     showsDelete?: boolean
     showsEdit?: boolean
 }
 
-function TemplateCardSmall({ data, showsDelete = false , showsEdit = false }: TemplateCardProps) {
+function TemplateCardSmall({ data, showsDelete = false , showsEdit = false, showsDetails = true }: TemplateCardProps) {
     return (
         <>
         <Card shadow="sm" padding="md" radius="md" withBorder>
@@ -23,8 +24,8 @@ function TemplateCardSmall({ data, showsDelete = false , showsEdit = false }: Te
             <LabelsDisplayNav data={data}/>
             <Text weight={500} fz={14} mt={6}>{ data.title }</Text>
 
-            <Group position="apart" mt={12}>
-                <TemplateMenu data={data} showsDelete={showsDelete} showsEdit={showsEdit}/>
+            <Group position={ showsDetails ? "apart" : "right"} mt={12}>
+                { showsDetails && <TemplateMenu data={data} showsDelete={showsDelete} showsEdit={showsEdit}/> }
 
                 <ActionIcon color="blue" variant="light" onClick={ () => generateTemplate(data.config) }>
                     <IconHammer size="1.125rem" />
