@@ -130,7 +130,7 @@ function GenPatternsForm({
                     placeholder="Pick one"
                     searchable
                     nothingFound="No options"
-                    transitionProps={{ transition: 'slide-right', duration: 70, timingFunction: 'ease' }}
+                    transitionProps={{ transition: 'fade', duration: 70, timingFunction: 'ease' }}
                     data={[
                         { value: 'Rectangle', label: '🟥 Rectangle', group: 'Rectangle' },
                         { value: 'Ellipse', label: '🔴 Ellipse', group: 'Ellipse' },

@@ -1,21 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { ScrollArea, Container, Grid, TextInput, SegmentedControl, Group, ActionIcon, Text } from '@mantine/core';
+import React, { useState } from 'react';
+import { ScrollArea, Container, Grid,SegmentedControl, Group, Text } from '@mantine/core';
 import { templateList } from '../../data/templateConfig';
 import TemplateCard from '../template/TemplateCard';
-import { PattenConfig } from '../../interface/shapesConfig';
-import { IconLayoutGrid, IconLayoutRows, IconSearch, IconClearFormatting } from '@tabler/icons-react';
+
+import { IconLayoutGrid, IconLayoutRows } from '@tabler/icons-react';
 import TemplateCardSmall from '../template/TemplateCardSmall';
+import SearchBar from '../utilsComp/SearchBar';
 
 function TemplatePage(){
 
     const [ searchStr, setSearchStr ] = useState<string>("");
-    const [ displayList, setDisplayList ] = useState<PattenConfig[]>(templateList);
     const [ displayMethod, setDisplayMethod ] = useState<'Big-display' | 'Small-display'>('Small-display');
-
-    useEffect( () => {
-        const newList = templateList.filter( v => v.title.toLocaleLowerCase().includes( searchStr.toLocaleLowerCase() ));
-        setDisplayList(newList)
-    },[searchStr])
+    const displayList = templateList.filter( v => v.title.toLocaleLowerCase().includes( searchStr.toLocaleLowerCase() ));
 
     return (
         <>
@@ -32,21 +28,7 @@ function TemplatePage(){
                 />
             </Group>
 
-            <TextInput
-                // label="Search" 
-                placeholder="Search text"
-                value={searchStr}
-                icon={<IconSearch size="0.8rem" />}
-                onChange={(event) => setSearchStr(event.currentTarget.value)}
-                mt={8}
-                mb={16}
-                rightSection={
-                    <ActionIcon onClick={() => setSearchStr("")}>
-                        <IconClearFormatting size="1rem" />
-                    </ActionIcon>
-                }
-            />
-
+            <SearchBar searchStr={searchStr} setSearchStr={setSearchStr} />
             { displayList.length === 0 && <Text ta="center" c="dimmed" mt={4}> Not found :( </Text> }
 
             </Container>

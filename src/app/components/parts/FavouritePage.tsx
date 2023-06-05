@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { Container, ScrollArea, Grid, Group, SegmentedControl, TextInput, ActionIcon, Text } from '@mantine/core';
+import { Container, ScrollArea, Grid, Group, SegmentedControl, Text } from '@mantine/core';
 import { useFavStore } from '../../store/favStore';
 import TemplateCard from '../template/TemplateCard';
 import DeleteAllFavBtn from '../utilsComp/DeleteAllFavBtn';
 import EmptyCard from '../template/EmptyCard';
-import { IconClearFormatting, IconLayoutGrid, IconLayoutRows, IconSearch } from '@tabler/icons-react';
+import { IconLayoutGrid, IconLayoutRows,  } from '@tabler/icons-react';
 // import { PattenConfig } from '../../interface/shapesConfig';
 import TemplateCardSmall from '../template/TemplateCardSmall';
+import SearchBar from '../utilsComp/SearchBar';
 
 function FavouritePage() {
 
@@ -34,21 +35,7 @@ function FavouritePage() {
                     />
                 </Group>
                 { _ }
-                <TextInput
-                    // label="Search" 
-                    placeholder="Search text"
-                    value={searchStr}
-                    icon={<IconSearch size="0.8rem" />}
-                    onChange={(event) => setSearchStr(event.currentTarget.value)}
-                    mt={8}
-                    mb={16}
-                    rightSection={
-                        <ActionIcon onClick={() => setSearchStr("")}>
-                            <IconClearFormatting size="1rem" />
-                        </ActionIcon>
-                    }
-                />
-
+                <SearchBar searchStr={searchStr} setSearchStr={setSearchStr} />
                 { favListDisplay.length === 0 && <Text ta="center" c="dimmed" mt={4}> Not found :( </Text> }
 
             </Container>
