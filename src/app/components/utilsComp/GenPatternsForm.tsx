@@ -1,5 +1,5 @@
 import React from 'react';
-import { NumberInput, Button, Container, Grid, Select, Group, Accordion, TextInput, Switch, Text } from '@mantine/core';
+import { NumberInput, Button, Container, Grid, Select, Group, Accordion, TextInput, Switch, Text, ColorInput, ActionIcon } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
 import { 
@@ -11,7 +11,9 @@ import {
     IconZoomPan,
     IconBook2, 
     IconPencilPlus,
-    IconBrandDenodo
+    IconBrandDenodo,
+    IconRotate,
+    IconRefresh
 } from '@tabler/icons-react';
 
 import { ShapesGenData } from '../../interface/shapesConfig';
@@ -42,8 +44,10 @@ function initData(mode: Mode, data?: ShapesGenData){
         shapeSize: 25,
         shapes: "Ellipse",
         textContent: "",
+        color: "#FFFFFF",
         randomMode: false,
-        randomDensity: 0.5
+        randomDensity: 0.5,
+        rotation: 0
     } as ShapesGenData
 }
 
@@ -65,6 +69,8 @@ function GenPatternsForm({
             shapeSize:     (value) => (value && value >= 1 ? null : 'Invalid shapeSize'),
             paddingRows:   (value) => (value && value >= 1 ? null : 'Invalid paddingRows'),
             paddingCols:   (value) => (value && value >= 1 ? null : 'Invalid paddingCols'),
+            // color:         (value) => (!!value ? null : 'Invalid color'),
+            // rotation:      (value) => (Number.isInteger(value) && (value >= -180 && value <= 180) ? null : 'Invalid rotation'),
             randomDensity: (value) => checkRandomDensity(value),
         },
     });
@@ -74,12 +80,14 @@ function GenPatternsForm({
             return null
         }
 
-        return value && (value >= 0.1 || value <= 0.9) ? null : 'Invalid randomDensity'
+        return value && (value >= 0.1 || value <= 0.9) ? null : 'Invalid Random Density'
     }
 
     function createShapes(values: ShapesGenData){
 
-        console.log(values);
+        !values.color    && (values.color = "#FFFFFF")
+        !values.rotation && (values.rotation = 0)
+        !values.randomDensity && (values.randomDensity = 1)
 
         if(mode === "edit"){
             editItemFav(title, values);
@@ -226,6 +234,34 @@ function GenPatternsForm({
                         </Grid.Col>
                     </Grid>
 
+                    <Grid mt={6}>
+                        <Grid.Col span={6}>
+                            <NumberInput
+                                icon={<IconRotate size="1rem" />}
+                                placeholder="0"
+                                label="Rotation"
+                                withAsterisk
+                                min={-180}
+                                max={180}
+                                {...form.getInputProps('rotation')}
+                            />
+                        </Grid.Col>
+
+                        <Grid.Col span={6}>
+                            <ColorInput
+                                withEyeDropper
+                                placeholder="color"
+                                label="Color"
+                                rightSection={
+                                    <ActionIcon onClick={() => form.setFieldValue("color", `#${Math.floor(Math.random() * 16777215).toString(16)}`)}>
+                                      <IconRefresh size="1rem" />
+                                    </ActionIcon>
+                                }
+                                {...form.getInputProps('color')}
+                            />
+                        </Grid.Col>
+                    </Grid>
+
                     <Grid mt={8}>
                         <Grid.Col span={6}>
                             <Switch
@@ -253,6 +289,7 @@ function GenPatternsForm({
                                 </>
                             )}
                         </Grid.Col>
+
                     </Grid>
 
                     </Accordion.Panel>

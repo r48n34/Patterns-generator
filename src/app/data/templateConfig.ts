@@ -13,6 +13,11 @@ export const templateList: PattenConfig[] = [
             density: 60,
             shapeSize: 30,
             shapes: "Ellipse",
+            rotation: 0,
+            color: "#FFFFFF",
+            textContent: "",
+            randomMode: false,
+            randomDensity: 1
         },
     },
     {
@@ -27,6 +32,11 @@ export const templateList: PattenConfig[] = [
             density: 80,
             shapeSize: 25,
             shapes: "Ellipse",
+            rotation: 0,
+            color: "#FFFFFF",
+            textContent: "",
+            randomMode: false,
+            randomDensity: 1
         },
     },
     {
@@ -41,10 +51,15 @@ export const templateList: PattenConfig[] = [
             density: 120,
             shapeSize: 20,
             shapes: "Ellipse",
+            rotation: 0,
+            color: "#FFFFFF",
+            textContent: "",
+            randomMode: false,
+            randomDensity: 1
         },
     },
     {
-        title: "60 x 30 Small Ellipse v2",
+        title: "60 x 30 Ellipse Random",
         description: "Bg Ellipse pattens",
         createDate: new Date(),
         config: {
@@ -55,6 +70,11 @@ export const templateList: PattenConfig[] = [
             density: 140,
             shapeSize: 18,
             shapes: "Ellipse",
+            rotation: 0,
+            color: "#FFFFFF",
+            textContent: "",
+            randomMode: true,
+            randomDensity: 0.5
         },
     },
     {
@@ -69,6 +89,11 @@ export const templateList: PattenConfig[] = [
             density: 160,
             shapeSize: 16,
             shapes: "Ellipse",
+            rotation: 0,
+            color: "#FFFFFF",
+            textContent: "",
+            randomMode: false,
+            randomDensity: 1
         },
     },
 ]
