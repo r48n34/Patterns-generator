@@ -32,7 +32,7 @@ function App() {
             }
 
             if (type === 'done') {
-                console.log(`Figma Says: ${message}`);
+                // console.log(`Figma Says: ${message}`);
                 setIsLoading(false);
                 toast.success("Created shapes");
             }

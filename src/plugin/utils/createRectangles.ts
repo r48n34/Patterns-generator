@@ -38,7 +38,7 @@ export async function createRectangles(msg){
         await figma.loadFontAsync({ family: "Inter", style: "Regular" });
     }
 
-    console.log(config.color);
+    // console.log(config.color);
 
     for (let i = 0; i < config.rows; i++) {
         for (let k = 0; k < config.cols; k++) {
