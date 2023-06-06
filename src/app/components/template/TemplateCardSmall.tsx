@@ -1,9 +1,8 @@
 import React from 'react';
 
-import { Card, Text, Group, ActionIcon, UnstyledButton } from '@mantine/core';
+import { Card, Text, Group, UnstyledButton } from '@mantine/core';
 import { generateTemplate } from '../../utils/callFigma';
 
-import { IconHammer } from '@tabler/icons-react';
 import { PattenConfig } from '../../interface/shapesConfig';
 import TemplateMenu from './TemplateMenu';
 import LabelsDisplayNav from './LabelsDisplayNav';

@@ -138,28 +138,32 @@ function GenPatternsForm({
     return (
         <>
 
-        <Group position="right" mt={2} mb={8}>
-            <AddFavouriteModal data={patternsForm.values}/>
-        </Group>
+        { mode === "create" && (
+            <Group position="right" mt={2} mb={8}>
+                <AddFavouriteModal data={patternsForm.values}/>
+            </Group>
+        )}
         
         <form onSubmit={patternsForm.onSubmit((values) => createShapes(values))}>
 
         { mode !== "view" &&  (
-                <Grid mb={6}>
+                <Grid mb={6} grow>
 
-                    <Grid.Col span={4}>
-                        <Button
-                            leftIcon={<IconZoomReset size={"1rem"} />}
-                            color="gray" fullWidth
-                            variant="light"
-                            onClick={ () => {
-                                toast.success("Form reset");
-                                patternsForm.reset();
-                            }}
-                        >
-                            Reset
-                        </Button>
-                    </Grid.Col>
+                    { mode === "create" && (
+                        <Grid.Col span={4}>
+                            <Button
+                                leftIcon={<IconZoomReset size={"1rem"} />}
+                                color="gray" fullWidth
+                                variant="light"
+                                onClick={ () => {
+                                    toast.success("Form reset");
+                                    patternsForm.reset();
+                                }}
+                            >
+                                Reset
+                            </Button>
+                        </Grid.Col>
+                    )}
 
                     <Grid.Col span={8}>
                         <Button
