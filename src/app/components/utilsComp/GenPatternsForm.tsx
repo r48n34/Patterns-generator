@@ -13,7 +13,8 @@ import {
     IconPencilPlus,
     IconBrandDenodo,
     IconRotate,
-    IconRefresh
+    IconRefresh,
+    IconEdit
 } from '@tabler/icons-react';
 
 import { ShapesGenData } from '../../interface/shapesConfig';
@@ -47,7 +48,13 @@ function initData(mode: Mode, data?: ShapesGenData){
         color: "#FFFFFF",
         randomMode: false,
         randomDensity: 0.5,
-        rotation: 0
+        rotation: 0,
+        effectsMode: "Null",
+        effectsConfig: {
+            color: "#FFFFFF",
+            intensity: 1,
+            layers: 5
+        },
     } as ShapesGenData
 }
 
@@ -72,10 +79,24 @@ function GenPatternsForm({
             // color:         (value) => (!!value ? null : 'Invalid color'),
             // rotation:      (value) => (Number.isInteger(value) && (value >= -180 && value <= 180) ? null : 'Invalid rotation'),
             randomDensity: (value) => checkRandomDensity(value),
+            effectsMode:   (value) => (value? null : 'Invalid effectsMode'),
+            effectsConfig: {
+                color:     (value) => checkEffectsConfig(value, "color"),
+                intensity: (value) => checkEffectsConfig(value, "intensity"),
+                layers:    (value) => checkEffectsConfig(value, "layers"),
+            }
         },
     });
 
-    function checkRandomDensity(value){
+    function checkEffectsConfig(value: string | number, title: string){
+        if(form.values.effectsMode === "Null"){
+            return null
+        }
+
+        return value ? null : `Invalid ${title}`
+    }
+
+    function checkRandomDensity(value: number){
         if(!form.values.randomMode){
             return null
         }
@@ -85,9 +106,15 @@ function GenPatternsForm({
 
     function createShapes(values: ShapesGenData){
 
-        !values.color    && (values.color = "#FFFFFF")
-        !values.rotation && (values.rotation = 0)
+        !values.color         && (values.color = "#FFFFFF")
+        !values.rotation      && (values.rotation = 0)
         !values.randomDensity && (values.randomDensity = 1)
+        !values.effectsMode   && (values.effectsMode = "Null")
+        !values.effectsConfig && (values.effectsConfig = {
+            color: "#FFFFFF",
+            intensity: 1,
+            layers: 5
+        })
 
         if(mode === "edit"){
             editItemFav(title, values);
@@ -116,10 +143,10 @@ function GenPatternsForm({
         )}
 
         
-<form onSubmit={form.onSubmit((values) => createShapes(values))}>
+        <form onSubmit={form.onSubmit((values) => createShapes(values))}>
             <Accordion multiple={true} defaultValue={["basic"]} mt={6} >
 
-            <Accordion.Item value="basic">
+                <Accordion.Item value="basic">
                 <Accordion.Control icon={ <IconBook2 size={25}/> }>
                     Basic
                 </Accordion.Control>
@@ -299,7 +326,60 @@ function GenPatternsForm({
                     </Grid>
 
                     </Accordion.Panel>
+                    
 
+                </Accordion.Item>
+
+                <Accordion.Item value="Special Mode">
+                    <Accordion.Control icon={<IconEdit size={25}/>}>
+                        Special Mode
+                    </Accordion.Control>
+
+                    <Accordion.Panel>
+
+                    <Select
+                        label="Effects Mode"
+                        placeholder="Pick one"
+                        transitionProps={{ transition: 'fade', duration: 70, timingFunction: 'ease' }}
+                        data={[
+                            { value: 'Null', label: 'Null' },
+                            { value: 'Glow', label: '💡 Glow'},
+                        ]}
+                        {...form.getInputProps('effectsMode')}
+                    />
+
+                    { form.values.effectsMode === "Glow" && (
+                        <Grid mt={8}>
+                            <Grid.Col span={6}>
+                                <NumberInput
+                                    icon={<IconArrowAutofitRight size="1rem" />}
+                                    disabled
+                                    placeholder="1"
+                                    label="Intensity"
+                                    withAsterisk
+                                    max={1}
+                                    min={1}
+                                    {...form.getInputProps('effectsConfig.intensity')}
+                                />
+                            </Grid.Col>
+
+                            <Grid.Col span={6}>
+                                <NumberInput
+                                    icon={<IconArrowAutofitUp size="1rem" />}
+                                    placeholder="6"
+                                    label="Layers"
+                                    withAsterisk
+                                    min={1}
+                                    max={5}
+                                    step={1}
+                                    {...form.getInputProps('effectsConfig.layers')}
+                                />
+                            </Grid.Col>
+                        </Grid>
+                    )}
+
+
+                    </Accordion.Panel>
                 </Accordion.Item>
 
             </Accordion>
