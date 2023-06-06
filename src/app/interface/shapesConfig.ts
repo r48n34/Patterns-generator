@@ -33,3 +33,7 @@ export const shapesIconMap: Record<ShapesData, string> = {
     'Line': '➖ ',
     'Text': '🖊',
 }
+
+export interface GlowMode {
+    color: string,
+}
