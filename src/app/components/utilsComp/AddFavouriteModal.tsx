@@ -33,9 +33,17 @@ function AddFavouriteModal({ data }: AddFavouriteModalProps){
                 ? 'Invalid title' 
                 : favList.filter( v => v.title === value).length >= 1
                 ? 'Title already exist'
+                : value.length >= 120
+                ? 'Title too long'
                 : null
             ),
-            description: (value)  => (value ? null : 'Invalid description'),
+            description: (value)  => (
+                !value 
+                ? 'Invalid description'
+                : value.length >= 255
+                ? 'Description too long'
+                : null
+            ),
         },
     });
 
@@ -47,9 +55,9 @@ function AddFavouriteModal({ data }: AddFavouriteModalProps){
         });
 
         toast.success("Added to favourite");
+        form.reset();
         close();
     }
-
 
     return (
       <>

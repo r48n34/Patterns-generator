@@ -25,7 +25,7 @@ export function hexToRgb(hex: string, a: number = -1): RGB | RGBA {
     } as RGB
 }
 
-
+// References from https://github.com/alexwidua/figma-glow/blob/master/src/utils/glow.ts#
 export function glowEffectGen(
     shapeSize: number,
     color: string,
@@ -33,7 +33,7 @@ export function glowEffectGen(
     layers: number = 6
 ): DropShadowEffect[]{
     
-    const glowMap = [1, 2, 7, 14, 24, 42].slice(0, layers).map( v => {
+    const glowMap = [1, 2, 7, 14, 24, 42].slice(0, Math.max(layers, 0)).map( v => {
         const scale = 8 * (shapeSize / 100)
         return {
 			type: 'DROP_SHADOW',

@@ -1,5 +1,5 @@
 import React from 'react';
-import { NumberInput, Button, Grid, Select, Accordion, TextInput, Switch, Text, ColorInput, ActionIcon, Group } from '@mantine/core';
+import { NumberInput, Button, Grid, Select, Accordion, TextInput, Switch, Text, ColorInput, ActionIcon, Group, Tooltip } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
 import { 
@@ -55,7 +55,7 @@ function initData(mode: Mode, data?: ShapesGenData){
         effectsConfig: {
             color: "#FFFFFF",
             intensity: 1,
-            layers: 5
+            layers: 6
         },
     } as ShapesGenData
 }
@@ -331,9 +331,11 @@ function GenPatternsForm({
                                 label="Color"
                                 description="In Hex"
                                 rightSection={
+                                    <Tooltip label="Random Color">
                                     <ActionIcon onClick={() => form.setFieldValue("color", `#${Math.floor(Math.random() * 16777215).toString(16)}`)}>
                                       <IconRefresh size="1rem" />
                                     </ActionIcon>
+                                    </Tooltip>
                                 }
                                 {...form.getInputProps('color')}
                             />
@@ -417,12 +419,12 @@ function GenPatternsForm({
                             <Grid.Col span={6}>
                                 <NumberInput
                                     icon={<IconArrowAutofitUp size="1rem" />}
-                                    placeholder="5"
+                                    placeholder="6"
                                     label="Layers"
-                                    description="From 1 to 5"
+                                    description="From 1 to 6"
                                     withAsterisk
                                     min={1}
-                                    max={5}
+                                    max={6}
                                     step={1}
                                     {...form.getInputProps('effectsConfig.layers')}
                                 />
@@ -437,9 +439,11 @@ function GenPatternsForm({
                                     placeholder="color"
                                     label="Color"
                                     rightSection={
-                                        <ActionIcon onClick={() => form.setFieldValue("effectsConfig.color", `#${Math.floor(Math.random() * 16777215).toString(16)}`)}>
-                                        <IconRefresh size="1rem" />
-                                        </ActionIcon>
+                                        <Tooltip label="Random Color">
+                                            <ActionIcon onClick={() => form.setFieldValue("effectsConfig.color", `#${Math.floor(Math.random() * 16777215).toString(16)}`)}>
+                                            <IconRefresh size="1rem" />
+                                            </ActionIcon>
+                                        </Tooltip>
                                     }
                                     {...form.getInputProps('effectsConfig.color')}
                                 />

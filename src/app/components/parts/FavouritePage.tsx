@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { Container, ScrollArea, Grid, Group, SegmentedControl, Text } from '@mantine/core';
+import { IconLayoutGrid, IconLayoutRows } from '@tabler/icons-react';
 import { useFavStore } from '../../store/favStore';
-import TemplateCard from '../template/TemplateCard';
+
 import DeleteAllFavBtn from '../utilsComp/DeleteAllFavBtn';
-import EmptyCard from '../template/EmptyCard';
-import { IconLayoutGrid, IconLayoutRows,  } from '@tabler/icons-react';
-// import { PattenConfig } from '../../interface/shapesConfig';
-import TemplateCardSmall from '../template/TemplateCardSmall';
 import SearchBar from '../utilsComp/SearchBar';
+
+import EmptyCard from '../template/EmptyCard';
+import TemplateCard from '../template/TemplateCard';
+import TemplateCardSmall from '../template/TemplateCardSmall';
 
 function FavouritePage() {
 
