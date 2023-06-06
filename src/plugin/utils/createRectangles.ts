@@ -1,6 +1,6 @@
-import { ShapesData, ShapesGenData } from "../../app/interface/shapesConfig";
+import { ShapesGenData } from "../../app/interface/shapesConfig";
 import { timer } from "../../app/utils/callFigma";
-
+import { shapeIndArr } from "../interface/figmaTypes"
 // #121212
 function hexToRgb(hex: string) {
     let bigint = parseInt(hex.replace("#",""), 16);
@@ -15,21 +15,6 @@ function hexToRgb(hex: string) {
         b: b / 255
     };
 }
-
-type NodeFunctions = (() => EllipseNode) | (() => PolygonNode) | (() => StarNode) | (() => RectangleNode)
-
-interface ShapeContent {
-    ind: number
-    function?: NodeFunctions
-    overallFunction: 
-            ((config: ShapesGenData, i: number, k: number, nodeFunc: NodeFunctions) => EllipseNode | PolygonNode | StarNode | RectangleNode)
-        |   ((config: ShapesGenData, i: number, k: number) => TextNode)
-        |   ((config: ShapesGenData, i: number, k: number) => LineNode)
-}
-
-type shapeIndArr = {
-    [index in ShapesData]: ShapeContent;
-};
 
 export async function createRectangles(msg){
     await timer(120);
@@ -146,6 +131,27 @@ function generateShapeNode(
 
     const colorArr = config.color ? hexToRgb(config.color) : { r:1, g: 1, b: 1 };
     obj.fills = [{ type: "SOLID", color: colorArr }];
+
+    // TBD glowing mode
+    // const glowMap = [1, 2, 7, 14, 24, 42].map( v => {
+    //     const scale = 8 * (config.shapeSize / 100)
+    //     const effect: DropShadowEffect = {
+	// 		type: 'DROP_SHADOW',
+	// 		color: { r:1, g: 1, b: 1, a: 1},
+	// 		offset: {
+	// 			x: 0,
+	// 			y: 0
+	// 		},
+	// 		radius: scale * v,
+	// 		spread: 0,
+	// 		visible: true,
+	// 		blendMode: 'NORMAL'
+	// 	}
+
+    //     return effect
+    // })
+
+    // obj.effects = [...glowMap]
 
     return obj;
 }
