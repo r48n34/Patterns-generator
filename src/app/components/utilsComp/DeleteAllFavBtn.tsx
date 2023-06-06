@@ -1,23 +1,25 @@
-import { Text, Tooltip, ActionIcon } from "@mantine/core";
-import { IconTrash } from "@tabler/icons-react";
 import React from "react";
-import { useFavStore } from "../../store/favStore";
+
 import { modals } from "@mantine/modals";
+import { Text, Tooltip, ActionIcon } from "@mantine/core";
+
 import { toast } from "react-hot-toast";
+import { IconTrash } from "@tabler/icons-react";
+import { useFavStore } from "../../store/favStore";
 
 function DeleteAllFavBtn() {
 
     const clearItemFav = useFavStore((state) => state.clearList);
 
     const openDeleteAllModal = () => modals.openConfirmModal({
-        title: 'Please confirm your action',
+        title: 'Delete all favourite items',
         children: (
             <Text size="sm">
-                Are you sure to delete all the favourite items?
+                ⚠ Warning: Are you sure to delete all the favourite items?
             </Text>
         ),
         labels: { confirm: 'Yes', cancel: 'No' },
-        onCancel: () => console.log(),
+        onCancel: () => { },
         onConfirm: () => {
             clearItemFav();
             toast.success("Deleted all items");

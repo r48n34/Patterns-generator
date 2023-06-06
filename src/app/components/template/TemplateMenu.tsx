@@ -1,19 +1,22 @@
 import React from "react";
-import { ActionIcon, Menu, Modal, Tooltip} from "@mantine/core";
-import { IconFileDots, IconTrash, IconDots, IconEdit } from "@tabler/icons-react";
-import { PattenConfig } from "../../interface/shapesConfig";
-import { useFavStore } from "../../store/favStore";
-
-import { useDisclosure } from '@mantine/hooks';
 import toast from "react-hot-toast";
+
+import { modals } from "@mantine/modals";
+import { useDisclosure } from '@mantine/hooks';
+import { ActionIcon, Menu, Modal, Tooltip, Text } from "@mantine/core";
+import { IconFileDots, IconTrash, IconDots, IconEdit } from "@tabler/icons-react";
+
+import { useFavStore } from "../../store/favStore";
+import { PattenConfig } from "../../interface/shapesConfig";
 import GenPatternsForm from "../utilsComp/GenPatternsForm";
+
 type TemplateMenuProps = {
     data: PattenConfig;
     showsDelete: boolean
     showsEdit: boolean
 }
 
-function TemplateMenu({ data, showsDelete, showsEdit }: TemplateMenuProps) {
+function TemplateMenu({ data, showsDelete, showsEdit }:TemplateMenuProps) {
 
     const [openedDetails, { open: openDetails, close: closeDetails }] = useDisclosure(false);
     const [openedEdit, { open: openEdit, close: closeEdit }] = useDisclosure(false);
@@ -23,6 +26,18 @@ function TemplateMenu({ data, showsDelete, showsEdit }: TemplateMenuProps) {
         deleteItemFav(data.title)
         toast.success("Deleted item");
     }
+
+    const deleteOneItemModal = () => modals.openConfirmModal({
+        title: 'Delete items',
+        children: (
+          <Text size="sm">
+            Are you sure to delete {data.title}?
+          </Text>
+        ),
+        labels: { confirm: 'Confirm', cancel: 'Cancel' },
+        onCancel: () => {},
+        onConfirm: () => deleteOneItems(),
+    });
 
     return (
         <>
@@ -67,7 +82,7 @@ function TemplateMenu({ data, showsDelete, showsEdit }: TemplateMenuProps) {
                 }
 
                 {showsDelete && 
-                    <Menu.Item color="red" icon={<IconTrash size={14} />} onClick={ () => deleteOneItems()}>
+                    <Menu.Item color="red" icon={<IconTrash size={14} />} onClick={ () => deleteOneItemModal()}>
                         Delete
                     </Menu.Item>
                 }

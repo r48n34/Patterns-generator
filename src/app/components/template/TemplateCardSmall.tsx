@@ -3,10 +3,9 @@ import React from 'react';
 import { Card, Text, Group, ActionIcon } from '@mantine/core';
 import { generateTemplate } from '../../utils/callFigma';
 
-// import TemplateDateModal from './TemplateDateModal';
+import { IconHammer } from '@tabler/icons-react';
 import { PattenConfig } from '../../interface/shapesConfig';
 import TemplateMenu from './TemplateMenu';
-import { IconHammer } from '@tabler/icons-react';
 import LabelsDisplayNav from './LabelsDisplayNav';
 
 type TemplateCardProps = {
