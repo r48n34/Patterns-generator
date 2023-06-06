@@ -4,7 +4,7 @@ import { shapeIndArr } from "../interface/figmaTypes"
 
 // #121212
 type RGB = { r: number, g: number, b: number }
-interface RGBA extends RGB{ a: number}
+interface RGBA extends RGB { a: number }
 
 export function hexToRgb(hex: string, a: number = -1): RGB | RGBA {
     let bigint = parseInt(hex.replace("#",""), 16);
@@ -96,6 +96,17 @@ function generateTextNode(config: ShapesGenData, i: number, k: number): TextNode
 
     const colorArr = config.color ? hexToRgb(config.color) : { r:1, g: 1, b: 1 };
     obj.fills = [{ type: "SOLID", color: colorArr }];
+
+    if(config.effectsMode && config.effectsMode === "Glow"){
+        const glowEffectList = glowEffectGen(
+            config.shapeSize,
+            config.effectsConfig.color,
+            config.effectsConfig.intensity,
+            config.effectsConfig.layers,
+        )
+        obj.effects = [...glowEffectList]
+    }
+
     return obj;
 }
 
@@ -114,6 +125,16 @@ function generateLineNode(config: ShapesGenData, i: number, k: number): LineNode
     const colorArr = config.color ? hexToRgb(config.color) : { r:1, g: 1, b: 1 };
     obj.strokes = [{ type: "SOLID", color: colorArr }];
     // obj.strokeCap = 'ARROW_LINES'
+
+    if(config.effectsMode && config.effectsMode === "Glow"){
+        const glowEffectList = glowEffectGen(
+            config.shapeSize,
+            config.effectsConfig.color,
+            config.effectsConfig.intensity,
+            config.effectsConfig.layers,
+        )
+        obj.effects = [...glowEffectList]
+    }
 
     return obj;
 }
@@ -146,10 +167,15 @@ function generateShapeNode(
     const colorArr = config.color ? hexToRgb(config.color) : { r:1, g: 1, b: 1 };
     obj.fills = [{ type: "SOLID", color: colorArr }];
 
-    // TBD glowing mode
-    // const glowEffect = glowEffectGen(config.shapeSize)
-
-    // obj.effects = [...glowMap]
+    if(config.effectsMode && config.effectsMode === "Glow"){
+        const glowEffectList = glowEffectGen(
+            config.shapeSize,
+            config.effectsConfig.color,
+            config.effectsConfig.intensity,
+            config.effectsConfig.layers,
+        )
+        obj.effects = [...glowEffectList]
+    }
 
     return obj;
 }

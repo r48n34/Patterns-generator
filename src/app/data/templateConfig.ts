@@ -17,7 +17,13 @@ export const templateList: PattenConfig[] = [
             color: "#FFFFFF",
             textContent: "",
             randomMode: false,
-            randomDensity: 1
+            randomDensity: 1,
+            effectsMode: "Null",
+            effectsConfig: {
+                color: "#FFFFFF",
+                intensity: 1,
+                layers: 5
+            },
         },
     },
     {
@@ -36,7 +42,13 @@ export const templateList: PattenConfig[] = [
             color: "#FFFFFF",
             textContent: "",
             randomMode: false,
-            randomDensity: 1
+            randomDensity: 1,
+            effectsMode: "Null",
+            effectsConfig: {
+                color: "#FFFFFF",
+                intensity: 1,
+                layers: 5
+            },
         },
     },
     {
@@ -55,7 +67,13 @@ export const templateList: PattenConfig[] = [
             color: "#FFFFFF",
             textContent: "",
             randomMode: false,
-            randomDensity: 1
+            randomDensity: 1,
+            effectsMode: "Null",
+            effectsConfig: {
+                color: "#FFFFFF",
+                intensity: 1,
+                layers: 5
+            },
         },
     },
     {
@@ -74,7 +92,13 @@ export const templateList: PattenConfig[] = [
             color: "#FFFFFF",
             textContent: "",
             randomMode: true,
-            randomDensity: 0.5
+            randomDensity: 0.5,
+            effectsMode: "Null",
+            effectsConfig: {
+                color: "#FFFFFF",
+                intensity: 1,
+                layers: 5
+            },
         },
     },
     {
@@ -93,7 +117,13 @@ export const templateList: PattenConfig[] = [
             color: "#FFFFFF",
             textContent: "",
             randomMode: false,
-            randomDensity: 1
+            randomDensity: 1,
+            effectsMode: "Null",
+            effectsConfig: {
+                color: "#FFFFFF",
+                intensity: 1,
+                layers: 5
+            },
         },
     },
 ]

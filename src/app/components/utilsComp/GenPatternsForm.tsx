@@ -79,7 +79,7 @@ function GenPatternsForm({
             // color:         (value) => (!!value ? null : 'Invalid color'),
             // rotation:      (value) => (Number.isInteger(value) && (value >= -180 && value <= 180) ? null : 'Invalid rotation'),
             randomDensity: (value) => checkRandomDensity(value),
-            effectsMode:   (value) => (value? null : 'Invalid effectsMode'),
+            // effectsMode:   (value) => (value ? null : 'Invalid effectsMode'),
             effectsConfig: {
                 color:     (value) => checkEffectsConfig(value, "color"),
                 intensity: (value) => checkEffectsConfig(value, "intensity"),
@@ -349,6 +349,7 @@ function GenPatternsForm({
                     />
 
                     { form.values.effectsMode === "Glow" && (
+                        <>
                         <Grid mt={8}>
                             <Grid.Col span={6}>
                                 <NumberInput
@@ -376,6 +377,23 @@ function GenPatternsForm({
                                 />
                             </Grid.Col>
                         </Grid>
+
+                        <Grid>
+                            <Grid.Col span={6}>
+                                <ColorInput
+                                    withEyeDropper
+                                    placeholder="color"
+                                    label="Color"
+                                    rightSection={
+                                        <ActionIcon onClick={() => form.setFieldValue("effectsConfig.color", `#${Math.floor(Math.random() * 16777215).toString(16)}`)}>
+                                        <IconRefresh size="1rem" />
+                                        </ActionIcon>
+                                    }
+                                    {...form.getInputProps('effectsConfig.color')}
+                                />
+                            </Grid.Col>
+                        </Grid>
+                        </>
                     )}
 
 
