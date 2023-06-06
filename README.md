@@ -22,3 +22,7 @@ This plugins is start with `Figma Plugin React Template` from https://github.com
 - [x] Edit favourite history
 - [ ] Generate images patterns
 - [X] Generate text patterns
+- [X] Search template / favourite slot
+- [X] Random density and base color
+- [X] Small card display UI
+- [ ] Glow / Effects mode on nodes
