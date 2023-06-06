@@ -225,7 +225,7 @@ function GenPatternsForm({
                         <NumberInput
                             icon={<IconZoomPan size="1rem" />}
                             placeholder="40"
-                            label="Shape Size"
+                            label="Size"
                             withAsterisk
                             min={1}
                             precision={1}

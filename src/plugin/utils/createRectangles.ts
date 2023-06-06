@@ -93,6 +93,7 @@ function generateTextNode(config: ShapesGenData, i: number, k: number): TextNode
 
     (obj as TextNode).characters = config.textContent || "N/A";
     (obj as TextNode).fontSize   = config.shapeSize;
+    obj.rotation = config.rotation || 0;
 
     const colorArr = config.color ? hexToRgb(config.color) : { r:1, g: 1, b: 1 };
     obj.fills = [{ type: "SOLID", color: colorArr }];
