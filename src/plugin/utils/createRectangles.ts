@@ -1,34 +1,7 @@
 import { ShapesGenData } from "../../app/interface/shapesConfig";
 import { timer } from "../../app/utils/callFigma";
 import { shapeIndArr } from "../interface/figmaTypes"
-
-// #121212
-type RGB = { r: number, g: number, b: number }
-interface RGBA extends RGB { a: number }
-
-export function hexToRgb(hex: string, a: number = -1): RGB | RGBA {
-    let bigint = parseInt(hex.replace("#",""), 16);
-
-    const r = (bigint >> 16) & 255;
-    const g = (bigint >> 8) & 255;
-    const b = bigint & 255;
-
-    if(a != -1){
-        return {
-            r: r / 255,
-            g: g / 255,
-            b: b / 255,
-            a: a
-        } as RGBA
-    }
-
-    return {
-        r: r / 255,
-        g: g / 255,
-        b: b / 255
-    } as RGB
-}
-
+import { hexToRgb, glowEffectGen } from "./effectsUtils";
 
 export async function createRectangles(msg){
     await timer(120);
@@ -121,7 +94,6 @@ function generateLineNode(config: ShapesGenData, i: number, k: number): LineNode
     obj.resize(config.shapeSize, 0);  
     obj.rotation = config.rotation || 0;
     obj.strokeWeight = 4
-    // obj.stro
 
     const colorArr = config.color ? hexToRgb(config.color) : { r:1, g: 1, b: 1 };
     obj.strokes = [{ type: "SOLID", color: colorArr }];
@@ -181,25 +153,33 @@ function generateShapeNode(
     return obj;
 }
 
-export function glowEffectGen(
-    shapeSize: number,
-    color: string,
-    intensity: number = 1,
-    layers: number = 6
-): DropShadowEffect[]{
-    
-    const glowMap = [1, 2, 7, 14, 24, 42].slice(0, layers).map( v => {
-        const scale = 8 * (shapeSize / 100)
-        return {
-			type: 'DROP_SHADOW',
-			color: hexToRgb(color, intensity) as RGBA, 
-			offset: { x: 0, y: 0 },
-			radius: scale * v,
-			spread: 0,
-			visible: true,
-			blendMode: 'NORMAL'
-		} as DropShadowEffect
-    })
+// function generateHeartNode(
+//     config: ShapesGenData,
+//     i: number,
+//     k: number,
+// ):VectorNode {
 
-    return glowMap
-}
+//     const obj = figma.createVector();
+
+//     obj.x = figma.viewport.center.x + (i * config.paddingRows);
+//     obj.y = figma.viewport.center.y + (k * config.paddingCols);
+
+
+//     obj.rotation = config.rotation || 0;
+//     obj.resize(config.shapeSize, config.shapeSize);  
+
+//     const colorArr = config.color ? hexToRgb(config.color) : { r:1, g: 1, b: 1 };
+//     obj.fills = [{ type: "SOLID", color: colorArr }];
+
+//     if(config.effectsMode && config.effectsMode === "Glow"){
+//         const glowEffectList = glowEffectGen(
+//             config.shapeSize,
+//             config.effectsConfig.color,
+//             config.effectsConfig.intensity,
+//             config.effectsConfig.layers,
+//         )
+//         obj.effects = [...glowEffectList]
+//     }
+
+//     return obj;
+// }

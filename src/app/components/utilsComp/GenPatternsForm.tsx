@@ -1,5 +1,5 @@
 import React from 'react';
-import { NumberInput, Button, Container, Grid, Select, Group, Accordion, TextInput, Switch, Text, ColorInput, ActionIcon } from '@mantine/core';
+import { NumberInput, Button, Grid, Select, Accordion, TextInput, Switch, Text, ColorInput, ActionIcon, Group } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
 import { 
@@ -14,7 +14,9 @@ import {
     IconBrandDenodo,
     IconRotate,
     IconRefresh,
-    IconEdit
+    Icon3dRotate,
+    IconGridDots,
+    IconZoomReset
 } from '@tabler/icons-react';
 
 import { ShapesGenData } from '../../interface/shapesConfig';
@@ -134,15 +136,48 @@ function GenPatternsForm({
     }, [form.values.density]);
     
     return (
-        <Container>
+        <>
         
-        { mode === "create" && (
-            <Group position="right">
-                <AddFavouriteModal data={form.values}/>
-            </Group>
-        )}
+       
         
         <form onSubmit={form.onSubmit((values) => createShapes(values))}>
+
+        { mode !== "view" &&  (
+                <Grid mb={6}>
+
+                    <Grid.Col span={2}>
+                        <Group position="center" mt={2}>
+                            <AddFavouriteModal data={form.values}/>
+                        </Group>
+                    </Grid.Col>
+
+                    <Grid.Col span={4}>
+                        <Button
+                            leftIcon={<IconZoomReset size={"1rem"} />}
+                            color="gray" fullWidth
+                            variant="light"
+                            onClick={ () => {
+                                toast.success("Form reset");
+                                form.reset();
+                            }}
+                        >
+                            Reset
+                        </Button>
+                    </Grid.Col>
+
+                    <Grid.Col span={6}>
+                        <Button
+                            leftIcon={<IconGridDots size={"1rem"} />}
+                            fullWidth type="submit" 
+                            variant="light" 
+                        >
+                            { mode === "create" ? "Create" : "Edit" }
+                        </Button>
+                    </Grid.Col>
+
+                </Grid>
+            )}
+
             <Accordion multiple={true} defaultValue={["basic"]} mt={6} >
 
                 <Accordion.Item value="basic">
@@ -278,6 +313,7 @@ function GenPatternsForm({
                             <NumberInput
                                 icon={<IconRotate size="1rem" />}
                                 placeholder="0"
+                                description="(-180 to 180)"
                                 disabled={ mode === "view" }
                                 label="Rotation"
                                 withAsterisk
@@ -285,7 +321,6 @@ function GenPatternsForm({
                                 max={180}
                                 {...form.getInputProps('rotation')}
                             />
-                            <Text c="dimmed" fz={12} mt={1}> (-180 to 180)</Text>
                         </Grid.Col>
 
                         <Grid.Col span={6}>
@@ -294,6 +329,7 @@ function GenPatternsForm({
                                 disabled={ mode === "view" }
                                 placeholder="color"
                                 label="Color"
+                                description="In Hex"
                                 rightSection={
                                     <ActionIcon onClick={() => form.setFieldValue("color", `#${Math.floor(Math.random() * 16777215).toString(16)}`)}>
                                       <IconRefresh size="1rem" />
@@ -320,6 +356,7 @@ function GenPatternsForm({
                                     disabled={ mode === "view" }
                                     icon={<IconBrandDenodo size="1rem" />}
                                     placeholder="0.5"
+                                    description="(0.1 - 1)"
                                     label="Random Density"
                                     withAsterisk
                                     precision={1}
@@ -328,7 +365,7 @@ function GenPatternsForm({
                                     max={1}
                                     {...form.getInputProps('randomDensity')}
                                 />
-                                <Text c="dimmed" fz={12} mt={1}> *Range: 0.1 - 1</Text>
+                                {/* <Text c="dimmed" fz={12} mt={1}> *Range: 0.1 - 1</Text> */}
                                 <Text c="dimmed" fz={12} mt={1}> Higher = more </Text>
                                 </>
                             )}
@@ -342,7 +379,7 @@ function GenPatternsForm({
                 </Accordion.Item>
 
                 <Accordion.Item value="Special Mode">
-                    <Accordion.Control icon={<IconEdit size={25}/>}>
+                    <Accordion.Control icon={<Icon3dRotate size={25}/>}>
                         Special Mode
                     </Accordion.Control>
 
@@ -368,6 +405,7 @@ function GenPatternsForm({
                                     icon={<IconArrowAutofitRight size="1rem" />}
                                     disabled
                                     placeholder="1"
+                                    description="Disabled"
                                     label="Intensity"
                                     withAsterisk
                                     max={1}
@@ -379,8 +417,9 @@ function GenPatternsForm({
                             <Grid.Col span={6}>
                                 <NumberInput
                                     icon={<IconArrowAutofitUp size="1rem" />}
-                                    placeholder="6"
+                                    placeholder="5"
                                     label="Layers"
+                                    description="From 1 to 5"
                                     withAsterisk
                                     min={1}
                                     max={5}
@@ -415,16 +454,8 @@ function GenPatternsForm({
 
             </Accordion>
 
-            { mode !== "view" &&  (
-                <Group position='right' mt={6}>
-                    <Button type="submit" variant="light" mt={6}>
-                        { mode === "create" ? "Create" : "Edit" }
-                    </Button>
-                </Group>
-            )}
-
         </form>
-        </Container>
+        </>
     )
 }
 

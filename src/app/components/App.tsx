@@ -22,18 +22,14 @@ function App() {
             const { type, message } = event.data.pluginMessage;
 
             if (type === 'processing') {
-                // console.log("Processing");
                 setIsLoading(true);
             }
 
             if (type === 'get-fav-list-done') {
-                // console.log("Processing");
-                // console.log("MES", message);
                 setArrayFav(message);
             }
 
             if (type === 'done') {
-                // console.log(`Figma Says: ${message}`);
                 setIsLoading(false);
                 toast.success("Created shapes");
             }
@@ -50,7 +46,6 @@ function App() {
         <Toaster/>
         <MantineProvider withGlobalStyles withNormalizeCSS theme={{ colorScheme: 'dark' }}>
         <ModalsProvider>
-
 
             <LoadingOverlay visible={isLoading} overlayBlur={2} />
 
