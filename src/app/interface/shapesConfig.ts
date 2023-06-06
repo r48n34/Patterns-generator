@@ -1,4 +1,4 @@
-
+export type ShapesData = "Ellipse" | "Rectangle" | "Polygon" | "Star" | "Text" | "Star-4" | "Line" | "Ellipse-half" | "Ellipse-one-four";
 
 export interface ShapesGenData {
     rows: number,
@@ -7,7 +7,7 @@ export interface ShapesGenData {
     paddingCols: number,
     density: number,
     shapeSize: number,
-    shapes: "Ellipse" | "Rectangle" | "Polygon" | "Star" | "Text" | "Star-4" | "Line" | "Ellipse-half" | "Ellipse-one-four",
+    shapes: ShapesData,
     rotation?: number, // 180 to -180
     color?: string,
     textContent?: string // If shapes === "Text", it shoule contains a textContent
@@ -22,7 +22,7 @@ export interface PattenConfig {
     config: ShapesGenData
 }
 
-export const shapesIconMap = {
+export const shapesIconMap: Record<ShapesData, string> = {
     'Rectangle': '🟥 ',
     'Ellipse': '🔴',
     'Ellipse-half': '🌗',

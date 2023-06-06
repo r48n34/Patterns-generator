@@ -1,4 +1,4 @@
-import { ShapesGenData } from "../../app/interface/shapesConfig";
+import { ShapesData, ShapesGenData } from "../../app/interface/shapesConfig";
 import { timer } from "../../app/utils/callFigma";
 
 // #121212
@@ -16,20 +16,35 @@ function hexToRgb(hex: string) {
     };
 }
 
+type NodeFunctions = (() => EllipseNode) | (() => PolygonNode) | (() => StarNode) | (() => RectangleNode)
+
+interface ShapeContent {
+    ind: number
+    function?: NodeFunctions
+    overallFunction: 
+            ((config: ShapesGenData, i: number, k: number, nodeFunc: NodeFunctions) => EllipseNode | PolygonNode | StarNode | RectangleNode)
+        |   ((config: ShapesGenData, i: number, k: number) => TextNode)
+        |   ((config: ShapesGenData, i: number, k: number) => LineNode)
+}
+
+type shapeIndArr = {
+    [index in ShapesData]: ShapeContent;
+};
+
 export async function createRectangles(msg){
     await timer(120);
 
     const nodes = [];
     const config: ShapesGenData = msg.data
     
-    const shapeIndArr = {
+    const shapeIndArr: shapeIndArr = {
         "Ellipse": { ind: 0, function: figma.createEllipse, overallFunction: generateShapeNode },
         "Polygon": { ind: 1, function: figma.createPolygon, overallFunction: generateShapeNode },
         "Star": { ind: 2, function: figma.createStar, overallFunction: generateShapeNode },
         "Rectangle": { ind: 3, function: figma.createRectangle, overallFunction: generateShapeNode },
-        "Text": { ind: 4, function: () => {}, overallFunction: generateTextNode }, // Text
+        "Text": { ind: 4,  overallFunction: generateTextNode }, // Text
         "Star-4": { ind: 5, function: figma.createStar, overallFunction: generateShapeNode },
-        "Line": { ind: 6, function: () => {}, overallFunction: generateLineNode }, // Line
+        "Line": { ind: 6, overallFunction: generateLineNode }, // Line
         "Ellipse-half": { ind: 7, function: figma.createEllipse, overallFunction: generateShapeNode },
         "Ellipse-one-four": { ind: 8, function: figma.createEllipse, overallFunction: generateShapeNode },
     }
@@ -37,8 +52,6 @@ export async function createRectangles(msg){
     if(config.shapes === "Text"){
         await figma.loadFontAsync({ family: "Inter", style: "Regular" });
     }
-
-    // console.log(config.color);
 
     for (let i = 0; i < config.rows; i++) {
         for (let k = 0; k < config.cols; k++) {
@@ -72,7 +85,7 @@ export async function createRectangles(msg){
     // });
 }
 
-function generateTextNode(config: ShapesGenData, i: number, k: number, _?:Function){
+function generateTextNode(config: ShapesGenData, i: number, k: number): TextNode{
 
     const obj = figma.createText();
 
@@ -87,7 +100,7 @@ function generateTextNode(config: ShapesGenData, i: number, k: number, _?:Functi
     return obj;
 }
 
-function generateLineNode(config: ShapesGenData, i: number, k: number, _?:Function){
+function generateLineNode(config: ShapesGenData, i: number, k: number): LineNode{
 
     const obj = figma.createLine();
 
@@ -110,8 +123,8 @@ function generateShapeNode(
     config: ShapesGenData,
     i: number,
     k: number,
-    nodeFunc: Function
-){
+    nodeFunc: (() => EllipseNode) | (() => PolygonNode) | (() => StarNode) | (() => RectangleNode)
+):EllipseNode | PolygonNode | StarNode | RectangleNode{
 
     const obj = nodeFunc();
 
