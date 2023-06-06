@@ -1,5 +1,5 @@
 import React from "react";
-import { ActionIcon, Menu, Modal, JsonInput, Tooltip} from "@mantine/core";
+import { ActionIcon, Menu, Modal, Tooltip} from "@mantine/core";
 import { IconFileDots, IconTrash, IconDots, IconEdit } from "@tabler/icons-react";
 import { PattenConfig } from "../../interface/shapesConfig";
 import { useFavStore } from "../../store/favStore";
@@ -27,7 +27,11 @@ function TemplateMenu({ data, showsDelete, showsEdit }: TemplateMenuProps) {
     return (
         <>
         <Modal opened={openedDetails} onClose={closeDetails} title="View Data">
-            <JsonInput disabled value={JSON.stringify(data.config, null, " ")} minRows={12}/>
+            <GenPatternsForm 
+                mode={"view"} 
+                data={data.config}
+                title={data.title} 
+            />
         </Modal>
 
         <Modal opened={openedEdit} onClose={closeEdit} title="Edit Data">

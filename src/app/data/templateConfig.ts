@@ -27,7 +27,7 @@ export const templateList: PattenConfig[] = [
         },
     },
     {
-        title: "15 x 15 Small Ellipse",
+        title: "15 x 15 Glow Ellipse",
         description: "Small Ellipse pattens",
         createDate: new Date(),
         config: {
@@ -43,7 +43,7 @@ export const templateList: PattenConfig[] = [
             textContent: "",
             randomMode: false,
             randomDensity: 1,
-            effectsMode: "Null",
+            effectsMode: "Glow",
             effectsConfig: {
                 color: "#FFFFFF",
                 intensity: 1,
@@ -121,6 +121,31 @@ export const templateList: PattenConfig[] = [
             effectsMode: "Null",
             effectsConfig: {
                 color: "#FFFFFF",
+                intensity: 1,
+                layers: 5
+            },
+        },
+    },
+    {
+        title: "Glow Text",
+        description: "Can generate neon text too",
+        createDate: new Date(),
+        config: {
+            rows: 1,
+            cols: 1,
+            paddingRows: 160,
+            paddingCols: 160,
+            density: 160,
+            shapeSize: 120,
+            shapes: "Text",
+            rotation: 0,
+            color: "#FFFFFF",
+            textContent: "Hello mate",
+            randomMode: false,
+            randomDensity: 1,
+            effectsMode: "Glow",
+            effectsConfig: {
+                color: "#4c46eb",
                 intensity: 1,
                 layers: 5
             },

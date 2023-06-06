@@ -9,6 +9,7 @@ import FavouritePage from './parts/FavouritePage';
 
 import { getFavList } from '../utils/callFigma';
 import { useFavStore } from '../store/favStore';
+import { IconHeart, IconPalette, IconPhoto } from '@tabler/icons-react';
 
 function App() {
 
@@ -55,9 +56,9 @@ function App() {
 
             <Tabs defaultValue="pattens">
                 <Tabs.List>
-                    <Tabs.Tab value="pattens" >Pattens</Tabs.Tab>
-                    <Tabs.Tab value="template">Template</Tabs.Tab>
-                    <Tabs.Tab value="favourite">Favourite</Tabs.Tab>
+                    <Tabs.Tab icon={<IconPalette size="0.8rem" />} value="pattens" >Pattens</Tabs.Tab>
+                    <Tabs.Tab icon={<IconPhoto size="0.8rem" />} value="template">Template</Tabs.Tab>
+                    <Tabs.Tab icon={<IconHeart size="0.8rem" />} value="favourite">Favourite</Tabs.Tab>
                 </Tabs.List>
 
                 <Tabs.Panel value="pattens" pt="xs">

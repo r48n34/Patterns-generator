@@ -23,7 +23,7 @@ import AddFavouriteModal from '../utilsComp/AddFavouriteModal';
 import { useFavStore } from '../../store/favStore';
 import { toast } from 'react-hot-toast';
 
-type Mode = "create" | "edit"
+type Mode = "create" | "edit" | "view"
 type GenPatternsFormProps = {
     mode: Mode;
     data?: ShapesGenData
@@ -32,7 +32,7 @@ type GenPatternsFormProps = {
 }
 
 function initData(mode: Mode, data?: ShapesGenData){
-    if(mode === "edit" && !!data){
+    if( (mode === "edit" || mode === "view") && !!data){
         return data
     }
 
@@ -63,7 +63,7 @@ function GenPatternsForm({
     data,
     title = "",
     closeFunc
-}:GenPatternsFormProps) {
+}: GenPatternsFormProps) {
 
     const editItemFav = useFavStore((state) => state.editItem);
 
@@ -141,7 +141,6 @@ function GenPatternsForm({
                 <AddFavouriteModal data={form.values}/>
             </Group>
         )}
-
         
         <form onSubmit={form.onSubmit((values) => createShapes(values))}>
             <Accordion multiple={true} defaultValue={["basic"]} mt={6} >
@@ -156,6 +155,7 @@ function GenPatternsForm({
                     label="Shapes"
                     placeholder="Pick one"
                     searchable
+                    disabled={ mode === "view" }
                     nothingFound="No options"
                     transitionProps={{ transition: 'fade', duration: 70, timingFunction: 'ease' }}
                     data={[
@@ -177,6 +177,7 @@ function GenPatternsForm({
                     <TextInput
                         mt={10}
                         placeholder="K"
+                        disabled={ mode === "view" }
                         label="Text content"
                         withAsterisk
                         {...form.getInputProps('textContent')}
@@ -189,6 +190,7 @@ function GenPatternsForm({
                             icon={<IconArrowAutofitWidth size="1rem" />}
                             placeholder="5"
                             label="Rows Object"
+                            disabled={ mode === "view" }
                             withAsterisk
                             min={1}
                             step={1}
@@ -200,6 +202,7 @@ function GenPatternsForm({
                         <NumberInput
                             icon={<IconArrowAutofitHeight size="1rem" />}
                             placeholder="5"
+                            disabled={ mode === "view" }
                             label="Cols Object"
                             withAsterisk
                             min={1}
@@ -214,6 +217,7 @@ function GenPatternsForm({
                         <NumberInput
                             icon={<IconArrowAutofitContent size="1rem" />}
                             placeholder="100"
+                            disabled={ mode === "view" }
                             label="Density"
                             withAsterisk
                             min={1}
@@ -224,6 +228,7 @@ function GenPatternsForm({
                     <Grid.Col span={6}>
                         <NumberInput
                             icon={<IconZoomPan size="1rem" />}
+                            disabled={ mode === "view" }
                             placeholder="40"
                             label="Size"
                             withAsterisk
@@ -247,6 +252,7 @@ function GenPatternsForm({
                             <NumberInput
                                 icon={<IconArrowAutofitRight size="1rem" />}
                                 placeholder="110"
+                                disabled={ mode === "view" }
                                 label="Rows Padding"
                                 withAsterisk
                                 min={1}
@@ -258,6 +264,7 @@ function GenPatternsForm({
                             <NumberInput
                                 icon={<IconArrowAutofitUp size="1rem" />}
                                 placeholder="110"
+                                disabled={ mode === "view" }
                                 label="Cols Padding"
                                 withAsterisk
                                 min={1}
@@ -271,6 +278,7 @@ function GenPatternsForm({
                             <NumberInput
                                 icon={<IconRotate size="1rem" />}
                                 placeholder="0"
+                                disabled={ mode === "view" }
                                 label="Rotation"
                                 withAsterisk
                                 min={-180}
@@ -283,6 +291,7 @@ function GenPatternsForm({
                         <Grid.Col span={6}>
                             <ColorInput
                                 withEyeDropper
+                                disabled={ mode === "view" }
                                 placeholder="color"
                                 label="Color"
                                 rightSection={
@@ -298,6 +307,7 @@ function GenPatternsForm({
                     <Grid mt={8}>
                         <Grid.Col span={6}>
                             <Switch
+                                disabled={ mode === "view" }
                                 label="Random"
                                 {...form.getInputProps('randomMode', { type: 'checkbox' })}
                             />
@@ -307,6 +317,7 @@ function GenPatternsForm({
                             { form.values.randomMode && (
                                 <>
                                 <NumberInput
+                                    disabled={ mode === "view" }
                                     icon={<IconBrandDenodo size="1rem" />}
                                     placeholder="0.5"
                                     label="Random Density"
@@ -338,6 +349,7 @@ function GenPatternsForm({
                     <Accordion.Panel>
 
                     <Select
+                        disabled={ mode === "view" }
                         label="Effects Mode"
                         placeholder="Pick one"
                         transitionProps={{ transition: 'fade', duration: 70, timingFunction: 'ease' }}
@@ -381,6 +393,7 @@ function GenPatternsForm({
                         <Grid>
                             <Grid.Col span={6}>
                                 <ColorInput
+                                    disabled={ mode === "view" }
                                     withEyeDropper
                                     placeholder="color"
                                     label="Color"
@@ -402,11 +415,13 @@ function GenPatternsForm({
 
             </Accordion>
 
-            <Group position='right' mt={6}>
-                <Button type="submit" variant="light" mt={6}>
-                    { mode === "create" ? "Create" : "Edit" }
-                </Button>
-            </Group>
+            { mode !== "view" &&  (
+                <Group position='right' mt={6}>
+                    <Button type="submit" variant="light" mt={6}>
+                        { mode === "create" ? "Create" : "Edit" }
+                    </Button>
+                </Group>
+            )}
 
         </form>
         </Container>
