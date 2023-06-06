@@ -25,4 +25,4 @@ This plugins is start with `Figma Plugin React Template` from https://github.com
 - [X] Search template / favourite slot
 - [X] Random density and base color
 - [X] Small card display UI
-- [ ] Glow / Effects mode on nodes
+- [x] Glow / Effects mode on nodes
