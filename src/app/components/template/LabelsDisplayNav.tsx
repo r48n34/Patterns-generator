@@ -1,5 +1,5 @@
 import React from "react";
-import { Group, Badge, Tooltip } from "@mantine/core";
+import { Tooltip, Code, Space } from "@mantine/core";
 import { PattenConfig, shapesIconMap } from "../../interface/shapesConfig";
 
 type LabelsDisplayNavProps = {
@@ -9,14 +9,23 @@ type LabelsDisplayNavProps = {
 function LabelsDisplayNav({ data }: LabelsDisplayNavProps){
     return (
         <>
-        <Group position="left">
-            <Badge size="sm">{shapesIconMap[data.config.shapes]} {data.config.rows} x {data.config.cols}</Badge>
+            <Code color="blue">
+            {shapesIconMap[data.config.shapes]} {data.config.rows} x {data.config.cols}
+            </Code>
+
+            <Space h="xs" />
+
             { data.config.randomMode && (
                 <Tooltip label={"Random patterns (" + data.config.randomDensity + ")"}>
-                    <Badge size="sm" ml={-2}>🎲</Badge>
+                    <Code color="blue" mr={4}>🎲</Code>
                 </Tooltip>
             )}
-        </Group>
+
+            { data.config.effectsMode === "Glow" && (
+                <Tooltip label={"Glow"}>
+                    <Code color="blue" mr={4}>💡</Code>
+                </Tooltip>
+            )}
         </>
     )
 }

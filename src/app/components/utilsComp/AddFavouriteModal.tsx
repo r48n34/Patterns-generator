@@ -88,7 +88,7 @@ function AddFavouriteModal({ data }: AddFavouriteModalProps){
   
         <Tooltip label="Add current setting to favourite">
             <ActionIcon size="lg" onClick={open} color="red" variant="light">
-                <IconHeart size="1.4rem" />
+                <IconHeart size="1.2rem" />
             </ActionIcon>
         </Tooltip>
       </>

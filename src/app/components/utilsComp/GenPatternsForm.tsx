@@ -69,7 +69,7 @@ function GenPatternsForm({
 
     const editItemFav = useFavStore((state) => state.editItem);
 
-    const form = useForm<ShapesGenData>({
+    const patternsForm = useForm<ShapesGenData>({
         initialValues: initData(mode, data),
         validate: {
             density:       (value) => (value && value >= 1 ? null : 'Invalid density'),
@@ -91,7 +91,7 @@ function GenPatternsForm({
     });
 
     function checkEffectsConfig(value: string | number, title: string){
-        if(form.values.effectsMode === "Null"){
+        if(patternsForm.values.effectsMode === "Null"){
             return null
         }
 
@@ -99,7 +99,7 @@ function GenPatternsForm({
     }
 
     function checkRandomDensity(value: number){
-        if(!form.values.randomMode){
+        if(!patternsForm.values.randomMode){
             return null
         }
 
@@ -131,25 +131,21 @@ function GenPatternsForm({
     };
 
     React.useEffect(() => {
-        form.setFieldValue('paddingCols', form.values.density);
-        form.setFieldValue('paddingRows', form.values.density);
-    }, [form.values.density]);
+        patternsForm.setFieldValue('paddingCols', patternsForm.values.density);
+        patternsForm.setFieldValue('paddingRows', patternsForm.values.density);
+    }, [patternsForm.values.density]);
     
     return (
         <>
+
+        <Group position="right" mt={2} mb={8}>
+            <AddFavouriteModal data={patternsForm.values}/>
+        </Group>
         
-       
-        
-        <form onSubmit={form.onSubmit((values) => createShapes(values))}>
+        <form onSubmit={patternsForm.onSubmit((values) => createShapes(values))}>
 
         { mode !== "view" &&  (
                 <Grid mb={6}>
-
-                    <Grid.Col span={2}>
-                        <Group position="center" mt={2}>
-                            <AddFavouriteModal data={form.values}/>
-                        </Group>
-                    </Grid.Col>
 
                     <Grid.Col span={4}>
                         <Button
@@ -158,14 +154,14 @@ function GenPatternsForm({
                             variant="light"
                             onClick={ () => {
                                 toast.success("Form reset");
-                                form.reset();
+                                patternsForm.reset();
                             }}
                         >
                             Reset
                         </Button>
                     </Grid.Col>
 
-                    <Grid.Col span={6}>
+                    <Grid.Col span={8}>
                         <Button
                             leftIcon={<IconGridDots size={"1rem"} />}
                             fullWidth type="submit" 
@@ -204,18 +200,18 @@ function GenPatternsForm({
                         { value: 'Line', label: '➖ Line', group: 'Polygon' },
                         { value: 'Text', label: '🖊 Text', group: 'Text' },
                     ]}
-                    {...form.getInputProps('shapes')}
+                    {...patternsForm.getInputProps('shapes')}
                 />
 
                 
-                { form.values.shapes === "Text" && (
+                { patternsForm.values.shapes === "Text" && (
                     <TextInput
                         mt={10}
                         placeholder="K"
                         disabled={ mode === "view" }
                         label="Text content"
                         withAsterisk
-                        {...form.getInputProps('textContent')}
+                        {...patternsForm.getInputProps('textContent')}
                     />
                 )}  
 
@@ -229,7 +225,7 @@ function GenPatternsForm({
                             withAsterisk
                             min={1}
                             step={1}
-                            {...form.getInputProps('rows')}
+                            {...patternsForm.getInputProps('rows')}
                         />
                     </Grid.Col>
 
@@ -242,7 +238,7 @@ function GenPatternsForm({
                             withAsterisk
                             min={1}
                             step={1}
-                            {...form.getInputProps('cols')}
+                            {...patternsForm.getInputProps('cols')}
                         />
                     </Grid.Col>
                 </Grid>
@@ -256,7 +252,7 @@ function GenPatternsForm({
                             label="Density"
                             withAsterisk
                             min={1}
-                            {...form.getInputProps('density')}
+                            {...patternsForm.getInputProps('density')}
                         />
                     </Grid.Col>
 
@@ -269,7 +265,7 @@ function GenPatternsForm({
                             withAsterisk
                             min={1}
                             precision={1}
-                            {...form.getInputProps('shapeSize')}
+                            {...patternsForm.getInputProps('shapeSize')}
                         />
                     </Grid.Col>
                 </Grid>
@@ -291,7 +287,7 @@ function GenPatternsForm({
                                 label="Rows Padding"
                                 withAsterisk
                                 min={1}
-                                {...form.getInputProps('paddingRows')}
+                                {...patternsForm.getInputProps('paddingRows')}
                             />
                         </Grid.Col>
 
@@ -303,7 +299,7 @@ function GenPatternsForm({
                                 label="Cols Padding"
                                 withAsterisk
                                 min={1}
-                                {...form.getInputProps('paddingCols')}
+                                {...patternsForm.getInputProps('paddingCols')}
                             />
                         </Grid.Col>
                     </Grid>
@@ -319,7 +315,7 @@ function GenPatternsForm({
                                 withAsterisk
                                 min={-180}
                                 max={180}
-                                {...form.getInputProps('rotation')}
+                                {...patternsForm.getInputProps('rotation')}
                             />
                         </Grid.Col>
 
@@ -332,12 +328,12 @@ function GenPatternsForm({
                                 description="In Hex"
                                 rightSection={
                                     <Tooltip label="Random Color">
-                                    <ActionIcon onClick={() => form.setFieldValue("color", `#${Math.floor(Math.random() * 16777215).toString(16)}`)}>
+                                    <ActionIcon onClick={() => patternsForm.setFieldValue("color", `#${Math.floor(Math.random() * 16777215).toString(16)}`)}>
                                       <IconRefresh size="1rem" />
                                     </ActionIcon>
                                     </Tooltip>
                                 }
-                                {...form.getInputProps('color')}
+                                {...patternsForm.getInputProps('color')}
                             />
                         </Grid.Col>
                     </Grid>
@@ -347,12 +343,12 @@ function GenPatternsForm({
                             <Switch
                                 disabled={ mode === "view" }
                                 label="Random"
-                                {...form.getInputProps('randomMode', { type: 'checkbox' })}
+                                {...patternsForm.getInputProps('randomMode', { type: 'checkbox' })}
                             />
 
                         </Grid.Col>
                         <Grid.Col span={6}>
-                            { form.values.randomMode && (
+                            { patternsForm.values.randomMode && (
                                 <>
                                 <NumberInput
                                     disabled={ mode === "view" }
@@ -365,7 +361,7 @@ function GenPatternsForm({
                                     step={0.1}
                                     min={0.1}
                                     max={1}
-                                    {...form.getInputProps('randomDensity')}
+                                    {...patternsForm.getInputProps('randomDensity')}
                                 />
                                 {/* <Text c="dimmed" fz={12} mt={1}> *Range: 0.1 - 1</Text> */}
                                 <Text c="dimmed" fz={12} mt={1}> Higher = more </Text>
@@ -395,11 +391,12 @@ function GenPatternsForm({
                         data={[
                             { value: 'Null', label: 'Null' },
                             { value: 'Glow', label: '💡 Glow'},
+                            { value: 'TBD',  label: '🚀 Coming Soon', disabled: true },
                         ]}
-                        {...form.getInputProps('effectsMode')}
+                        {...patternsForm.getInputProps('effectsMode')}
                     />
 
-                    { form.values.effectsMode === "Glow" && (
+                    { patternsForm.values.effectsMode === "Glow" && (
                         <>
                         <Grid mt={8}>
                             <Grid.Col span={6}>
@@ -412,7 +409,7 @@ function GenPatternsForm({
                                     withAsterisk
                                     max={1}
                                     min={1}
-                                    {...form.getInputProps('effectsConfig.intensity')}
+                                    {...patternsForm.getInputProps('effectsConfig.intensity')}
                                 />
                             </Grid.Col>
 
@@ -426,7 +423,7 @@ function GenPatternsForm({
                                     min={1}
                                     max={6}
                                     step={1}
-                                    {...form.getInputProps('effectsConfig.layers')}
+                                    {...patternsForm.getInputProps('effectsConfig.layers')}
                                 />
                             </Grid.Col>
                         </Grid>
@@ -440,12 +437,12 @@ function GenPatternsForm({
                                     label="Color"
                                     rightSection={
                                         <Tooltip label="Random Color">
-                                            <ActionIcon onClick={() => form.setFieldValue("effectsConfig.color", `#${Math.floor(Math.random() * 16777215).toString(16)}`)}>
+                                            <ActionIcon onClick={() => patternsForm.setFieldValue("effectsConfig.color", `#${Math.floor(Math.random() * 16777215).toString(16)}`)}>
                                             <IconRefresh size="1rem" />
                                             </ActionIcon>
                                         </Tooltip>
                                     }
-                                    {...form.getInputProps('effectsConfig.color')}
+                                    {...patternsForm.getInputProps('effectsConfig.color')}
                                 />
                             </Grid.Col>
                         </Grid>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Card, Text, Group, ActionIcon } from '@mantine/core';
+import { Card, Text, Group, ActionIcon, UnstyledButton } from '@mantine/core';
 import { generateTemplate } from '../../utils/callFigma';
 
 import { IconHammer } from '@tabler/icons-react';
@@ -17,8 +17,8 @@ type TemplateCardProps = {
 
 function TemplateCardSmall({ data, showsDelete = false , showsEdit = false, showsDetails = true }: TemplateCardProps) {
     return (
-        <>
         <Card shadow="sm" padding="md" radius="md" withBorder>
+            <UnstyledButton onClick={ () => generateTemplate(data.config) }>
 
             <LabelsDisplayNav data={data}/>
             <Text weight={500} fz={14} mt={6}>{ data.title }</Text>
@@ -26,13 +26,13 @@ function TemplateCardSmall({ data, showsDelete = false , showsEdit = false, show
             <Group position={ showsDetails ? "apart" : "right"} mt={12}>
                 { showsDetails && <TemplateMenu data={data} showsDelete={showsDelete} showsEdit={showsEdit}/> }
 
-                <ActionIcon color="blue" variant="light" onClick={ () => generateTemplate(data.config) }>
+                {/* <ActionIcon color="blue" variant="light" onClick={ () => generateTemplate(data.config) }>
                     <IconHammer size="1.125rem" />
-                </ActionIcon>
+                </ActionIcon> */}
             </Group>
 
+            </UnstyledButton>
         </Card>
-        </>
     )
 }
 
