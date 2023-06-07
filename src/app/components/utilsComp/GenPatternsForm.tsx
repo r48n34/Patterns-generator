@@ -57,6 +57,7 @@ function initData(mode: Mode, data?: ShapesGenData){
             intensity: 1,
             layers: 6
         },
+        flatten: false
     } as ShapesGenData
 }
 
@@ -78,9 +79,9 @@ function GenPatternsForm({
             shapeSize:     (value) => (value && value >= 1 ? null : 'Invalid shapeSize'),
             paddingRows:   (value) => (value && value >= 1 ? null : 'Invalid paddingRows'),
             paddingCols:   (value) => (value && value >= 1 ? null : 'Invalid paddingCols'),
+            randomDensity: (value) => checkRandomDensity(value),
             // color:         (value) => (!!value ? null : 'Invalid color'),
             // rotation:      (value) => (Number.isInteger(value) && (value >= -180 && value <= 180) ? null : 'Invalid rotation'),
-            randomDensity: (value) => checkRandomDensity(value),
             // effectsMode:   (value) => (value ? null : 'Invalid effectsMode'),
             effectsConfig: {
                 color:     (value) => checkEffectsConfig(value, "color"),
@@ -108,15 +109,16 @@ function GenPatternsForm({
 
     function createShapes(values: ShapesGenData){
 
-        !values.color         && (values.color = "#FFFFFF")
-        !values.rotation      && (values.rotation = 0)
-        !values.randomDensity && (values.randomDensity = 1)
-        !values.effectsMode   && (values.effectsMode = "Null")
-        !values.effectsConfig && (values.effectsConfig = {
+        !values.hasOwnProperty("color")         && (values.color = "#FFFFFF")
+        !values.hasOwnProperty("rotation")      && (values.rotation = 0)
+        !values.hasOwnProperty("randomDensity") && (values.randomDensity = 1)
+        !values.hasOwnProperty("effectsMode")   && (values.effectsMode = "Null")
+        !values.hasOwnProperty("effectsConfig") && (values.effectsConfig = {
             color: "#FFFFFF",
             intensity: 1,
             layers: 5
         })
+        !values.hasOwnProperty("flatten")       && (values.flatten = false)
 
         if(mode === "edit"){
             editItemFav(title, values);
@@ -373,6 +375,16 @@ function GenPatternsForm({
                             )}
                         </Grid.Col>
 
+                    </Grid>
+
+                    <Grid mt={8}>
+                        <Grid.Col span={6}>
+                            <Switch
+                                disabled={ mode === "view" }
+                                label="Flatten Layer"
+                                {...patternsForm.getInputProps('flatten', { type: 'checkbox' })}
+                            />
+                        </Grid.Col>
                     </Grid>
 
                     </Accordion.Panel>

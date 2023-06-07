@@ -48,7 +48,11 @@ export async function createRectangles(msg){
     // figma.currentPage.selection = nodes;
     // figma.viewport.scrollAndZoomIntoView(nodes);
 
-    figma.group(nodes, figma.currentPage)
+    figma.group(nodes, figma.currentPage);
+
+    if(config.flatten){
+        figma.flatten(nodes, figma.currentPage);
+    }
 
     // This is how figma responds back to the ui
     // figma.ui.postMessage({
