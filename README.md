@@ -2,7 +2,7 @@
 
 https://www.figma.com/community/plugin/1242738296070075685/Pattens-generator
 
-![https://www.figma.com/community/plugin/1242738296070075685/Pattens-generator](https://s3-alpha-sig.figma.com/plugins/1242738296070075685/56219/58011210/a1a8a829-9ed0-4f17-85c3-25d16c72b335-cover?Expires=1686528000&Signature=L752IraPvYdcw3cQXer9tc-r6Md1i~da6Aesx92H7NyR-KjT1s8wTEuUmo6QdI07TGJNs6O0neX734QVsdNwq~yY8NrN7Q7HKbijjxFhsw8HgjS5Ga5LREPufCwEmOZCklVBLYBPk0puQdDXON1dW-ED0WiMohz6UeXwlJjV9LAnyjSxj6ZgKXn3Hm5R8MeOuxwbsnGq-QfFK0iMFyBba3YyCShxuAAsdQFpInm4z7uWx1sakb-Aj1XcOopMqm08FpxO5YGhxb1l1gFvERje7AEYrXpiRo01V~FizVE6Ay3VxAhpIeOJ12Ugds3iODBVBDKDy4LjuiG241oGelbXOg__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4)
+![https://www.figma.com/community/plugin/1242738296070075685/Pattens-generator](https://s3-alpha-sig.figma.com/plugins/1242738296070075685/56981/25107156/167dcf22-0414-45c6-913e-e7790c034f61-cover?Expires=1687132800&Signature=DPfpI-RHo8kbOOjrBHwBk7Bco7KCAFB2kDI~-p-DvX2yJA-l~lq5PjG7bvF2oPHQ8SPT1B0f4kP3knXz3yf~pWVN6SCg5pMqj6EUUpkXfbAUwCYxlVZmM41yqnZL-eTIT5j7EWotNqgCvZFY8nlxxoxDq35NaaQ25Zny3FILQoLKklTt6YFzz4UXPNyRb0c1DUjrR7zgnoiJz6mjJ9wfdFybQK8MdyFees-GcnaRJLiov9WakKz-VljXh-Wazs1Z1eBaFhxBfruJ0bGXEKLJDWYBSULqyA34h9cyRA2KDdh3YKAQFHEGVy5a5helS-QACQvwrpbM90QZN3SQ4Uf7WA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4)
 
 Wanna make shapes with patterns in figma? The plugin help you to create pattern by a single clicks.
 
