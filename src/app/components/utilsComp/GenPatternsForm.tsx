@@ -433,6 +433,7 @@ function GenPatternsForm({
                                 <NumberInput
                                     icon={<IconArrowAutofitUp size="1rem" />}
                                     placeholder="6"
+                                    disabled={ mode === "view" }
                                     label="Layers"
                                     description="From 1 to 6"
                                     withAsterisk
