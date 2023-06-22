@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Card, Text, Button, Group, Space } from '@mantine/core';
+import { Card, Text, Button, Group } from '@mantine/core';
 import { generateTemplate } from '../../utils/callFigma';
 
 // import TemplateDateModal from './TemplateDateModal';
@@ -18,7 +18,7 @@ type TemplateCardProps = {
 function TemplateCard({ data, showsDelete = false , showsEdit = false }: TemplateCardProps) {
     return (
         <>
-        <Card shadow="sm" padding="lg" radius="md" withBorder>
+        <Card shadow="sm" padding="lg" radius="md" withBorder style={{ overflow: "visible" }}>
             {/* <Space h="lg" /> */}
 
             <LabelsDisplayNav data={data}/>
@@ -36,7 +36,7 @@ function TemplateCard({ data, showsDelete = false , showsEdit = false }: Templat
                 Generate this
             </Button>
 
-            <Space h="lg" />
+            {/* <Space h="lg" /> */}
         </Card>
         </>
     )

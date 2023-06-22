@@ -55,7 +55,7 @@ function FavouritePage() {
                                     )
                                     :(
                                         <Grid.Col span={6} key={v.title}>
-                                            <TemplateCardSmall data={v} showsDelete={true} showsEdit={true} showsDetails={false}/>
+                                            <TemplateCardSmall data={v} showsDelete={true} showsEdit={true} showsDetails={true}/>
                                         </Grid.Col>
                                     )
                                 )
