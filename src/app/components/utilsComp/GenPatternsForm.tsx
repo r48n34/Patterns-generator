@@ -24,6 +24,8 @@ import { editFavListOneItem, generateTemplate } from '../../utils/callFigma';
 import AddFavouriteModal from '../utilsComp/AddFavouriteModal';
 import { useFavStore } from '../../store/favStore';
 import { toast } from 'react-hot-toast';
+import ImportConfigComp from './ImportConfigComp';
+import ExportConfigComp from './ExportConfigComp';
 
 type Mode = "create" | "edit" | "view"
 type GenPatternsFormProps = {
@@ -91,6 +93,21 @@ function GenPatternsForm({
         },
     });
 
+    function importNewConfig(value: string){
+
+        try {
+            const data = JSON.parse(value);
+            console.log("data", data);
+            patternsForm.setValues(data);
+            return true
+        }
+        catch (error) {
+            console.log(error);
+            return false
+        }
+
+    }
+
     function checkEffectsConfig(value: string | number, title: string){
         if(patternsForm.values.effectsMode === "Null"){
             return null
@@ -142,6 +159,8 @@ function GenPatternsForm({
 
         { mode === "create" && (
             <Group position="right" mt={2} mb={8}>
+                <ExportConfigComp data={patternsForm.values}/>
+                <ImportConfigComp onSubmitData={importNewConfig}/>
                 <AddFavouriteModal data={patternsForm.values}/>
             </Group>
         )}

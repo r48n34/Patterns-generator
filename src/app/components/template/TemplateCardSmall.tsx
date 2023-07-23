@@ -13,9 +13,10 @@ type TemplateCardProps = {
     showsDetails?: boolean
     showsDelete?: boolean
     showsEdit?: boolean
+    showsExport?: boolean
 }
 
-function TemplateCardSmall({ data, showsDelete = false , showsEdit = false, showsDetails = true }: TemplateCardProps) {
+function TemplateCardSmall({ data, showsDelete = false , showsEdit = false, showsDetails = true, showsExport = true }: TemplateCardProps) {
     return (
         <Card shadow="sm" padding="md" radius="md" withBorder style={{ overflow: "visible" }}>
             {/* <UnstyledButton onClick={ () => generateTemplate(data.config) }> */}
@@ -29,7 +30,7 @@ function TemplateCardSmall({ data, showsDelete = false , showsEdit = false, show
             <Text weight={500} fz={14} mt={6}>{ data.title }</Text>
 
             <Group position={ showsDetails ? "apart" : "right"} mt={12}>
-                { showsDetails && <TemplateMenu data={data} showsDelete={showsDelete} showsEdit={showsEdit}/> }
+                { showsDetails && <TemplateMenu data={data} showsDelete={showsDelete} showsEdit={showsEdit} showsExport={showsExport}/> }
 
                 <ActionIcon color="blue" variant="light" onClick={ () => generateTemplate(data.config) }>
                     <IconHammer size="1.125rem" />

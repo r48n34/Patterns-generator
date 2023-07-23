@@ -13,19 +13,19 @@ type TemplateCardProps = {
     data: PattenConfig;
     showsDelete?: boolean
     showsEdit?: boolean
+    showsExport?: boolean
 }
 
-function TemplateCard({ data, showsDelete = false , showsEdit = false }: TemplateCardProps) {
+function TemplateCard({ data, showsDelete = false , showsEdit = false, showsExport = true }: TemplateCardProps) {
     return (
         <>
         <Card shadow="sm" padding="lg" radius="md" withBorder style={{ overflow: "visible" }}>
-            {/* <Space h="lg" /> */}
 
             <LabelsDisplayNav data={data}/>
 
             <Group position="apart" mb="xs" mt={6}>
                 <Text weight={500} fz={18}>{ data.title }</Text>
-                <TemplateMenu data={data} showsDelete={showsDelete} showsEdit={showsEdit}/>
+                <TemplateMenu data={data} showsDelete={showsDelete} showsEdit={showsEdit} showsExport={showsExport}/>
             </Group>
 
             <Text size="sm" color="dimmed">
@@ -36,7 +36,6 @@ function TemplateCard({ data, showsDelete = false , showsEdit = false }: Templat
                 Generate this
             </Button>
 
-            {/* <Space h="lg" /> */}
         </Card>
         </>
     )

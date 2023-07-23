@@ -3,23 +3,27 @@ import toast from "react-hot-toast";
 
 import { modals } from "@mantine/modals";
 import { useDisclosure } from '@mantine/hooks';
-import { ActionIcon, Menu, Modal, Tooltip, Text } from "@mantine/core";
-import { IconFileDots, IconTrash, IconDots, IconEdit } from "@tabler/icons-react";
+import { ActionIcon, Menu, Modal, Tooltip, Text, JsonInput, Group  } from "@mantine/core";
+import { IconFileDots, IconTrash, IconDots, IconEdit, IconCopy, IconFileExport } from "@tabler/icons-react";
 
 import { useFavStore } from "../../store/favStore";
 import { PattenConfig } from "../../interface/shapesConfig";
 import GenPatternsForm from "../utilsComp/GenPatternsForm";
+import { toCopyBoard } from "../../utils/copyItems";
 
 type TemplateMenuProps = {
     data: PattenConfig;
     showsDelete: boolean
     showsEdit: boolean
+    showsExport: boolean
 }
 
-function TemplateMenu({ data, showsDelete, showsEdit }:TemplateMenuProps) {
+function TemplateMenu({ data, showsDelete, showsEdit, showsExport }:TemplateMenuProps) {
 
     const [openedDetails, { open: openDetails, close: closeDetails }] = useDisclosure(false);
     const [openedEdit, { open: openEdit, close: closeEdit }] = useDisclosure(false);
+    const [openedExport, { open: openExport, close: closeExport }] = useDisclosure(false);
+
     const deleteItemFav = useFavStore((state) => state.deleteItem);
 
     function deleteOneItems(){
@@ -49,6 +53,26 @@ function TemplateMenu({ data, showsDelete, showsEdit }:TemplateMenuProps) {
             />
         </Modal>
 
+        <Modal 
+            opened={openedExport} 
+            onClose={closeExport} 
+            title={
+            <>
+            <Group position="left">
+                <Text>Export Data</Text>
+
+                <Tooltip label={"Copy to Board"}>
+                <ActionIcon onClick={() => toCopyBoard(JSON.stringify(data.config, null, " "))}>
+                    <IconCopy size="1.125rem" /> 
+                </ActionIcon>
+                </Tooltip>
+            </Group>
+            </>
+            }
+        >  
+            <JsonInput disabled value={JSON.stringify(data.config, null, " ")} minRows={16}/>
+        </Modal>
+        
         <Modal opened={openedEdit} onClose={closeEdit} title="Edit Data">
             <GenPatternsForm 
                 mode={"edit"} 
@@ -78,6 +102,12 @@ function TemplateMenu({ data, showsDelete, showsEdit }:TemplateMenuProps) {
                 {showsEdit && 
                     <Menu.Item icon={<IconEdit size={14} />} onClick={openEdit}>
                         Edit Shapes
+                    </Menu.Item>
+                }
+
+                {showsExport && 
+                    <Menu.Item icon={<IconFileExport size={14} />} onClick={openExport}>
+                        Export Shapes
                     </Menu.Item>
                 }
 
