@@ -26,6 +26,7 @@ import { useFavStore } from '../../store/favStore';
 import { toast } from 'react-hot-toast';
 import ImportConfigComp from './ImportConfigComp';
 import ExportConfigComp from './ExportConfigComp';
+import { genPatternsSchema } from '../../utils/validateUtils';
 
 type Mode = "create" | "edit" | "view"
 type GenPatternsFormProps = {
@@ -98,11 +99,16 @@ function GenPatternsForm({
         try {
             const data = JSON.parse(value);
             console.log("data", data);
+
+            // Zod validation
+            genPatternsSchema.parse(data);
+
             patternsForm.setValues(data);
             return true
         }
         catch (error) {
-            console.log(error);
+            toast.error("Invalid import data, please check the source is correct.")
+            console.log(error.message);
             return false
         }
 
@@ -158,9 +164,13 @@ function GenPatternsForm({
         <>
 
         { mode === "create" && (
-            <Group position="right" mt={2} mb={8}>
-                <ExportConfigComp data={patternsForm.values}/>
-                <ImportConfigComp onSubmitData={importNewConfig}/>
+            <Group position="apart" mt={2} mb={8}>
+
+                <Group position="left">
+                    <ExportConfigComp data={patternsForm.values}/>
+                    <ImportConfigComp onSubmitData={importNewConfig}/>
+                </Group>
+
                 <AddFavouriteModal data={patternsForm.values}/>
             </Group>
         )}
@@ -168,7 +178,7 @@ function GenPatternsForm({
         <form onSubmit={patternsForm.onSubmit((values) => createShapes(values))}>
 
         { mode !== "view" &&  (
-                <Grid mb={6} grow>
+                <Grid mb={6} grow mt={4}>
 
                     { mode === "create" && (
                         <Grid.Col span={4}>
