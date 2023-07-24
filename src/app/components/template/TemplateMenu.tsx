@@ -70,7 +70,7 @@ function TemplateMenu({ data, showsDelete, showsEdit, showsExport }:TemplateMenu
             </>
             }
         >  
-            <JsonInput value={JSON.stringify(data.config, null, " ")} minRows={16}/>
+            <JsonInput disabled value={JSON.stringify(data.config, null, " ")} minRows={16}/>
         </Modal>
         
         <Modal opened={openedEdit} onClose={closeEdit} title="Edit Data">

@@ -32,7 +32,7 @@ function ExportConfigComp({ data }: ExportConfigCompProps) {
                     </>
                 }
             >
-                <JsonInput value={JSON.stringify(data, null, " ")} minRows={18}/>
+                <JsonInput disabled value={JSON.stringify(data, null, " ")} minRows={18}/>
             </Modal>
 
             <Tooltip label="Export config">
