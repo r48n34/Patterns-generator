@@ -1,6 +1,6 @@
 import React from 'react';
 import { NumberInput, Button, Grid, Select, Accordion, TextInput, Switch, Text, ColorInput, ActionIcon, Group, Tooltip } from '@mantine/core';
-import { useForm } from '@mantine/form';
+import { useForm, zodResolver } from '@mantine/form';
 
 import { 
     IconArrowAutofitWidth,
@@ -75,60 +75,65 @@ function GenPatternsForm({
 
     const patternsForm = useForm<ShapesGenData>({
         initialValues: initData(mode, data),
-        validate: {
-            density:       (value) => (value && value >= 1 ? null : 'Invalid density'),
-            rows:          (value) => (value && value >= 1 ? null : 'Invalid rows'),
-            cols:          (value) => (value && value >= 1 ? null : 'Invalid cols'),
-            shapeSize:     (value) => (value && value >= 1 ? null : 'Invalid shapeSize'),
-            paddingRows:   (value) => (value && value >= 1 ? null : 'Invalid paddingRows'),
-            paddingCols:   (value) => (value && value >= 1 ? null : 'Invalid paddingCols'),
-            randomDensity: (value) => checkRandomDensity(value),
-            // color:         (value) => (!!value ? null : 'Invalid color'),
-            // rotation:      (value) => (Number.isInteger(value) && (value >= -180 && value <= 180) ? null : 'Invalid rotation'),
-            // effectsMode:   (value) => (value ? null : 'Invalid effectsMode'),
-            effectsConfig: {
-                color:     (value) => checkEffectsConfig(value, "color"),
-                intensity: (value) => checkEffectsConfig(value, "intensity"),
-                layers:    (value) => checkEffectsConfig(value, "layers"),
-            }
-        },
+        validate: zodResolver(genPatternsSchema),
+        // validate: {
+        //     density:       (value) => (value && value >= 1 ? null : 'Invalid density'),
+        //     rows:          (value) => (value && value >= 1 ? null : 'Invalid rows'),
+        //     cols:          (value) => (value && value >= 1 ? null : 'Invalid cols'),
+        //     shapeSize:     (value) => (value && value >= 1 ? null : 'Invalid shapeSize'),
+        //     paddingRows:   (value) => (value && value >= 1 ? null : 'Invalid paddingRows'),
+        //     paddingCols:   (value) => (value && value >= 1 ? null : 'Invalid paddingCols'),
+        //     randomDensity: (value) => checkRandomDensity(value),
+        //     // color:         (value) => (!!value ? null : 'Invalid color'),
+        //     // rotation:      (value) => (Number.isInteger(value) && (value >= -180 && value <= 180) ? null : 'Invalid rotation'),
+        //     // effectsMode:   (value) => (value ? null : 'Invalid effectsMode'),
+        //     effectsConfig: {
+        //         color:     (value) => checkEffectsConfig(value, "color"),
+        //         intensity: (value) => checkEffectsConfig(value, "intensity"),
+        //         layers:    (value) => checkEffectsConfig(value, "layers"),
+        //     }
+        // },
     });
 
-    function importNewConfig(value: string){
+    function importNewConfig(value: string, directGenerate:boolean = false){
 
         try {
-            const data = JSON.parse(value);
+            const data:ShapesGenData = JSON.parse(value);
             console.log("data", data);
 
             // Zod validation
             genPatternsSchema.parse(data);
-
             patternsForm.setValues(data);
+
+            if(directGenerate){
+                createShapes(data);
+            }
+
             return true
         }
         catch (error) {
-            toast.error("Invalid import data, please check the source is correct.")
+            toast.error("Invalid import data, please check the source is correct.", { duration: 3000 })
             console.log(error.message);
             return false
         }
 
     }
 
-    function checkEffectsConfig(value: string | number, title: string){
-        if(patternsForm.values.effectsMode === "Null"){
-            return null
-        }
+    // function checkEffectsConfig(value: string | number, title: string){
+    //     if(patternsForm.values.effectsMode === "Null"){
+    //         return null
+    //     }
 
-        return value ? null : `Invalid ${title}`
-    }
+    //     return value ? null : `Invalid ${title}`
+    // }
 
-    function checkRandomDensity(value: number){
-        if(!patternsForm.values.randomMode){
-            return null
-        }
+    // function checkRandomDensity(value: number){
+    //     if(!patternsForm.values.randomMode){
+    //         return null
+    //     }
 
-        return value && (value >= 0.1 || value <= 0.9) ? null : 'Invalid Random Density'
-    }
+    //     return value && (value >= 0.1 || value <= 0.9) ? null : 'Invalid Random Density'
+    // }
 
     function createShapes(values: ShapesGenData){
 

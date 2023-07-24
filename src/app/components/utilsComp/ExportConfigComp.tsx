@@ -36,7 +36,7 @@ function ExportConfigComp({ data }: ExportConfigCompProps) {
             </Modal>
 
             <Tooltip label="Export config">
-                <ActionIcon size="lg" onClick={open} color="green" variant="light">
+                <ActionIcon size="lg" onClick={open}>
                     <IconFileExport size="1.2rem" />
                 </ActionIcon>
             </Tooltip>
