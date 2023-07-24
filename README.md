@@ -28,7 +28,7 @@ https://github.com/nirsky/figma-plugin-react-template
 - [x] Random density and base color
 - [x] Small card display UI
 - [x] Glow / Effects mode on nodes
-- [x] Import and export pattens for share and advance use
+- [x] Import and export patterns for share and advance use
 
 ## Import and Export Guide
 
