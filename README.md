@@ -33,7 +33,7 @@ https://github.com/nirsky/figma-plugin-react-template
 ## Import and Export Guide
 
 The Import and Export features are added in 24/07/2023, which allow users to
-share their own pattens in a efficient ways.
+share their own patterns in a efficient ways.
 
 A default patterns data will be like the following
 
@@ -103,11 +103,11 @@ export interface ShapesGenData {
         layers: number
     }
 
-    // Will the final pattens be flatten
+    // Will the final patterns be flatten
     flatten?: boolean,
 }
 ```
 
-In the `Pattens`, you will see the `Import` and `Export` buttons at the top left sections. Yet, you will also see the `Export Shapes` items in both `Template` and `Favourite` menu. 
+In the `Patterns`, you will see the `Import` and `Export` buttons at the top left sections. Yet, you will also see the `Export Shapes` items in both `Template` and `Favourite` menu. 
 
 By clicking the `Copy to Board` icon, you may export the shapes JSON and share to the `Import` functions.
