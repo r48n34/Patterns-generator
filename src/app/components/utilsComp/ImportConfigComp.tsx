@@ -6,26 +6,27 @@ import { useDisclosure } from '@mantine/hooks';
 import { IconBookUpload, IconFileImport, IconLoader3 } from '@tabler/icons-react';
 import toast from 'react-hot-toast';
 
-const dummyJson = JSON.stringify({
-    "rows": 15,
-    "cols": 15,
-    "paddingRows": 80,
-    "paddingCols": 80,
-    "density": 80,
-    "shapeSize": 25,
-    "shapes": "Ellipse",
-    "rotation": 0,
-    "color": "#FFFFFF",
-    "textContent": "",
-    "randomMode": true,
-    "randomDensity": 0.5,
-    "effectsMode": "Glow",
-    "effectsConfig": {
-        "color": "#FFFFFF",
-        "intensity": 1,
-        "layers": 5
-    }
-}, null, " ")
+// const dummyJson = JSON.stringify({
+//     "rows": 5,
+//     "cols": 5,
+//     "paddingRows": 80,
+//     "paddingCols": 80,
+//     "density": 80,
+//     "shapeSize": 25,
+//     "shapes": "Ellipse",
+//     "textContent": "",
+//     "color": "#FFFFFF",
+//     "randomMode": false,
+//     "randomDensity": 0.5,
+//     "rotation": 0,
+//     "effectsMode": "Null",
+//     "effectsConfig": {
+//         "color": "#FFFFFF",
+//         "intensity": 1,
+//         "layers": 6
+//     },
+//     "flatten": false
+// }, null, " ")
 
 interface ImportConfigCompProps {
     onSubmitData: Function
@@ -65,7 +66,7 @@ function ImportConfigComp({ onSubmitData }: ImportConfigCompProps) {
 
                     <JsonInput
                         label="Place the JSON data"
-                        placeholder={dummyJson}
+                        placeholder={""}
                         minRows={18}
                         {...form.getInputProps('jsonData')}
                     />
@@ -74,7 +75,7 @@ function ImportConfigComp({ onSubmitData }: ImportConfigCompProps) {
                         <Button
                             type="submit"
                             variant="light"
-                            leftIcon={<IconLoader3 size="1.1rem"/>}
+                            leftIcon={<IconLoader3 size="1.1rem" />}
                             color="gray"
                             size="xs"
                             onClick={() => form.setFieldValue('generate', false)}
@@ -85,7 +86,7 @@ function ImportConfigComp({ onSubmitData }: ImportConfigCompProps) {
                         <Button
                             type="submit"
                             variant="light"
-                            leftIcon={<IconBookUpload size="1.1rem"/>}
+                            leftIcon={<IconBookUpload size="1.1rem" />}
                             color="green"
                             size="xs"
                             onClick={() => form.setFieldValue('generate', true)}

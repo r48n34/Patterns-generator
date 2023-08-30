@@ -54,6 +54,8 @@ export async function createRectangles(msg){
         figma.flatten(nodes, figma.currentPage);
     }
 
+    figma.notify(`Success to generate ${config.shapes}`)
+
     // This is how figma responds back to the ui
     // figma.ui.postMessage({
     //     type: "create-rectangles-done",
