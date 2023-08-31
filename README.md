@@ -12,6 +12,7 @@ by a single clicks.
 - React
 - Mantine
 - react-hot-toast
+- zod
 
 ## References
 
