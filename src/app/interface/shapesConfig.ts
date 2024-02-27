@@ -1,12 +1,18 @@
 export type ShapesData = "Ellipse" | "Rectangle" | "Polygon" | "Star" | "Text" | "Star-4" | "Line" | "Ellipse-half" | "Ellipse-one-four";
 
 export interface ShapesGenData {
-    rows: number,
-    cols: number,
-    paddingRows: number,
-    paddingCols: number,
-    density: number,
-    shapeSize: number,
+    rows: number, // Numbers of rows object
+    cols: number, // Numbers of cols object
+
+    paddingRows: number, // Each rows object padding
+    paddingCols: number, // Each cols object padding
+
+    // Added 27/02/2024
+    shitfRows?: number, // Initial rows shifting space for event rows
+    shitfCols?: number, // Initial rows shifting space for event rows
+
+    density: number, // Padding of both x and y
+    shapeSize: number, // Size
     shapes: ShapesData,
     rotation?: number, // 180 to -180
     color?: string,
@@ -24,7 +30,6 @@ export interface GeneralMode {
     intensity: number,
     layers: number
 }
-
 
 export interface PattenConfig {
     title: string

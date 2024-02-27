@@ -44,6 +44,8 @@ A default patterns data will be like the following
   "cols": 5,
   "paddingRows": 80,
   "paddingCols": 80,
+  "shitfRows": 0,
+  "shitfCols": 0,
   "density": 80,
   "shapeSize": 25,
   "shapes": "Ellipse",
@@ -73,6 +75,11 @@ export interface ShapesGenData {
     // Padding of x and y
     paddingRows: number, // >= 1
     paddingCols: number, // >= 1
+
+    // Added in 27/02/2024
+    // For even rows / cols, the whole line will be shift x spacing
+    shitfRows: number,
+    shitfCols: number,
 
     // Padding of both x and y
     density: number, // >= 1
@@ -112,3 +119,8 @@ export interface ShapesGenData {
 In the `Patterns`, you will see the `Import` and `Export` buttons at the top left sections. Yet, you will also see the `Export Shapes` items in both `Template` and `Favourite` menu. 
 
 By clicking the `Copy to Board` icon, you may export the shapes JSON and share to the `Import` functions.
+
+## Logs
+
+### 27/02/2024
+- Added shitf Rows and Cols spacing for advance usage.

@@ -17,30 +17,33 @@ function App() {
     const [ isLoading, setIsLoading ] = useState<boolean>(false);
     
     React.useEffect(() => {
-        // This is how we read messages sent from the plugin controller
         window.onmessage = (event) => {
-            const { type, message } = event.data.pluginMessage;
-
-            if (type === 'processing') {
-                setIsLoading(true);
-            }
-
-            if (type === 'get-fav-list-done') {
-                setArrayFav(message);
-            }
-
-            if (type === 'done') {
-                setIsLoading(false);
-                toast.success("Created shapes");
+            try {     
+                const { type, message } = event.data.pluginMessage;
+    
+                if (type === 'processing') {
+                    setIsLoading(true);
+                }
+    
+                if (type === 'get-fav-list-done') {
+                    setArrayFav(message);
+                }
+    
+                if (type === 'done') {
+                    setIsLoading(false);
+                    toast.success("Created shapes");
+                }
+            } 
+            catch (error) {
+                console.log(error)
+                setIsLoading(false);  
             }
 
         };
 
         setTimeout( () => getFavList(), 200)
-        
     }, []);
 
-    
     return (
         <>
         <Toaster/>
@@ -51,9 +54,15 @@ function App() {
 
             <Tabs defaultValue="pattens">
                 <Tabs.List>
-                    <Tabs.Tab icon={<IconPalette size="0.8rem" />} value="pattens" >Pattens</Tabs.Tab>
-                    <Tabs.Tab icon={<IconPhoto size="0.8rem" />} value="template">Template</Tabs.Tab>
-                    <Tabs.Tab icon={<IconHeart size="0.8rem" />} value="favourite">Favourite</Tabs.Tab>
+                    <Tabs.Tab icon={<IconPalette size="0.8rem" />} value="pattens">
+                        Pattens
+                    </Tabs.Tab>
+                    <Tabs.Tab icon={<IconPhoto size="0.8rem" />} value="template">
+                        Template
+                    </Tabs.Tab>
+                    <Tabs.Tab icon={<IconHeart size="0.8rem" />} value="favourite">
+                        Favourite
+                    </Tabs.Tab>
                 </Tabs.List>
 
                 <Tabs.Panel value="pattens" pt="xs">

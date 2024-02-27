@@ -11,6 +11,8 @@ import toast from 'react-hot-toast';
 //     "cols": 5,
 //     "paddingRows": 80,
 //     "paddingCols": 80,
+//     "shitfRows": 0,
+//     "shitfCols": 0, 
 //     "density": 80,
 //     "shapeSize": 25,
 //     "shapes": "Ellipse",

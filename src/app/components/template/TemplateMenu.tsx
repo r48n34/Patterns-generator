@@ -10,6 +10,7 @@ import { useFavStore } from "../../store/favStore";
 import { PattenConfig } from "../../interface/shapesConfig";
 import GenPatternsForm from "../utilsComp/GenPatternsForm";
 import { toCopyBoard } from "../../utils/copyItems";
+import { toCompatibleShapesObject } from "../../utils/compatible";
 
 type TemplateMenuProps = {
     data: PattenConfig;
@@ -62,7 +63,7 @@ function TemplateMenu({ data, showsDelete, showsEdit, showsExport }:TemplateMenu
                 <Text>Export Data</Text>
 
                 <Tooltip label={"Copy to Board"}>
-                <ActionIcon onClick={() => toCopyBoard(JSON.stringify(data.config, null, " "))}>
+                <ActionIcon onClick={() => toCopyBoard(JSON.stringify(toCompatibleShapesObject(data.config), null, " "))}>
                     <IconCopy size="1.125rem" /> 
                 </ActionIcon>
                 </Tooltip>
@@ -70,7 +71,7 @@ function TemplateMenu({ data, showsDelete, showsEdit, showsExport }:TemplateMenu
             </>
             }
         >  
-            <JsonInput disabled value={JSON.stringify(data.config, null, " ")} minRows={16}/>
+            <JsonInput value={JSON.stringify(toCompatibleShapesObject(data.config), null, " ")} minRows={16}/>
         </Modal>
         
         <Modal opened={openedEdit} onClose={closeEdit} title="Edit Data">

@@ -46,6 +46,8 @@ function initData(mode: Mode, data?: ShapesGenData){
         cols: 5,
         paddingRows: 80,
         paddingCols: 80,
+        shitfRows: 0,
+        shitfCols: 0,
         density: 80,
         shapeSize: 25,
         shapes: "Ellipse",
@@ -76,30 +78,12 @@ function GenPatternsForm({
     const patternsForm = useForm<ShapesGenData>({
         initialValues: initData(mode, data),
         validate: zodResolver(genPatternsSchema),
-        // validate: {
-        //     density:       (value) => (value && value >= 1 ? null : 'Invalid density'),
-        //     rows:          (value) => (value && value >= 1 ? null : 'Invalid rows'),
-        //     cols:          (value) => (value && value >= 1 ? null : 'Invalid cols'),
-        //     shapeSize:     (value) => (value && value >= 1 ? null : 'Invalid shapeSize'),
-        //     paddingRows:   (value) => (value && value >= 1 ? null : 'Invalid paddingRows'),
-        //     paddingCols:   (value) => (value && value >= 1 ? null : 'Invalid paddingCols'),
-        //     randomDensity: (value) => checkRandomDensity(value),
-        //     // color:         (value) => (!!value ? null : 'Invalid color'),
-        //     // rotation:      (value) => (Number.isInteger(value) && (value >= -180 && value <= 180) ? null : 'Invalid rotation'),
-        //     // effectsMode:   (value) => (value ? null : 'Invalid effectsMode'),
-        //     effectsConfig: {
-        //         color:     (value) => checkEffectsConfig(value, "color"),
-        //         intensity: (value) => checkEffectsConfig(value, "intensity"),
-        //         layers:    (value) => checkEffectsConfig(value, "layers"),
-        //     }
-        // },
     });
 
     function importNewConfig(value: string, directGenerate:boolean = false){
 
         try {
             const data:ShapesGenData = JSON.parse(value);
-            console.log("data", data);
 
             // Zod validation
             genPatternsSchema.parse(data);
@@ -119,24 +103,9 @@ function GenPatternsForm({
 
     }
 
-    // function checkEffectsConfig(value: string | number, title: string){
-    //     if(patternsForm.values.effectsMode === "Null"){
-    //         return null
-    //     }
-
-    //     return value ? null : `Invalid ${title}`
-    // }
-
-    // function checkRandomDensity(value: number){
-    //     if(!patternsForm.values.randomMode){
-    //         return null
-    //     }
-
-    //     return value && (value >= 0.1 || value <= 0.9) ? null : 'Invalid Random Density'
-    // }
-
     function createShapes(values: ShapesGenData){
-
+        
+        // For version compatible
         !values.hasOwnProperty("color")         && (values.color = "#FFFFFF")
         !values.hasOwnProperty("rotation")      && (values.rotation = 0)
         !values.hasOwnProperty("randomDensity") && (values.randomDensity = 1)
@@ -147,6 +116,10 @@ function GenPatternsForm({
             layers: 5
         })
         !values.hasOwnProperty("flatten")       && (values.flatten = false)
+        
+        // 27/02/2024 Added
+        !values.hasOwnProperty("shitfRows")     && (values.shitfRows = 0)
+        !values.hasOwnProperty("shitfCols")     && (values.shitfCols = 0)
 
         if(mode === "edit"){
             editItemFav(title, values);
@@ -261,6 +234,7 @@ function GenPatternsForm({
                             icon={<IconArrowAutofitWidth size="1rem" />}
                             placeholder="5"
                             label="Rows Object"
+                            description="Rows object total"
                             disabled={ mode === "view" }
                             withAsterisk
                             min={1}
@@ -275,6 +249,7 @@ function GenPatternsForm({
                             placeholder="5"
                             disabled={ mode === "view" }
                             label="Cols Object"
+                            description="Cols object total"
                             withAsterisk
                             min={1}
                             step={1}
@@ -290,6 +265,7 @@ function GenPatternsForm({
                             placeholder="100"
                             disabled={ mode === "view" }
                             label="Density"
+                            description="Padding of both x and y"
                             withAsterisk
                             min={1}
                             {...patternsForm.getInputProps('density')}
@@ -302,6 +278,7 @@ function GenPatternsForm({
                             disabled={ mode === "view" }
                             placeholder="40"
                             label="Size"
+                            description="Object Size"
                             withAsterisk
                             min={1}
                             precision={1}
@@ -325,6 +302,7 @@ function GenPatternsForm({
                                 placeholder="110"
                                 disabled={ mode === "view" }
                                 label="Rows Padding"
+                                description="Sapcing for each row items"
                                 withAsterisk
                                 min={1}
                                 {...patternsForm.getInputProps('paddingRows')}
@@ -337,9 +315,39 @@ function GenPatternsForm({
                                 placeholder="110"
                                 disabled={ mode === "view" }
                                 label="Cols Padding"
+                                description="Sapcing for each col items"
                                 withAsterisk
                                 min={1}
                                 {...patternsForm.getInputProps('paddingCols')}
+                            />
+                        </Grid.Col>
+                    </Grid>
+
+                    {/* Added shitfRows, shitfCols 27/02/2024 */}
+                    <Grid>
+                        <Grid.Col span={6}>
+                            <NumberInput
+                                icon={<IconArrowAutofitRight size="1rem" />}
+                                placeholder="110"
+                                disabled={ mode === "view" }
+                                label="Rows Shitfing"
+                                description="Even rows starting spacing"
+                                withAsterisk
+                                // min={0}
+                                {...patternsForm.getInputProps('shitfRows')}
+                            />
+                        </Grid.Col>
+
+                        <Grid.Col span={6}>
+                            <NumberInput
+                                icon={<IconArrowAutofitUp size="1rem" />}
+                                placeholder="110"
+                                disabled={ mode === "view" }
+                                label="Cols Shitfing"
+                                description="Even cols starting spacing"
+                                withAsterisk
+                                // min={0}
+                                {...patternsForm.getInputProps('shitfCols')}
                             />
                         </Grid.Col>
                     </Grid>
@@ -383,6 +391,7 @@ function GenPatternsForm({
                             <Switch
                                 disabled={ mode === "view" }
                                 label="Random"
+                                description="Random cols and rows"
                                 {...patternsForm.getInputProps('randomMode', { type: 'checkbox' })}
                             />
 
@@ -488,7 +497,9 @@ function GenPatternsForm({
                                     label="Color"
                                     rightSection={
                                         <Tooltip label="Random Color">
-                                            <ActionIcon onClick={() => patternsForm.setFieldValue("effectsConfig.color", `#${Math.floor(Math.random() * 16777215).toString(16)}`)}>
+                                            <ActionIcon 
+                                                onClick={() => patternsForm.setFieldValue("effectsConfig.color", `#${Math.floor(Math.random() * 16777215).toString(16)}`)}
+                                            >
                                             <IconRefresh size="1rem" />
                                             </ActionIcon>
                                         </Tooltip>

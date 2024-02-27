@@ -12,7 +12,6 @@ export function toCopyBoard(str: string) {
         document.body.removeChild(textarea);
         
         toast.success("Copied");
-    
         return true
     }
     catch (error) {

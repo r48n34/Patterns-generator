@@ -8,6 +8,10 @@ export async function createRectangles(msg){
 
     const nodes = [];
     const config: ShapesGenData = msg.data
+
+    // Added 27/02/0204
+    !config.shitfRows && (config.shitfRows = 0)
+    !config.shitfCols && (config.shitfCols = 0)
     
     const shapeIndArr: shapeIndArr = {
         "Ellipse": { ind: 0, function: figma.createEllipse, overallFunction: generateShapeNode },
@@ -67,8 +71,11 @@ function generateTextNode(config: ShapesGenData, i: number, k: number): TextNode
 
     const obj = figma.createText();
 
-    obj.x = figma.viewport.center.x + (i * config.paddingRows);
-    obj.y = figma.viewport.center.y + (k * config.paddingCols);
+    const initialSpaceRows = k % 2 === 1 ? 0 : config.shitfRows;
+    const initialSpaceCols = i % 2 === 1 ? 0 : config.shitfCols;
+
+    obj.x = initialSpaceRows + figma.viewport.center.x + (i * config.paddingRows);
+    obj.y = initialSpaceCols + figma.viewport.center.y + (k * config.paddingCols);
 
     (obj as TextNode).characters = config.textContent || "N/A";
     (obj as TextNode).fontSize   = config.shapeSize;
@@ -94,8 +101,11 @@ function generateLineNode(config: ShapesGenData, i: number, k: number): LineNode
 
     const obj = figma.createLine();
 
-    obj.x = figma.viewport.center.x + (i * config.paddingRows);
-    obj.y = figma.viewport.center.y + (k * config.paddingCols);
+    const initialSpaceRows = k % 2 === 1 ? 0 : config.shitfRows;
+    const initialSpaceCols = i % 2 === 1 ? 0 : config.shitfCols;
+
+    obj.x = initialSpaceRows + figma.viewport.center.x + (i * config.paddingRows);
+    obj.y = initialSpaceCols + figma.viewport.center.y + (k * config.paddingCols);
 
     obj.resize(config.shapeSize, 0);  
     obj.rotation = config.rotation || 0;
@@ -127,8 +137,11 @@ function generateShapeNode(
 
     const obj = nodeFunc();
 
-    obj.x = figma.viewport.center.x + (i * config.paddingRows);
-    obj.y = figma.viewport.center.y + (k * config.paddingCols);
+    const initialSpaceRows = k % 2 === 1 ? 0 : config.shitfRows;
+    const initialSpaceCols = i % 2 === 1 ? 0 : config.shitfCols;
+
+    obj.x = initialSpaceRows + figma.viewport.center.x + (i * config.paddingRows);
+    obj.y = initialSpaceCols + figma.viewport.center.y + (k * config.paddingCols);
 
     if(config.shapes === "Star-4"){
         (obj as StarNode).pointCount = 4;
@@ -158,34 +171,3 @@ function generateShapeNode(
 
     return obj;
 }
-
-// function generateHeartNode(
-//     config: ShapesGenData,
-//     i: number,
-//     k: number,
-// ):VectorNode {
-
-//     const obj = figma.createVector();
-
-//     obj.x = figma.viewport.center.x + (i * config.paddingRows);
-//     obj.y = figma.viewport.center.y + (k * config.paddingCols);
-
-
-//     obj.rotation = config.rotation || 0;
-//     obj.resize(config.shapeSize, config.shapeSize);  
-
-//     const colorArr = config.color ? hexToRgb(config.color) : { r:1, g: 1, b: 1 };
-//     obj.fills = [{ type: "SOLID", color: colorArr }];
-
-//     if(config.effectsMode && config.effectsMode === "Glow"){
-//         const glowEffectList = glowEffectGen(
-//             config.shapeSize,
-//             config.effectsConfig.color,
-//             config.effectsConfig.intensity,
-//             config.effectsConfig.layers,
-//         )
-//         obj.effects = [...glowEffectList]
-//     }
-
-//     return obj;
-// }
