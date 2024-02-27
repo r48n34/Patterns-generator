@@ -19,7 +19,7 @@ function DeleteAllFavBtn() {
             </Text>
         ),
         labels: { confirm: 'Yes', cancel: 'No' },
-        onCancel: () => { },
+        onCancel: () => {},
         onConfirm: () => {
             clearItemFav();
             toast.success("Deleted all items");
