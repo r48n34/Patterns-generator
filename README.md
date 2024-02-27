@@ -21,15 +21,15 @@ https://github.com/nirsky/figma-plugin-react-template
 
 ## Todo
 
-- [x] Add favourite history
-- [x] Edit favourite history
-- [ ] Generate images patterns (TBD)
-- [x] Generate text patterns
-- [x] Search template / favourite slot
-- [x] Random density and base color
-- [x] Small card display UI
-- [x] Glow / Effects mode on nodes
-- [x] Import and export patterns for share and advance use
+- ✅ Add favourite history
+- ✅ Edit favourite history
+- ⬜️ Generate images patterns (TBD)
+- ✅ Generate text patterns
+- ✅ Search template / favourite slot
+- ✅ Random density and base color
+- ✅ Small card display UI
+- ✅ Glow / Effects mode on nodes
+- ✅ Import and export patterns for share and advance use
 
 ## Import and Export Guide
 
