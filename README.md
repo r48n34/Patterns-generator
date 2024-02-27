@@ -123,4 +123,4 @@ By clicking the `Copy to Board` icon, you may export the shapes JSON and share t
 ## Logs
 
 ### 27/02/2024
-- Added shitf Rows and Cols spacing for advance usage.
+- Added shift Rows and Cols spacing for advance usage.
