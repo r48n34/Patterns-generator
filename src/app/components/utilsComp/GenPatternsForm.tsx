@@ -217,7 +217,6 @@ function GenPatternsForm({
                                 {...patternsForm.getInputProps('shapes')}
                             />
 
-
                             {patternsForm.values.shapes === "Text" && (
                                 <TextInput
                                     mt={10}

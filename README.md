@@ -88,7 +88,7 @@ export interface ShapesGenData {
     shapeSize: number, // >= 1
 
     // Final shapes 
-    shapes: "Ellipse" | "Rectangle" | "Polygon" | "Star" | "Text" | "Star-4" | "Line" | "Ellipse-half" | "Ellipse-one-four",
+    shapes: "Ellipse" | "Rectangle" | "Polygon" | "Star" | "Text" | "Star-4" | "Star-8" | "Line" | "Ellipse-half" | "Ellipse-one-four",
 
     // Angle of all object 
     rotation?: number, // 180 to -180
