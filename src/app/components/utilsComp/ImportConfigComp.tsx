@@ -6,30 +6,6 @@ import { useDisclosure } from '@mantine/hooks';
 import { IconBookUpload, IconFileImport, IconLoader3 } from '@tabler/icons-react';
 import toast from 'react-hot-toast';
 
-// const dummyJson = JSON.stringify({
-//     "rows": 5,
-//     "cols": 5,
-//     "paddingRows": 80,
-//     "paddingCols": 80,
-//     "shitfRows": 0,
-//     "shitfCols": 0, 
-//     "density": 80,
-//     "shapeSize": 25,
-//     "shapes": "Ellipse",
-//     "textContent": "",
-//     "color": "#FFFFFF",
-//     "randomMode": false,
-//     "randomDensity": 0.5,
-//     "rotation": 0,
-//     "effectsMode": "Null",
-//     "effectsConfig": {
-//         "color": "#FFFFFF",
-//         "intensity": 1,
-//         "layers": 6
-//     },
-//     "flatten": false
-// }, null, " ")
-
 interface ImportConfigCompProps {
     onSubmitData: Function
 }
