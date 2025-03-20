@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const shapesArr = ["Ellipse" , "Rectangle" , "Polygon" , "Star" , "Text" , "Star-4" , "Line" , "Ellipse-half" , "Ellipse-one-four"]
+const shapesArr = ["Ellipse" , "Rectangle" , "Polygon" , "Star" , "Text" , "Star-4", "Star-8" , "Line" , "Ellipse-half" , "Ellipse-one-four"]
 const randomDensityArr = [0.1 , 0.2 , 0.3 , 0.4 , 0.5 , 0.6 , 0.7 , 0.8 , 0.9 , 1]
 
 export const genPatternsSchema = z.object({

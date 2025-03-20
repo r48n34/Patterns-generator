@@ -23,6 +23,7 @@ export async function createRectangles(msg){
         "Line": { ind: 6, overallFunction: generateLineNode }, // Line
         "Ellipse-half": { ind: 7, function: figma.createEllipse, overallFunction: generateShapeNode },
         "Ellipse-one-four": { ind: 8, function: figma.createEllipse, overallFunction: generateShapeNode },
+        "Star-8": { ind: 9, function: figma.createStar, overallFunction: generateShapeNode },
     }
 
     if(config.shapes === "Text"){
@@ -48,10 +49,6 @@ export async function createRectangles(msg){
         }
     }
 
-    // nodes.forEach( v => figma.currentPage.appendChild(v) );
-    // figma.currentPage.selection = nodes;
-    // figma.viewport.scrollAndZoomIntoView(nodes);
-
     figma.group(nodes, figma.currentPage);
 
     if(config.flatten){
@@ -59,12 +56,6 @@ export async function createRectangles(msg){
     }
 
     figma.notify(`Success to generate ${config.shapes}`)
-
-    // This is how figma responds back to the ui
-    // figma.ui.postMessage({
-    //     type: "create-rectangles-done",
-    //     message: `Created ${msg.count} Rectangles`,
-    // });
 }
 
 function generateTextNode(config: ShapesGenData, i: number, k: number): TextNode{
@@ -145,6 +136,9 @@ function generateShapeNode(
 
     if(config.shapes === "Star-4"){
         (obj as StarNode).pointCount = 4;
+    }
+    if(config.shapes === "Star-8"){
+        (obj as StarNode).pointCount = 8;
     }
     else if(config.shapes === "Ellipse-half"){
         (obj as EllipseNode).arcData = {startingAngle: 0, endingAngle: Math.PI, innerRadius: 0}

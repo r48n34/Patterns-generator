@@ -1,4 +1,4 @@
-export type ShapesData = "Ellipse" | "Rectangle" | "Polygon" | "Star" | "Text" | "Star-4" | "Line" | "Ellipse-half" | "Ellipse-one-four";
+export type ShapesData = "Ellipse" | "Rectangle" | "Polygon" | "Star" | "Text" | "Star-4" | "Star-8" | "Line" | "Ellipse-half" | "Ellipse-one-four";
 
 export interface ShapesGenData {
     rows: number, // Numbers of rows object
@@ -46,6 +46,7 @@ export const shapesIconMap: Record<ShapesData, string> = {
     'Polygon': '🔻',
     'Star': '⭐',
     'Star-4': '✨',
+    'Star-8': '🌟',
     'Line': '➖ ',
     'Text': '🖊',
 }

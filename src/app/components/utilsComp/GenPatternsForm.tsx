@@ -204,12 +204,13 @@ function GenPatternsForm({
                                 transitionProps={{ transition: 'fade', duration: 70, timingFunction: 'ease' }}
                                 data={[
                                     { value: 'Rectangle', label: '🟥 Rectangle', group: 'Rectangle' },
-                                    { value: 'Ellipse', label: '🔴 Ellipse', group: 'Ellipse' },
-                                    { value: 'Ellipse-half', label: '🌗 Half Ellipse', group: 'Ellipse' },
-                                    { value: 'Ellipse-one-four', label: '🕘 1/4 Ellipse', group: 'Ellipse' },
+                                    { value: 'Ellipse', label: '🔴 Ellipse', group: 'Ellipse / Circle' },
+                                    { value: 'Ellipse-half', label: '🌗 Half Ellipse', group: 'Ellipse / Circle' },
+                                    { value: 'Ellipse-one-four', label: '🕘 1/4 Ellipse', group: 'Ellipse / Circle' },
                                     { value: 'Polygon', label: '🔻 Polygon', group: 'Polygon' },
                                     { value: 'Star', label: '⭐ Star', group: 'Star' },
-                                    { value: 'Star-4', label: '✨ Star 4', group: 'Star' },
+                                    { value: 'Star-4', label: '✨ Star 4 (4 Point Star)', group: 'Star' },
+                                    { value: 'Star-8', label: '🌟 Star 8 (8 Point Star)', group: 'Star' },
                                     { value: 'Line', label: '➖ Line', group: 'Polygon' },
                                     { value: 'Text', label: '🖊 Text', group: 'Text' },
                                 ]}
