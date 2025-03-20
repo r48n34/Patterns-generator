@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Card, Text, Group, ActionIcon } from '@mantine/core';
+import { Card, Text, Group, ActionIcon, Tooltip } from '@mantine/core';
 import { generateTemplate } from '../../utils/callFigma';
 
 import { PattenConfig } from '../../interface/shapesConfig';
@@ -16,28 +16,27 @@ type TemplateCardProps = {
     showsExport?: boolean
 }
 
-function TemplateCardSmall({ data, showsDelete = false , showsEdit = false, showsDetails = true, showsExport = true }: TemplateCardProps) {
+function TemplateCardSmall({ data, showsDelete = false, showsEdit = false, showsDetails = true, showsExport = true }: TemplateCardProps) {
     return (
         <Card shadow="sm" padding="md" radius="md" withBorder style={{ overflow: "visible" }}>
-            {/* <UnstyledButton onClick={ () => generateTemplate(data.config) }> */}
 
-            {/* <Group position="right" mb="xs" mt={6}>
-                <TemplateMenu data={data} showsDelete={showsDelete} showsEdit={showsEdit}/>
-            </Group> */}
+            <LabelsDisplayNav data={data} />
 
-            <LabelsDisplayNav data={data}/>
+            <Text weight={500} fz={14} mt={6}>{data.title}</Text>
 
-            <Text weight={500} fz={14} mt={6}>{ data.title }</Text>
+            <Group position={showsDetails ? "apart" : "right"} mt={12}>
+                {showsDetails && <TemplateMenu data={data} showsDelete={showsDelete} showsEdit={showsEdit} showsExport={showsExport} />}
 
-            <Group position={ showsDetails ? "apart" : "right"} mt={12}>
-                { showsDetails && <TemplateMenu data={data} showsDelete={showsDelete} showsEdit={showsEdit} showsExport={showsExport}/> }
-
-                <ActionIcon color="blue" variant="light" onClick={ () => generateTemplate(data.config) }>
-                    <IconHammer size="1.125rem" />
-                </ActionIcon>
+                <Tooltip label="Generate Pattern">
+                    <ActionIcon
+                        color="blue"
+                        variant="light"
+                        onClick={() => generateTemplate(data.config)}
+                    >
+                        <IconHammer size="1.125rem" />
+                    </ActionIcon>
+                </Tooltip>
             </Group>
-
-            {/* </UnstyledButton> */}
         </Card>
     )
 }

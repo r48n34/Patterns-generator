@@ -1,7 +1,7 @@
 import React from 'react';
 import { ActionIcon, Button, Group, Modal, TextInput, Tooltip } from "@mantine/core";
 import { useDisclosure } from '@mantine/hooks';
-import { IconHeart } from '@tabler/icons-react';
+import { IconHeart, IconSend } from '@tabler/icons-react';
 import { useForm } from '@mantine/form';
 import toast from 'react-hot-toast';
 import { useFavStore } from '../../store/favStore';
@@ -24,7 +24,7 @@ function AddFavouriteModal({ data }: AddFavouriteModalProps){
     const form = useForm<formObject>({
         initialValues: {
           title: '',
-          description: "Some nice description",
+          description: "",
         },
     
         validate: {
@@ -65,7 +65,8 @@ function AddFavouriteModal({ data }: AddFavouriteModalProps){
             <form onSubmit={form.onSubmit((values) => addToFavourite(values))}>
                 <TextInput
                     withAsterisk
-                    label="title"
+                    label="Title"
+                    description="Name your current pattern"
                     placeholder="Some title"
                     {...form.getInputProps('title')}
                 />
@@ -73,13 +74,19 @@ function AddFavouriteModal({ data }: AddFavouriteModalProps){
                 <TextInput
                     mt={12}
                     withAsterisk
-                    label="description"
+                    label="Description"
+                    description="What is your pattern aims for"
                     placeholder="my great pattens"
                     {...form.getInputProps('description')}
                 />
 
                 <Group position='right' mt={18}>
-                    <Button type="submit" variant="light">
+                    <Button 
+                        disabled={form.values.title === "" || form.values.description === ""}
+                        type="submit" 
+                        variant="light"
+                        leftIcon={<IconSend size={14}/>}
+                    >
                         Add
                     </Button>
                 </Group>

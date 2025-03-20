@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Card, Text, Button, Group } from '@mantine/core';
+import { Card, Text, Button, Group, Tooltip } from '@mantine/core';
 import { generateTemplate } from '../../utils/callFigma';
 
 // import TemplateDateModal from './TemplateDateModal';
@@ -16,27 +16,41 @@ type TemplateCardProps = {
     showsExport?: boolean
 }
 
-function TemplateCard({ data, showsDelete = false , showsEdit = false, showsExport = true }: TemplateCardProps) {
+function TemplateCard({ data, showsDelete = false, showsEdit = false, showsExport = true }: TemplateCardProps) {
     return (
         <>
-        <Card shadow="sm" padding="lg" radius="md" withBorder style={{ overflow: "visible" }}>
+            <Card shadow="sm" padding="lg" radius="md" withBorder style={{ overflow: "visible" }}>
 
-            <LabelsDisplayNav data={data}/>
+                <LabelsDisplayNav data={data} />
 
-            <Group position="apart" mb="xs" mt={6}>
-                <Text weight={500} fz={18}>{ data.title }</Text>
-                <TemplateMenu data={data} showsDelete={showsDelete} showsEdit={showsEdit} showsExport={showsExport}/>
-            </Group>
+                <Group position="apart" mb="xs" mt={6}>
+                    <Text weight={500} fz={18}>{data.title}</Text>
+                    <TemplateMenu
+                        data={data}
+                        showsDelete={showsDelete}
+                        showsEdit={showsEdit}
+                        showsExport={showsExport}
+                    />
+                </Group>
 
-            <Text size="sm" color="dimmed">
-                { data.description }
-            </Text>
+                <Text size="sm" color="dimmed">
+                    {data.description}
+                </Text>
 
-            <Button leftIcon={<IconHammer size="1rem"/>} variant="light" color="blue" fullWidth mt="md" radius="md" onClick={ () => generateTemplate(data.config) }>
-                Generate this
-            </Button>
+                <Tooltip label="Generate Pattern">
+                <Button
+                    leftIcon={<IconHammer size="1rem" />}
+                    variant="light"
+                    color="blue"
+                    fullWidth mt="md"
+                    radius="md"
+                    onClick={() => generateTemplate(data.config)}
+                >
+                    Generate
+                </Button>
+                </Tooltip>
 
-        </Card>
+            </Card>
         </>
     )
 }
