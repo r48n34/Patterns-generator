@@ -23,7 +23,7 @@ export const genPatternsSchema = z.object({
     
     randomMode: z.boolean().optional(),
     randomDensity: z.number().refine((v) => randomDensityArr.includes(v)).optional(),
-    effectsMode: z.string().refine((v) => ["Null" , "Glow"].includes(v)).optional(),
+    effectsMode: z.string().refine((v) => ["Null" , "Glow", "Glass"].includes(v)).optional(),
     effectsConfig: z.object({
         color: z.string(),
         intensity: z.number().min(1).positive(),

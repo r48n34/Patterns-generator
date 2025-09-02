@@ -1,5 +1,5 @@
 import React from 'react';
-import { NumberInput, Button, Grid, Select, Accordion, TextInput, Switch, Text, ColorInput, ActionIcon, Group, Tooltip, Box } from '@mantine/core';
+import { NumberInput, Button, Grid, Select, Accordion, TextInput, Switch, Text, ColorInput, ActionIcon, Group, Tooltip, Box, Slider } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
 
 import {
@@ -59,7 +59,7 @@ function initData(mode: Mode, data?: ShapesGenData) {
         effectsMode: "Null",
         effectsConfig: {
             color: "#FFFFFF",
-            intensity: 1,
+            intensity: 15,
             layers: 6
         },
         flatten: false
@@ -112,7 +112,7 @@ function GenPatternsForm({
         !values.hasOwnProperty("effectsMode") && (values.effectsMode = "Null")
         !values.hasOwnProperty("effectsConfig") && (values.effectsConfig = {
             color: "#FFFFFF",
-            intensity: 1,
+            intensity: 15,
             layers: 5
         })
         !values.hasOwnProperty("flatten") && (values.flatten = false)
@@ -459,28 +459,37 @@ function GenPatternsForm({
                                 data={[
                                     { value: 'Null', label: 'Null' },
                                     { value: 'Glow', label: '💡 Glow' },
+                                    { value: 'Glass', label: '🍷 Glass' },
                                     // { value: 'TBD', label: '🚀 Coming Soon', disabled: true },
                                 ]}
                                 {...patternsForm.getInputProps('effectsMode')}
                             />
 
+                            {patternsForm.values.effectsMode === "Glass" && (
+                                <Grid mt={8}>
+                                    <Grid.Col span={12}>
+                                        <Text size={14} weight={500}>
+                                            Intensity
+                                        </Text>
+                                        <Text size={10} weight={500} color='dimmed'>
+                                            Higher = Stronger Blur
+                                        </Text>
+                                        <Slider
+                                            placeholder="1"
+                                            label={(value) => value.toFixed(1)}
+                                            max={100}
+                                            min={0}
+                                            step={1}
+                                            {...patternsForm.getInputProps('effectsConfig.intensity')}
+                                        />
+                                    </Grid.Col>
+                                </Grid>
+                            )}
+
+
                             {patternsForm.values.effectsMode === "Glow" && (
                                 <>
                                     <Grid mt={8}>
-                                        <Grid.Col span={6}>
-                                            <NumberInput
-                                                icon={<IconArrowAutofitRight size="1rem" />}
-                                                disabled
-                                                placeholder="1"
-                                                description="Disabled"
-                                                label="Intensity"
-                                                withAsterisk
-                                                max={1}
-                                                min={1}
-                                                {...patternsForm.getInputProps('effectsConfig.intensity')}
-                                            />
-                                        </Grid.Col>
-
                                         <Grid.Col span={6}>
                                             <NumberInput
                                                 icon={<IconArrowAutofitUp size="1rem" />}
@@ -495,15 +504,14 @@ function GenPatternsForm({
                                                 {...patternsForm.getInputProps('effectsConfig.layers')}
                                             />
                                         </Grid.Col>
-                                    </Grid>
 
-                                    <Grid>
                                         <Grid.Col span={6}>
                                             <ColorInput
                                                 disabled={mode === "view"}
                                                 withEyeDropper
                                                 placeholder="color"
                                                 label="Color"
+                                                description="Glow color"
                                                 rightSection={
                                                     <Tooltip label="Random Color">
                                                         <ActionIcon

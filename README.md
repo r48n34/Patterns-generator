@@ -104,7 +104,7 @@ export interface ShapesGenData {
     randomDensity?: 0.1 | 0.2 | 0.3 | 0.4 | 0.5 | 0.6 | 0.7 | 0.8 | 0.9 | 1 // For random number
     
     // If effectsMode == "Glow", the "effectsConfig" needs to be settle
-    effectsMode?:  "Null" | "Glow"
+    effectsMode?:  "Null" | "Glow" | "Glass"
     effectsConfig?: null | {
         color: string,
         intensity: number,
@@ -121,6 +121,10 @@ In the `Patterns`, you will see the `Import` and `Export` buttons at the top lef
 By clicking the `Copy to Board` icon, you may export the shapes JSON and share to the `Import` functions.
 
 ## Logs
+
+### 02/09/2025
+#### 1.4.0
+- Added "Glass effect" generation.
 
 ### 27/02/2024
 - Added shift Rows and Cols spacing for advance usage.

@@ -1,9 +1,9 @@
 import { ShapesGenData } from "../../app/interface/shapesConfig";
 import { timer } from "../../app/utils/callFigma";
 import { shapeIndArr } from "../interface/figmaTypes"
-import { hexToRgb, glowEffectGen } from "./effectsUtils";
+import { hexToRgb, glowEffectGen, glassEffectGen, glassStrokesGen } from "./effectsUtils";
 
-export async function createRectangles(msg){
+export async function createRectangles(msg) {
     await timer(120);
 
     const nodes = [];
@@ -12,13 +12,13 @@ export async function createRectangles(msg){
     // Added 27/02/0204
     !config.shitfRows && (config.shitfRows = 0)
     !config.shitfCols && (config.shitfCols = 0)
-    
+
     const shapeIndArr: shapeIndArr = {
         "Ellipse": { ind: 0, function: figma.createEllipse, overallFunction: generateShapeNode },
         "Polygon": { ind: 1, function: figma.createPolygon, overallFunction: generateShapeNode },
         "Star": { ind: 2, function: figma.createStar, overallFunction: generateShapeNode },
         "Rectangle": { ind: 3, function: figma.createRectangle, overallFunction: generateShapeNode },
-        "Text": { ind: 4,  overallFunction: generateTextNode }, // Text
+        "Text": { ind: 4, overallFunction: generateTextNode }, // Text
         "Star-4": { ind: 5, function: figma.createStar, overallFunction: generateShapeNode },
         "Line": { ind: 6, overallFunction: generateLineNode }, // Line
         "Ellipse-half": { ind: 7, function: figma.createEllipse, overallFunction: generateShapeNode },
@@ -26,14 +26,14 @@ export async function createRectangles(msg){
         "Star-8": { ind: 9, function: figma.createStar, overallFunction: generateShapeNode },
     }
 
-    if(config.shapes === "Text"){
+    if (config.shapes === "Text") {
         await figma.loadFontAsync({ family: "Inter", style: "Regular" });
     }
 
     for (let i = 0; i < config.rows; i++) {
         for (let k = 0; k < config.cols; k++) {
 
-            if(config.randomMode && Math.random() >= config.randomDensity){
+            if (config.randomMode && Math.random() >= config.randomDensity) {
                 continue;
             }
 
@@ -43,22 +43,22 @@ export async function createRectangles(msg){
                 k,
                 shapeIndArr[config.shapes].function
             )
-            
+
             nodes.push(obj);
-            
+
         }
     }
 
     figma.group(nodes, figma.currentPage);
 
-    if(config.flatten){
+    if (config.flatten) {
         figma.flatten(nodes, figma.currentPage);
     }
 
     figma.notify(`Success to generate ${config.shapes}`)
 }
 
-function generateTextNode(config: ShapesGenData, i: number, k: number): TextNode{
+function generateTextNode(config: ShapesGenData, i: number, k: number): TextNode {
 
     const obj = figma.createText();
 
@@ -69,26 +69,44 @@ function generateTextNode(config: ShapesGenData, i: number, k: number): TextNode
     obj.y = initialSpaceCols + figma.viewport.center.y + (k * config.paddingCols);
 
     (obj as TextNode).characters = config.textContent || "N/A";
-    (obj as TextNode).fontSize   = config.shapeSize;
+    (obj as TextNode).fontSize = config.shapeSize;
     obj.rotation = config.rotation || 0;
 
-    const colorArr = config.color ? hexToRgb(config.color) : { r:1, g: 1, b: 1 };
-    obj.fills = [{ type: "SOLID", color: colorArr }];
+    const colorArr = config.color
+        ? hexToRgb(config.color)
+        : { r: 1, g: 1, b: 1 };
 
-    if(config.effectsMode && config.effectsMode === "Glow"){
+    obj.fills = [{
+        type: "SOLID",
+        color: colorArr,
+        opacity: config.effectsMode && config.effectsMode === "Glass" ? 0.1 : 1
+    }];
+
+    if (config.effectsMode && config.effectsMode === "Glow") {
         const glowEffectList = glowEffectGen(
             config.shapeSize,
             config.effectsConfig.color,
-            config.effectsConfig.intensity,
+            1,
             config.effectsConfig.layers,
         )
         obj.effects = [...glowEffectList]
     }
+    else if (config.effectsMode && config.effectsMode === "Glass") {
+        obj.effects = [...glassEffectGen(
+            (config.effectsConfig && config.effectsConfig.intensity)
+                ? config.effectsConfig.intensity
+                : 15
+        )]
+        obj.strokes = [...glassStrokesGen()];
+        obj.strokeWeight = 1;
+        obj.strokeAlign = "INSIDE";
+    }
+
 
     return obj;
 }
 
-function generateLineNode(config: ShapesGenData, i: number, k: number): LineNode{
+function generateLineNode(config: ShapesGenData, i: number, k: number): LineNode {
 
     const obj = figma.createLine();
 
@@ -98,22 +116,36 @@ function generateLineNode(config: ShapesGenData, i: number, k: number): LineNode
     obj.x = initialSpaceRows + figma.viewport.center.x + (i * config.paddingRows);
     obj.y = initialSpaceCols + figma.viewport.center.y + (k * config.paddingCols);
 
-    obj.resize(config.shapeSize, 0);  
+    obj.resize(config.shapeSize, 0);
     obj.rotation = config.rotation || 0;
     obj.strokeWeight = 4
 
-    const colorArr = config.color ? hexToRgb(config.color) : { r:1, g: 1, b: 1 };
-    obj.strokes = [{ type: "SOLID", color: colorArr }];
+    const colorArr = config.color ? hexToRgb(config.color) : { r: 1, g: 1, b: 1 };
+    obj.strokes = [{
+        type: "SOLID",
+        color: colorArr,
+        opacity: config.effectsMode && config.effectsMode === "Glass" ? 0.1 : 1
+    }];
     // obj.strokeCap = 'ARROW_LINES'
 
-    if(config.effectsMode && config.effectsMode === "Glow"){
+    if (config.effectsMode && config.effectsMode === "Glow") {
         const glowEffectList = glowEffectGen(
             config.shapeSize,
             config.effectsConfig.color,
-            config.effectsConfig.intensity,
+            1,
             config.effectsConfig.layers,
         )
         obj.effects = [...glowEffectList]
+    }
+    else if (config.effectsMode && config.effectsMode === "Glass") {
+        obj.effects = [...glassEffectGen(
+            (config.effectsConfig && config.effectsConfig.intensity)
+                ? config.effectsConfig.intensity
+                : 15
+        )];
+        obj.strokes = [...glassStrokesGen()];
+        obj.strokeWeight = 1;
+        obj.strokeAlign = "INSIDE";
     }
 
     return obj;
@@ -124,7 +156,7 @@ function generateShapeNode(
     i: number,
     k: number,
     nodeFunc: (() => EllipseNode) | (() => PolygonNode) | (() => StarNode) | (() => RectangleNode)
-):EllipseNode | PolygonNode | StarNode | RectangleNode{
+): EllipseNode | PolygonNode | StarNode | RectangleNode {
 
     const obj = nodeFunc();
 
@@ -134,33 +166,47 @@ function generateShapeNode(
     obj.x = initialSpaceRows + figma.viewport.center.x + (i * config.paddingRows);
     obj.y = initialSpaceCols + figma.viewport.center.y + (k * config.paddingCols);
 
-    if(config.shapes === "Star-4"){
+    if (config.shapes === "Star-4") {
         (obj as StarNode).pointCount = 4;
     }
-    if(config.shapes === "Star-8"){
+    if (config.shapes === "Star-8") {
         (obj as StarNode).pointCount = 8;
     }
-    else if(config.shapes === "Ellipse-half"){
-        (obj as EllipseNode).arcData = {startingAngle: 0, endingAngle: Math.PI, innerRadius: 0}
+    else if (config.shapes === "Ellipse-half") {
+        (obj as EllipseNode).arcData = { startingAngle: 0, endingAngle: Math.PI, innerRadius: 0 }
     }
-    else if(config.shapes === "Ellipse-one-four"){
-        (obj as EllipseNode).arcData = {startingAngle: 0, endingAngle: Math.PI / 2, innerRadius: 0}
+    else if (config.shapes === "Ellipse-one-four") {
+        (obj as EllipseNode).arcData = { startingAngle: 0, endingAngle: Math.PI / 2, innerRadius: 0 }
     }
 
     obj.rotation = config.rotation || 0;
-    obj.resize(config.shapeSize, config.shapeSize);  
+    obj.resize(config.shapeSize, config.shapeSize);
 
-    const colorArr = config.color ? hexToRgb(config.color) : { r:1, g: 1, b: 1 };
-    obj.fills = [{ type: "SOLID", color: colorArr }];
+    const colorArr = config.color ? hexToRgb(config.color) : { r: 1, g: 1, b: 1 };
+    obj.fills = [{
+        type: "SOLID",
+        color: colorArr,
+        opacity: config.effectsMode && config.effectsMode === "Glass" ? 0.1 : 1
+    }];
 
-    if(config.effectsMode && config.effectsMode === "Glow"){
+    if (config.effectsMode && config.effectsMode === "Glow") {
         const glowEffectList = glowEffectGen(
             config.shapeSize,
             config.effectsConfig.color,
-            config.effectsConfig.intensity,
+            1,
             config.effectsConfig.layers,
         )
         obj.effects = [...glowEffectList]
+    }
+    else if (config.effectsMode && config.effectsMode === "Glass") {
+        obj.effects = [...glassEffectGen(
+            (config.effectsConfig && config.effectsConfig.intensity)
+                ? config.effectsConfig.intensity
+                : 15
+        )];
+        obj.strokes = [...glassStrokesGen()];
+        obj.strokeWeight = 1;
+        obj.strokeAlign = "INSIDE";
     }
 
     return obj;
